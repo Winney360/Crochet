@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { FaMapMarkerAlt, FaPhone, FaEnvelope, FaClock } from 'react-icons/fa';
-
+import emailjs from '@emailjs/browser';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -10,6 +10,7 @@ const Contact = () => {
   });
   const [status, setStatus] = useState('');
   const [loading, setLoading] = useState(false);
+  const [showToast, setShowToast] = useState(false);
 
   const handleChange = (e) => {
     setFormData({
@@ -23,23 +24,33 @@ const Contact = () => {
     setLoading(true);
 
     try {
-      const { error } = await supabase
-        .from('contact_messages')
-        .insert({
-          name: formData.name,
-          email: formData.email,
+      // EmailJS integration
+      const result = await emailjs.send(
+        import.meta.env.VITE_SERVICE_ID,
+        import.meta.env.VITE_TEMPLATE_ID,
+        {
+          user_name: formData.name,
+          user_email: formData.email,
           message: formData.message,
-        });
+        },
+        import.meta.env.VITE_PUBLIC_KEY
+      );
 
-      if (error) throw error;
+      console.log('Email sent successfully:', result);
 
       setStatus('success');
       setFormData({ name: '', email: '', message: '' });
-      setTimeout(() => setStatus(''), 3000);
+      
+      // Show toast notification
+      setShowToast(true);
+      setTimeout(() => setShowToast(false), 4000);
+      
+      // Keep existing status timeout
+      setTimeout(() => setStatus(''), 5000);
     } catch (error) {
       console.error('Error sending message:', error);
       setStatus('error');
-      setTimeout(() => setStatus(''), 3000);
+      setTimeout(() => setStatus(''), 5000);
     } finally {
       setLoading(false);
     }
@@ -47,6 +58,21 @@ const Contact = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      {/* Toast Notification */}
+      {showToast && (
+        <div className="fixed top-4 right-4 bg-green-500 text-white px-6 py-4 rounded-lg shadow-lg z-50 animate-in slide-in-from-right duration-300">
+          <div className="flex items-center gap-3">
+            <div className="w-6 h-6 bg-white rounded-full flex items-center justify-center">
+              <span className="text-green-500 text-sm font-bold">✓</span>
+            </div>
+            <div>
+              <p className="font-semibold">Message Sent!</p>
+              <p className="text-sm opacity-90">I'll get back to you soon</p>
+            </div>
+          </div>
+        </div>
+      )}
+
       <div className="bg-pink-400 text-white py-16">
         <div className="container mx-auto px-4 text-center">
           <h1 className="text-5xl font-bold mb-4">Contact Us</h1>
@@ -57,35 +83,34 @@ const Contact = () => {
       <div className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
           <div className="bg-white rounded-lg shadow-md p-8 text-center">
-            <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              <FaMapMarkerAlt className="text-3xl text-cyan-500" />
+            <div className="w-16 h-16 bg-pink-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <FaMapMarkerAlt className="text-3xl text-cyan-400" />
             </div>
             <h3 className="text-xl font-bold text-gray-800 mb-2">Visit Us</h3>
             <p className="text-gray-600">
-              123 Street, New York, USA<br />
-              10001
+              Gate B Jkuat, Gachororo road<br />
+              We recommend you to use the provided Google Map: View larger map 
             </p>
           </div>
 
           <div className="bg-white rounded-lg shadow-md p-8 text-center">
-            <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              <FaPhone className="text-3xl text-cyan-500" />
+            <div className="w-16 h-16 bg-pink-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <FaPhone className="text-3xl text-cyan-400" />
             </div>
             <h3 className="text-xl font-bold text-gray-800 mb-2">Call Us</h3>
             <p className="text-gray-600">
-              +1 234 567 890<br />
-              +1 234 567 891
+              Whatsapp: 0791 995 578<br />
+              Phone   : 0720 951 221
             </p>
           </div>
 
           <div className="bg-white rounded-lg shadow-md p-8 text-center">
-            <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              <FaEnvelope className="text-3xl text-cyan-500" />
+            <div className="w-16 h-16 bg-pink-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <FaEnvelope className="text-3xl text-cyan-400" />
             </div>
             <h3 className="text-xl font-bold text-gray-800 mb-2">Email Us</h3>
             <p className="text-gray-600">
-              info@fruitables.com<br />
-              support@fruitables.com
+               shikukucrochet@gmail.com<br />
             </p>
           </div>
         </div>
@@ -96,13 +121,13 @@ const Contact = () => {
 
             {status === 'success' && (
               <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
-                Thank you! Your message has been sent successfully.
+                Thank you! Your message has been sent successfully. I'll get back to you soon!
               </div>
             )}
 
             {status === 'error' && (
               <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
-                Something went wrong. Please try again.
+                Something went wrong. Please try again or contact me directly via WhatsApp.
               </div>
             )}
 
@@ -117,8 +142,8 @@ const Contact = () => {
                   value={formData.name}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600"
-                  placeholder="John Doe"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-400"
+                  placeholder="Your Name"
                 />
               </div>
 
@@ -132,8 +157,8 @@ const Contact = () => {
                   value={formData.email}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600"
-                  placeholder="john@example.com"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-400"
+                  placeholder="your@email.com"
                 />
               </div>
 
@@ -147,17 +172,24 @@ const Contact = () => {
                   onChange={handleChange}
                   required
                   rows="6"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600"
-                  placeholder="Write your message here..."
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-400"
+                  placeholder="Tell me about your crochet needs or any questions you have..."
                 ></textarea>
               </div>
 
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full bg-pink-400 text-white py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors disabled:bg-gray-400"
+                className="w-full bg-linear-to-r from-cyan-400 to-pink-400 text-white py-3 rounded-lg font-semibold hover:from-cyan-500 hover:to-pink-500 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {loading ? 'Sending...' : 'Send Message'}
+                {loading ? (
+                  <div className="flex items-center justify-center">
+                    <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
+                    Sending...
+                  </div>
+                ) : (
+                  'Send Message'
+                )}
               </button>
             </form>
           </div>
@@ -165,13 +197,13 @@ const Contact = () => {
           <div className="space-y-8">
             <div className="bg-white rounded-lg shadow-md p-8">
               <div className="flex items-start gap-4 mb-6">
-                <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center shrink-0">
-                  <FaClock className="text-xl text-cyan-500" />
+                <div className="w-12 h-12 bg-pink-100 rounded-full flex items-center justify-center shrink-0">
+                  <FaClock className="text-xl text-cyan-400" />
                 </div>
                 <div>
                   <h3 className="text-xl font-bold text-gray-800 mb-2">Business Hours</h3>
                   <div className="text-gray-600 space-y-1">
-                    <p>Monday - Friday: 9:00 AM - 6:00 PM</p>
+                    <p>Monday - Friday: 9:00 AM - 4:30 PM</p>
                     <p>Saturday: 10:00 AM - 4:00 PM</p>
                     <p>Sunday: Closed</p>
                   </div>
@@ -179,42 +211,44 @@ const Contact = () => {
               </div>
             </div>
 
-            <div className="bg-pink-400 rounded-lg shadow-md p-8 text-white">
+            <div className="bg-linear-to-r from-cyan-400 to-pink-400 rounded-lg shadow-md p-8 text-white">
               <h3 className="text-2xl font-bold mb-4">Why Choose Us?</h3>
               <ul className="space-y-3">
                 <li className="flex items-start gap-2">
-                  <span className="text-green-300 mt-1">✓</span>
-                  <span>100% Fresh & Organic Products</span>
+                  <span className="text-white mt-1">✓</span>
+                  <span>100% Handmade with Love</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="text-green-300 mt-1">✓</span>
-                  <span>Free Shipping on Orders Over $99</span>
+                  <span className="text-white mt-1">✓</span>
+                  <span>Premium Quality Materials</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="text-green-300 mt-1">✓</span>
-                  <span>24/7 Customer Support</span>
+                  <span className="text-white mt-1">✓</span>
+                  <span>Custom Orders Welcome</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="text-green-300 mt-1">✓</span>
+                  <span className="text-white mt-1">✓</span>
+                  <span>Fast Response Time</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-white mt-1">✓</span>
                   <span>Secure Payment Methods</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-green-300 mt-1">✓</span>
-                  <span>Easy Returns & Refunds</span>
                 </li>
               </ul>
             </div>
 
             <div className="bg-white rounded-lg shadow-md overflow-hidden">
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d193595.15830869428!2d-74.119763973046!3d40.69766374874431!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNew%20York%2C%20NY%2C%20USA!5e0!3m2!1sen!2s!4v1234567890"
+                src="https://www.google.com/maps?q=-1.0961958292920777,37.01854679622558&hl=en&z=17&output=embed"
                 width="100%"
                 height="300"
-                style={{ border: 0 }}
+                style={{ border: 0, borderRadius: '10px' }}
                 allowFullScreen=""
                 loading="lazy"
-                title="Google Maps"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="Shikuku Crochet Location"
               ></iframe>
+
             </div>
           </div>
         </div>

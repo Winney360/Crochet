@@ -9,6 +9,14 @@ const BestsellerProductCard = ({ product }) => {
   const [isHovering, setIsHovering] = useState(false);
   const intervalRef = useRef(null);
 
+  // Add scroll to top function
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'instant'
+    });
+  };
+
   const handleAddToCart = async (e) => {
     e.preventDefault();
     await addToCart(product._id, 1);
@@ -59,111 +67,87 @@ const BestsellerProductCard = ({ product }) => {
   };
 
   return (
-    <Link to={`/product/${product.slug}`} className="group">
-      <div className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow">
-        <div 
-          className="relative overflow-hidden"
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
-        >
-          {/* Main Image with Smooth Transition */}
-          <img
-            src={images[currentImageIndex]}
-            alt={product.name}
-            className="w-full h-64 object-cover transition-opacity duration-500"
-          />
+    <Link 
+      to={`/product/${product.slug}`} 
+      className="group"
+      onClick={scrollToTop} // ADDED: Scroll to top when link is clicked
+    >
+      <div className="bg-gray-200 rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow flex h-60">
+        {/* Left Side - Round Image */}
+        <div className="relative shrink-0 w-48 h-48 m-4 mt-10">
+          <div 
+            className="relative w-full h-full rounded-full overflow-hidden"
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+          >
+            {/* Round Image */}
+            <img
+              src={images[currentImageIndex]}
+              alt={product.name}
+              className="w-full h-full object-cover transition-opacity duration-500"
+            />
 
-          {/* Image Navigation Dots (if multiple images) */}
-          {images.length > 1 && (
-            <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex space-x-1">
-              {images.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setCurrentImageIndex(index);
-                  }}
-                  className={`w-2 h-2 rounded-full transition-all ${
-                    index === currentImageIndex ? 'bg-white scale-125' : 'bg-white/50'
+            {/* Image Navigation Dots (if multiple images) */}
+            {images.length > 1 && (
+              <div className="absolute bottom-1 left-1/2 transform -translate-x-1/2 flex space-x-1">
+                {images.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setCurrentImageIndex(index);
+                    }}
+                    className={`w-3 h-3 rounded-full transition-all ${
+                      index === currentImageIndex ? 'bg-white scale-125' : 'bg-white/50'
+                    }`}
+                  />
+                ))}
+              </div>
+            )}                      
+          </div>
+        </div>
+
+        {/* Right Side - Content */}
+        <div className="flex-1 p-4 flex flex-col justify-between">
+          <div>
+            {/* Product Name */}
+            <h3 className="text-lg font-semibold text-gray-800 mb-4 group-hover:text-cyan-500 transition-colors">
+              {product.name}
+            </h3>
+
+            {/* Rating Section */}
+            <div className="flex items-center gap-1 mb-4">
+              {[...Array(5)].map((_, i) => (
+                <FaStar
+                  key={i}
+                  className={`text-sm ${
+                    i < Math.floor(product.rating || 0)
+                      ? 'text-yellow-400'
+                      : 'text-gray-300'
                   }`}
                 />
               ))}
-            </div>
-          )}
-
-          {/* Discount Badge */}
-          {discount > 0 && (
-            <div className="absolute top-4 left-4 bg-red-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
-              -{discount}%
-            </div>
-          )}
-
-          {/* Bestseller Badge */}
-          <div className="absolute top-4 right-4 bg-yellow-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
-            Bestseller
-          </div>
-
-          {/* Multiple Images Indicator */}
-          {images.length > 1 && (
-            <div className="absolute top-12 right-4 bg-black/70 text-white px-2 py-1 rounded text-xs">
-              {images.length} views
-            </div>
-          )}
-
-          {/* Pause/Play Indicator (optional) */}
-          {images.length > 1 && isHovering && (
-            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-black/50 text-white px-3 py-1 rounded-full text-sm">
-              Paused
-            </div>
-          )}
-        </div>
-
-        <div className="p-4">
-          <h3 className="text-lg font-semibold text-gray-800 mb-2 group-hover:text-cyan-500 transition-colors">
-            {product.name}
-          </h3>
-
-          <p className="text-sm text-gray-600 mb-3 line-clamp-2">
-            {product.description}
-          </p>
-
-          {/* RATING SECTION - ONLY IN BESTSELLER CARDS */}
-          <div className="flex items-center gap-1 mb-3">
-            {[...Array(5)].map((_, i) => (
-              <FaStar
-                key={i}
-                className={`text-sm ${
-                  i < Math.floor(product.rating || 0)
-                    ? 'text-yellow-400'
-                    : 'text-gray-300'
-                }`}
-              />
-            ))}
-            <span className="text-sm text-gray-600 ml-1">
-              ({product.rating || 0})
-            </span>
-          </div>
-
-          <div className="flex items-center justify-between">
-            <div>
-              {product.original_price && (
-                <span className="text-sm text-gray-400 line-through mr-2">
-                  ${product.original_price}
-                </span>
-              )}
-              <span className="text-xl font-bold text-cyan-500">
-                ${product.price}
+              <span className="text-sm text-gray-600 ml-1">
+                ({product.rating || 0})
               </span>
-              <span className="text-sm text-gray-500"> / kg</span>
             </div>
 
-            <button
-              onClick={handleAddToCart}
-              className="bg-pink-400 text-white p-3 rounded-full hover:bg-green-700 transition-colors"
-            >
-              <FaShoppingBag />
-            </button>
+            {/* Price Section */}
+            <div className="mb-3">
+              <span className="text-xl font-bold text-cyan-500">
+                Ksh. {product.price}
+              </span>
+            </div>
           </div>
+
+          {/* Add to Cart Button */}
+          <button
+            onClick={handleAddToCart}
+            className="flex items-center justify-center gap-2  text-pink-500 hover:bg-cyan-400 border border-cyan-400 transition-all duration-300 rounded-full py-2 px-4 font-semibold text-sm w-full mt-auto"
+          >
+            <FaShoppingBag className="text-lg" />
+            <span>Add to Cart</span>
+          </button>
         </div>
       </div>
     </Link>

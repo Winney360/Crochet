@@ -24,16 +24,20 @@ const productSchema = new mongoose.Schema({
     type: Number,
     min: 0
   },
-  image_url: {
+  // CHANGE: Replace image_url with images array
+  images: [{
     type: String,
     required: true
+  }],
+  // KEEP: For backward compatibility
+  image_url: {
+    type: String
   },
   category: {
     type: String,
     required: true,
-    enum: ['Baby Collection', 'Adult Clothing', 'Bags']
+    enum: ['Baby Collection', 'Adult Clothing', 'Bags Collection']
   },
-  
   rating: {
     type: Number,
     default: 4.5,
@@ -63,6 +67,12 @@ productSchema.pre('save', function(next) {
       .replace(/-+/g, '-')
       .replace(/^-|-$/g, '');
   }
+  
+  // For backward compatibility: set image_url to first image if images array exists
+  if (this.images && this.images.length > 0 && !this.image_url) {
+    this.image_url = this.images[0];
+  }
+  
   next();
 });
 

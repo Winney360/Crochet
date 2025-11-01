@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
-import { FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn } from 'react-icons/fa';
+import { FaWhatsapp, FaPhoneAlt } from 'react-icons/fa';
 import { useState } from 'react';
-
 
 const Footer = () => {
   const [email, setEmail] = useState('');
@@ -9,158 +8,162 @@ const Footer = () => {
 
   const handleSubscribe = async (e) => {
     e.preventDefault();
-    try {
-      const { error } = await supabase
-        .from('newsletter_subscribers')
-        .insert({ email });
+    // Remove newsletter functionality since you don't want it
+    setMessage('Newsletter feature removed');
+    setTimeout(() => setMessage(''), 3000);
+  };
 
-      if (error) throw error;
+  // Scroll to top function for all navigation
+  const scrollToTop = () => {
+    window.scrollTo(0, 0);
+  };
 
-      setMessage('Thank you for subscribing!');
-      setEmail('');
-      setTimeout(() => setMessage(''), 3000);
-    } catch (error) {
-      setMessage('This email is already subscribed or invalid.');
-      setTimeout(() => setMessage(''), 3000);
-    }
+  // Phone number functionality
+  const handlePhoneClick = () => {
+    window.open('tel:+254720951221');
+  };
+
+  // WhatsApp functionality
+  const handleWhatsAppClick = () => {
+    // You can customize the message that appears when they click WhatsApp
+    const message = "Hello! I'm interested in your crochet products. Can you help me?";
+    const whatsappUrl = `https://wa.me/254791995578?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, '_blank');
   };
 
   return (
-    <footer className="bg-gray-900 text-white">
+    <footer className="bg-[#4c0d4761] text-white">
       <div className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {/* First Part - Brand with Phone, WhatsApp */}
           <div>
             <div className="flex items-center gap-2 mb-4">
               <div className="w-12 h-12 bg-pink-400 rounded-full flex items-center justify-center">
-                <span className="text-white text-2xl font-bold">F</span>
+                <span className="text-white text-2xl font-bold">C</span>
               </div>
-              <span className="text-2xl font-bold text-green-400">Fruitables</span>
+              <span className="text-2xl font-bold text-cyan-400">Crochet Creation</span>
             </div>
-            <p className="text-gray-400 mb-4">
-              Fresh Exotic Fruits
+            <p className="text-gray-200 mb-4">
+              Handmade with Love & Care
             </p>
             <div className="flex gap-3">
-              <a
-                href="#"
-                className="w-10 h-10 bg-pink-400 rounded-full flex items-center justify-center hover:bg-green-700 transition-colors"
+              <button
+                onClick={handlePhoneClick}
+                className="w-10 h-10 border text-bold border-cyan-400 text-cyan-400 rounded-full flex items-center justify-center hover:bg-cyan-400 hover:text-white transition-colors cursor-pointer"
+                title="Call +254 720 951 221"
               >
-                <FaFacebookF />
-              </a>
-              <a
-                href="#"
-                className="w-10 h-10 bg-pink-400 rounded-full flex items-center justify-center hover:bg-green-700 transition-colors"
+                <FaPhoneAlt />
+              </button>
+              <button
+                onClick={handleWhatsAppClick}
+                className="w-10 h-10 border text-bold border-cyan-400 text-cyan-400 rounded-full flex items-center justify-center hover:bg-cyan-400 hover:text-white transition-colors cursor-pointer"
+                title="Chat on WhatsApp +254 791 995 578"
               >
-                <FaTwitter />
-              </a>
-              <a
-                href="#"
-                className="w-10 h-10 bg-pink-400 rounded-full flex items-center justify-center hover:bg-green-700 transition-colors"
-              >
-                <FaInstagram />
-              </a>
-              <a
-                href="#"
-                className="w-10 h-10 bg-pink-400 rounded-full flex items-center justify-center hover:bg-green-700 transition-colors"
-              >
-                <FaLinkedinIn />
-              </a>
+                <FaWhatsapp />
+              </button>
             </div>
           </div>
 
+          {/* Second Part - Quick Links */}
           <div>
             <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
             <ul className="space-y-2">
               <li>
-                <Link to="/" className="text-gray-400 hover:text-green-400 transition-colors">
+                <Link 
+                  to="/" 
+                  onClick={scrollToTop}
+                  className="text-gray-200 hover:text-cyan-400 transition-colors"
+                >
                   Home
                 </Link>
               </li>
               <li>
-                <Link to="/shop" className="text-gray-400 hover:text-green-400 transition-colors">
+                <Link 
+                  to="/shop" 
+                  onClick={scrollToTop}
+                  className="text-gray-200 hover:text-cyan-400 transition-colors"
+                >
                   Shop
                 </Link>
               </li>
               <li>
-                <Link to="/contact" className="text-gray-400 hover:text-green-400 transition-colors">
+                <Link 
+                  to="/contact" 
+                  onClick={scrollToTop}
+                  className="text-gray-200 hover:text-cyan-400 transition-colors"
+                >
                   Contact
                 </Link>
               </li>
               <li>
-                <Link to="/cart" className="text-gray-400 hover:text-green-400 transition-colors">
+                <Link 
+                  to="/cart" 
+                  onClick={scrollToTop}
+                  className="text-gray-200 hover:text-cyan-400 transition-colors"
+                >
                   Shopping Cart
                 </Link>
               </li>
             </ul>
           </div>
 
+          {/* Third Part - Shop Info (replaced Account) */}
           <div>
-            <h3 className="text-lg font-semibold mb-4">Account</h3>
+            <h3 className="text-lg font-semibold mb-4">Shop Info</h3>
             <ul className="space-y-2">
               <li>
-                <a href="#" className="text-gray-400 hover:text-green-400 transition-colors">
-                  My Account
-                </a>
-              </li>
-              <li>
-                <Link to="/shop" className="text-gray-400 hover:text-green-400 transition-colors">
-                  Shop Details
+                <Link 
+                  to="/about" 
+                  onClick={scrollToTop}
+                  className="text-gray-200 hover:text-cyan-400 transition-colors"
+                >
+                  About Us
                 </Link>
               </li>
               <li>
-                <Link to="/cart" className="text-gray-400 hover:text-green-400 transition-colors">
-                  Shopping Cart
+                <Link 
+                  to="/faqs" 
+                  onClick={scrollToTop}
+                  className="text-gray-200 hover:text-cyan-400 transition-colors"
+                >
+                  FAQs
                 </Link>
-              </li>
-              <li>
-                <a href="#" className="text-gray-400 hover:text-green-400 transition-colors">
-                  Wishlist
-                </a>
               </li>
             </ul>
           </div>
 
+          {/* Fourth Part - Contact Info */}
           <div>
-            <h3 className="text-lg font-semibold mb-4">Newsletter</h3>
-            <p className="text-gray-400 mb-4">
-              Subscribe to our newsletter and get 10% off your first purchase
-            </p>
-            <form onSubmit={handleSubscribe}>
-              <div className="flex gap-2">
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Your email"
-                  className="flex-1 px-4 py-2 rounded-lg bg-gray-800 text-white border border-gray-700 focus:outline-none focus:border-green-600"
-                  required
-                />
-                <button
-                  type="submit"
-                  className="bg-pink-400 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition-colors"
-                >
-                  Subscribe
-                </button>
+            <h3 className="text-lg font-semibold mb-4">Contact</h3>
+            <div className="space-y-3">
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 text-bold border border-cyan-400 text-cyan-400 rounded-full flex items-center justify-center">
+                  <FaPhoneAlt className="text-sm" />
+                </div>
+                <span className="text-gray-200">+254 720 951 221</span>
               </div>
-              {message && (
-                <p className="mt-2 text-sm text-green-400">{message}</p>
-              )}
-            </form>
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 text-bold border border-cyan-400 text-cyan-400 rounded-full flex items-center justify-center">
+                  <FaWhatsapp className="text-sm" />
+                </div>
+                <span className="text-gray-200">+254 791 995 578</span>
+              </div>
+              
+              <div className="flex items-start gap-3 mt-2">
+                <div className="w-8 h-8 text-bold border border-cyan-400 text-cyan-400 rounded-full flex items-center justify-center mt-1">
+                  <span className="text-xs font-bold">@</span>
+                </div>
+                <span className="text-gray-200">shikukucrochet@gmail.com</span>
+              </div>
+            </div>
           </div>
         </div>
 
-        <div className="border-t border-gray-800 mt-8 pt-8">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-gray-400 text-sm">
-              © 2024 Fruitables. All rights reserved.
+        <div className="border-t border-cyan-400 mt-8 pt-8 text-center">
+          <div className="flex flex-col md:flex-row justify-center items-center">
+            <p className="text-gray-200 text-sm">
+              © 2025 <span className="text-pink-400"> ShikuStitch Crochet.</span> All rights reserved.
             </p>
-            <div className="flex gap-4">
-              <a href="#" className="text-gray-400 hover:text-green-400 text-sm transition-colors">
-                Privacy Policy
-              </a>
-              <a href="#" className="text-gray-400 hover:text-green-400 text-sm transition-colors">
-                Terms of Service
-              </a>
-            </div>
           </div>
         </div>
       </div>
