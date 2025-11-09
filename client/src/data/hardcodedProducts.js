@@ -63,7 +63,7 @@ export const hardcodedProducts = [
     image_url: "https://res.cloudinary.com/dgzz0zto5/image/upload/v1761215325/20251008_155128_iiudfp.jpg",
     category: "Adult Clothing",
     rating: 2.8,
-    is_featured: true,
+    is_featured: false,
     is_bestseller: false,
     slug: "black-shrug"
   },
