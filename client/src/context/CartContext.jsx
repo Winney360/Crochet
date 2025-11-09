@@ -212,7 +212,7 @@ export const CartProvider = ({ children }) => {
         product: product || {
           name: 'Product not found',
           price: 0,
-          image_url: 'https://images.pexels.com/photos/1132047/pexels-photo-1132047.jpeg',
+          image_url: 'https://images.pexels.com/photos/3945638/pexels-photo-3945638.jpeg',
           slug: 'not-found'
         }
       };

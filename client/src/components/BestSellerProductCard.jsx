@@ -29,7 +29,7 @@ const BestsellerProductCard = ({ product }) => {
   // Use images array if available, otherwise fallback to image_url
   const images = product.images && product.images.length > 0 
     ? product.images 
-    : [product.image_url || 'https://images.pexels.com/photos/1132047/pexels-photo-1132047.jpeg'];
+    : [product.image_url || 'https://images.pexels.com/photos/3945638/pexels-photo-3945638.jpeg'];
 
   // Auto-slide only if there are multiple images
   useEffect(() => {
@@ -72,9 +72,9 @@ const BestsellerProductCard = ({ product }) => {
       className="group"
       onClick={scrollToTop} // ADDED: Scroll to top when link is clicked
     >
-      <div className="bg-gray-200 rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow flex h-60">
+      <div className="bg-gray-200 rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow flex h-48 md:h-60">
         {/* Left Side - Round Image */}
-        <div className="relative shrink-0 w-48 h-48 m-4 mt-10">
+        <div className="relative shrink-0 w-32 h-32 md:w-48 md:h-48 m-3 md:m-4 mt-6 md:mt-10">
           <div 
             className="relative w-full h-full rounded-full overflow-hidden"
             onMouseEnter={handleMouseEnter}
@@ -97,7 +97,7 @@ const BestsellerProductCard = ({ product }) => {
                       e.preventDefault();
                       setCurrentImageIndex(index);
                     }}
-                    className={`w-3 h-3 rounded-full transition-all ${
+                    className={`w-2 h-2 md:w-3 md:h-3 rounded-full transition-all ${
                       index === currentImageIndex ? 'bg-white scale-125' : 'bg-white/50'
                     }`}
                   />
@@ -108,33 +108,34 @@ const BestsellerProductCard = ({ product }) => {
         </div>
 
         {/* Right Side - Content */}
-        <div className="flex-1 p-4 flex flex-col justify-between">
-          <div>
+        <div className="flex-1 p-2 md:p-3 flex flex-col justify-between">
+          {/* Content wrapper with vertical centering on mobile */}
+          <div className="flex flex-col justify-center h-full md:block">
             {/* Product Name */}
-            <h3 className="text-lg font-semibold text-gray-800 mb-4 group-hover:text-cyan-500 transition-colors">
+            <h3 className="text-sm md:text-lg font-semibold text-gray-800 mb-2 md:mb-4 group-hover:text-cyan-500 transition-colors line-clamp-2">
               {product.name}
             </h3>
 
             {/* Rating Section */}
-            <div className="flex items-center gap-1 mb-4">
+            <div className="flex items-center gap-1 mb-2 md:mb-4">
               {[...Array(5)].map((_, i) => (
                 <FaStar
                   key={i}
-                  className={`text-sm ${
+                  className={`text-xs md:text-sm ${
                     i < Math.floor(product.rating || 0)
                       ? 'text-yellow-400'
                       : 'text-gray-300'
                   }`}
                 />
               ))}
-              <span className="text-sm text-gray-600 ml-1">
+              <span className="text-xs md:text-sm text-gray-600 ml-1">
                 ({product.rating || 0})
               </span>
             </div>
 
             {/* Price Section */}
-            <div className="mb-3">
-              <span className="text-xl font-bold text-cyan-500">
+            <div className="mb-2 md:mb-3">
+              <span className="text-base md:text-xl font-bold text-cyan-500">
                 Ksh. {product.price}
               </span>
             </div>
@@ -143,9 +144,9 @@ const BestsellerProductCard = ({ product }) => {
           {/* Add to Cart Button */}
           <button
             onClick={handleAddToCart}
-            className="flex items-center justify-center gap-2  text-pink-500 hover:bg-cyan-400 border border-cyan-400 transition-all duration-300 rounded-full py-2 px-4 font-semibold text-sm w-full mt-auto"
+            className="flex items-center justify-center gap-1 md:gap-2 text-pink-500 hover:bg-cyan-400 border border-cyan-400 transition-all duration-300 rounded-full py-1 md:py-2 px-2 md:px-4 font-semibold text-xs md:text-sm w-full"
           >
-            <FaShoppingBag className="text-lg" />
+            <FaShoppingBag className="text-base md:text-lg" />
             <span>Add to Cart</span>
           </button>
         </div>

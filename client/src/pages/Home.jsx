@@ -139,7 +139,7 @@ const Home = () => {
       const staticTestimonials = [
         {
           _id: 1,
-          customer_name: "Princess Mwangi",
+          customer_name: "Winnie",
           profession: "Crochet Enthusiast",
           comment: "Absolutely love my crochet bunny! The quality is amazing. Will definitely order again!",
           rating: 5,
@@ -147,7 +147,7 @@ const Home = () => {
         },
         {
           _id: 2,
-          customer_name: " Joy Angela ",
+          customer_name: " Loise ",
           profession: "Gift Buyer",
           comment: "Perfect gifts for my nieces. They adored the handmade quality and unique designs. The attention to detail is incredible!",
           rating: 5,
@@ -155,7 +155,7 @@ const Home = () => {
         },
         {
           _id: 3,
-          customer_name: "Shan Nkatha",
+          customer_name: "Sharline",
           profession: "Student",
           comment: "The crochet bag I purchased is not only stylish but also very durable. I've received so many compliments on it!",
           rating: 4,
@@ -284,38 +284,38 @@ const Home = () => {
         <section className="py-16 bg-white">
           <div className="container mx-auto px-4">
             {/* Header + Tabs Row */}
-<div className="flex flex-col items-center lg:flex-row lg:items-center lg:justify-between mb-12 gap-6">
-  {/* Left: Heading and Subtext - Single line on mobile, two lines on desktop */}
-  <div className="text-center lg:text-left">
-    <h2 className="text-3xl sm:text-4xl lg:text-5xl text-gray-600 block lg:hidden">
-      Our Crochet Products
-    </h2>
-    <div className="hidden lg:block">
-      <h2 className="text-5xl text-gray-600">Our Crochet</h2>
-      <h2 className="text-gray-600 text-5xl">Products</h2>
-    </div>
-  </div>
+            <div className="flex flex-col items-center lg:flex-row lg:items-center lg:justify-between mb-12 gap-6">
+              {/* Left: Heading and Subtext - Single line on mobile, two lines on desktop */}
+              <div className="text-center lg:text-left">
+                <h2 className="text-3xl sm:text-4xl lg:text-5xl text-gray-600 block lg:hidden">
+                  Our Crochet Products
+                </h2>
+                <div className="hidden lg:block">
+                  <h2 className="text-5xl text-gray-600">Our Crochet</h2>
+                  <h2 className="text-gray-600 text-5xl">Products</h2>
+                </div>
+              </div>
 
-  {/* Right: Tabs - Row below heading on mobile */}
-  <div className="flex justify-center gap-3 sm:gap-4 flex-wrap">
-    {collectionCategories.map((cat) => (
-      <button
-        key={cat}
-        onClick={() => setActiveCollection(cat)}
-        className={`px-3 py-2 text-sm sm:px-4 sm:py-2 sm:text-base rounded-full font-semibold transition-colors ${
-          activeCollection === cat
-            ? 'bg-cyan-400 text-white'
-            : 'bg-gray-100 text-gray-700 hover:bg-cyan-100'
-        }`}
-      >
-        {cat}
-      </button>
-    ))}
-  </div>
-</div>
+              {/* Right: Tabs - Row below heading on mobile */}
+              <div className="flex justify-center gap-3 sm:gap-4 flex-wrap">
+                {collectionCategories.map((cat) => (
+                  <button
+                    key={cat}
+                    onClick={() => setActiveCollection(cat)}
+                    className={`px-3 py-2 text-sm sm:px-4 sm:py-2 sm:text-base rounded-full font-semibold transition-colors ${
+                      activeCollection === cat
+                        ? 'bg-cyan-400 text-white'
+                        : 'bg-gray-100 text-gray-700 hover:bg-cyan-100'
+                    }`}
+                  >
+                    {cat}
+                  </button>
+                ))}
+              </div>
+            </div>
 
             {/* Filtered Products */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 products-grid">
               {productsToShow.map((product) => (
                 <ProductCard key={product._id} product={product} />
               ))}
@@ -323,9 +323,24 @@ const Home = () => {
            
             {/* Show Toggle Button Only if There Are More Than 12 Products */}
             {filteredCollection.length > 12 && (
-              <div className={`flex justify-center mt-12 ${showAllProducts ? 'fixed bottom-8 left-1/2 transform -translate-x-1/2 z-50' : ''}`}>
+              <div className={`flex justify-center mt-12 ${showAllProducts ? 'sticky bottom-8 z-50' : ''}`}>
                 <button 
-                  onClick={() => setShowAllProducts(!showAllProducts)}
+                  onClick={() => {
+                    const wasShowingAll = showAllProducts;
+                    setShowAllProducts(!showAllProducts);
+                    
+                    // Scroll to products grid when clicking "Show Less Products"
+                    if (wasShowingAll) {
+                      setTimeout(() => {
+                        const productsGrid = document.querySelector('.products-grid');
+                        if (productsGrid) {
+                          const yOffset = -100; // Adjust this value as needed
+                          const y = productsGrid.getBoundingClientRect().top + window.pageYOffset + yOffset;
+                          window.scrollTo({ top: y, behavior: 'smooth' });
+                        }
+                      }, 50);
+                    }
+                  }}
                   className={`flex items-center gap-3 bg-linear-to-r from-cyan-400 to-pink-400 text-white px-8 py-4 rounded-full hover:scale-105 transition-all duration-300 shadow-lg font-semibold ${
                     showAllProducts ? 'animate-bounce' : 'animate-pulse'
                   }`}
@@ -420,7 +435,7 @@ const Home = () => {
           <div className="transition-opacity duration-500 opacity-100">
             {/* Description at the top */}
             <p className="text-gray-600 italic mb-6 text-base md:text-lg leading-relaxed">
-              "{testimonials[currentTestimonialIndex].comment}"
+              "{testimonials[currentTestimonialIndex]?.comment}"
             </p>
 
             {/* Horizontal line */}
@@ -431,8 +446,8 @@ const Home = () => {
               {/* Left: Client image and info */}
               <div className="flex items-center gap-3 md:gap-4">
                 <img
-                  src={testimonials[currentTestimonialIndex].image_url}
-                  alt={testimonials[currentTestimonialIndex].customer_name}
+                  src={testimonials[currentTestimonialIndex]?.image_url}
+                  alt={testimonials[currentTestimonialIndex]?.customer_name}
                   className="w-12 h-12 md:w-16 md:h-16 rounded-full object-cover"
                 />
                 

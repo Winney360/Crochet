@@ -114,7 +114,7 @@ const ProductDetail = () => {
 
   // Fix image URLs for display
   const getImageUrl = (imagePath) => {
-    if (!imagePath) return 'https://images.pexels.com/photos/1132047/pexels-photo-1132047.jpeg';
+    if (!imagePath) return 'https://images.pexels.com/photos/3945638/pexels-photo-3945638.jpeg';
     
     if (imagePath.startsWith('http')) {
       return imagePath; // External URL
@@ -194,7 +194,7 @@ const ProductDetail = () => {
                   className="w-full h-auto max-h-[500px] object-contain"
                   onError={(e) => {
                     console.log('❌ Image failed to load:', images[currentImageIndex]);
-                    e.target.src = 'https://images.pexels.com/photos/1132047/pexels-photo-1132047.jpeg';
+                    e.target.src = 'https://images.pexels.com/photos/3945638/pexels-photo-3945638.jpeg';
                   }}
                   style={{ 
                     maxWidth: '100%', 
@@ -245,7 +245,7 @@ const ProductDetail = () => {
                         className="w-full h-full object-contain p-1"
                         onError={(e) => {
                           console.log('❌ Thumbnail failed to load:', image);
-                          e.target.src = 'https://images.pexels.com/photos/1132047/pexels-photo-1132047.jpeg';
+                          e.target.src = 'https://images.pexels.com/photos/3945638/pexels-photo-3945638.jpeg';
                         }}
                       />
                     </button>

@@ -1,13 +1,16 @@
 import { useState } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom'; // Add useNavigate
-import { FaShoppingBag, FaBars, FaTimes, FaUser, FaMapMarkerAlt, FaEnvelope, FaWhatsapp, FaChevronDown } from 'react-icons/fa';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { 
+  FaShoppingBag, FaBars, FaTimes, FaUser, FaMapMarkerAlt, 
+  FaEnvelope, FaWhatsapp, FaChevronDown 
+} from 'react-icons/fa';
 import { useCart } from '../context/CartContext';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isPagesOpen, setIsPagesOpen] = useState(false);
   const location = useLocation();
-  const navigate = useNavigate(); // Add navigate hook
+  const navigate = useNavigate();
   const { getCartCount } = useCart();
 
   const navLinks = [
@@ -27,15 +30,14 @@ const Header = () => {
 
   const isActive = (path) => location.pathname === path;
 
-  // Add this function to handle user icon click
   const handleUserClick = () => {
-    navigate('/admin'); // Navigate to admin dashboard
+    navigate('/admin');
   };
 
   return (
     <header className="bg-white shadow-md sticky top-0 z-50">
-      {/* Pink top bar - hidden on mobile, visible on medium screens and up */}
-      <div className="bg-pink-400 text-white py-3 rounded-full mr-4 ml-4 md:mr-20 md:ml-20 hidden md:flex">
+      {/* Pink top bar */}
+      <div className="bg-pink-400 text-white py-3 rounded-full mx-4 md:mx-20 hidden md:flex">
         <div className="container mx-auto px-4 flex justify-between items-center text-sm">
           <p>⭐ 5-Star Rated by Customers</p>
           <div className="flex gap-6 items-center text-white text-sm">
@@ -44,7 +46,7 @@ const Header = () => {
               className="flex items-center gap-1 hover:text-cyan-200 transition-colors"
             >
               <FaEnvelope />
-             shikukucrochet@gmail.com
+              shikukucrochet@gmail.com
             </a>
 
             <a
@@ -73,12 +75,13 @@ const Header = () => {
       <nav className="container mx-auto px-4">
         <div className="flex items-center justify-between py-4">
           <Link to="/" className="flex items-center gap-2">
-            <div className="w-14 h-14 bg-pink-400 rounded-full flex items-center justify-center ml-4 md:ml-15">
+            <div className="w-14 h-14 bg-pink-400 rounded-full flex items-center justify-center ml-4">
               <span className="text-cyan-400 text-5xl font-bold">S</span>
             </div>
             <span className="text-3xl md:text-5xl font-bold text-pink-400">ShikuStitch</span>
           </Link>
 
+          {/* Desktop Nav */}
           <div className="hidden lg:flex items-center gap-8">
             {navLinks.map((link) => (
               <div key={link.name} className="relative">
@@ -87,7 +90,7 @@ const Header = () => {
                     <button
                       onClick={() => setIsPagesOpen(!isPagesOpen)}
                       className={`flex items-center gap-1 font-medium transition-colors ${
-                        isActive(link.path) || link.dropdownItems.some(item => isActive(item.path))
+                        link.dropdownItems.some(item => isActive(item.path))
                           ? 'text-cyan-500'
                           : 'text-gray-700 hover:text-cyan-500'
                       }`}
@@ -95,7 +98,7 @@ const Header = () => {
                       {link.name}
                       <FaChevronDown className={`text-xs transition-transform ${isPagesOpen ? 'rotate-180' : ''}`} />
                     </button>
-                    
+
                     {/* Dropdown Menu */}
                     {isPagesOpen && (
                       <div className="absolute top-full left-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50">
@@ -128,7 +131,7 @@ const Header = () => {
             ))}
           </div>
 
-          {/* Desktop Icons - hidden on mobile */}
+          {/* Desktop Icons */}
           <div className="hidden lg:flex items-center gap-8">
             <Link
               to="/cart"
@@ -142,16 +145,15 @@ const Header = () => {
               )}
             </Link>
 
-            {/* Updated User Icon with click handler */}
             <button 
-              onClick={handleUserClick} // Add click handler
+              onClick={handleUserClick}
               className="p-2 hover:bg-cyan-400 rounded-full transition-colors"
             >
               <FaUser className="text-pink-400 text-2xl" />
             </button>
           </div>
 
-          {/* Mobile menu button - always visible on mobile */}
+          {/* Mobile Menu Button */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             className="lg:hidden p-2 hover:bg-gray-100 rounded-full transition-colors"
@@ -164,18 +166,10 @@ const Header = () => {
           </button>
         </div>
 
-        {/* Close dropdown when clicking outside */}
-        {isPagesOpen && (
-          <div 
-            className="fixed inset-0 z-40" 
-            onClick={() => setIsPagesOpen(false)}
-          />
-        )}
-
-        {/* Mobile Menu - includes navigation links AND icons */}
+        {/* Mobile Menu */}
         {isMenuOpen && (
           <div className="lg:hidden pb-4">
-            {/* Navigation Links */}
+            {/* Mobile Navigation Links */}
             <div className="flex flex-col gap-2 mb-4">
               {navLinks.map((link) => (
                 <div key={link.name}>
@@ -184,7 +178,7 @@ const Header = () => {
                       <button
                         onClick={() => setIsPagesOpen(!isPagesOpen)}
                         className={`px-4 py-2 rounded-lg font-medium transition-colors text-left flex items-center justify-between ${
-                          isActive(link.path) || link.dropdownItems.some(item => isActive(item.path))
+                          link.dropdownItems.some(item => isActive(item.path))
                             ? 'bg-pink-400 text-white'
                             : 'text-gray-700 hover:bg-gray-100'
                         }`}
@@ -192,24 +186,26 @@ const Header = () => {
                         {link.name}
                         <FaChevronDown className={`text-xs transition-transform ${isPagesOpen ? 'rotate-180' : ''}`} />
                       </button>
+
+                      {/* ✅ Fixed Dropdown for Mobile */}
                       {isPagesOpen && (
-                        <div className="ml-4 mt-2 flex flex-col gap-1">
+                        <div className="ml-4 mt-2 flex flex-col gap-1 bg-white border border-gray-200 rounded-lg shadow-sm">
                           {link.dropdownItems.map((item) => (
-                            <Link
+                            <button
                               key={item.name}
-                              to={item.path}
                               onClick={() => {
+                                navigate(item.path);
                                 setIsMenuOpen(false);
                                 setIsPagesOpen(false);
                               }}
-                              className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+                              className={`text-left w-full px-4 py-2 rounded-lg font-medium transition-colors ${
                                 isActive(item.path)
                                   ? 'bg-cyan-400 text-white'
                                   : 'text-gray-700 hover:bg-cyan-50'
                               }`}
                             >
                               {item.name}
-                            </Link>
+                            </button>
                           ))}
                         </div>
                       )}
@@ -231,7 +227,7 @@ const Header = () => {
               ))}
             </div>
 
-            {/* Mobile Icons - shown in menu */}
+            {/* Mobile Icons */}
             <div className="flex items-center gap-6 border-t pt-4">
               <Link
                 to="/cart"

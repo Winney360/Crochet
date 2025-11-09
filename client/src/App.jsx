@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { CartProvider } from './context/CartContext';
 import { ToastProvider } from './context/ToastContext';
-import { AuthProvider, useAuth } from './context/AuthContext'; // Add this
+import { AuthProvider, useAuth } from './context/AuthContext'; 
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Home from './pages/Home';
@@ -14,7 +14,7 @@ import OrderSuccess from './pages/OrderSuccess';
 import Contact from './pages/Contact';
 import AboutUs from './pages/AboutUs';
 import FAQs from './pages/FAQs';
-import AdminLogin from './components/AdminLogin'; // Your existing component
+import AdminLogin from './components/AdminLogin'; 
 import AdminDashboard from './pages/AdminDashboard';
 
 // Protected Route Component

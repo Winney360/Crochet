@@ -6,23 +6,43 @@ const Cart = () => {
   const { cartItems, updateQuantity, removeFromCart, getCartTotal, loading } = useCart();
 
   // Helper function to fix image URLs
-  const getFixedImageUrl = (imagePath) => {
-    if (!imagePath) {
-      return 'https://images.pexels.com/photos/1132047/pexels-photo-1132047.jpeg';
+  const getFixedImageUrl = (product) => {
+    if (!product) {
+      return 'https://images.pexels.com/photos/3945638/pexels-photo-3945638.jpeg';
     }
-    
-    // If it's already a full URL, return as is
-    if (imagePath.startsWith('http')) {
-      return imagePath;
+
+    let imageSource = null;
+
+    // Priority 1: Check images array
+    if (product.images && Array.isArray(product.images) && product.images.length > 0) {
+      imageSource = product.images[0];
     }
-    
-    // If it's a local upload path, prepend the API base URL
-    if (imagePath.startsWith('/uploads')) {
-      return `http://localhost:5000${imagePath}`;
+    // Priority 2: Check image_url
+    else if (product.image_url) {
+      imageSource = product.image_url;
     }
-    
-    // Return as is for other cases
-    return imagePath;
+    // Priority 3: Check if image_url is an array (some products might have this)
+    else if (Array.isArray(product.image_url) && product.image_url.length > 0) {
+      imageSource = product.image_url[0];
+    }
+
+    // Process the image source
+    if (imageSource) {
+      // If it's already a full URL, return as is
+      if (imageSource.startsWith('http')) {
+        return imageSource;
+      }
+      
+      // If it's a local upload path, prepend the API base URL
+      if (imageSource.startsWith('/uploads')) {
+        return `http://localhost:5000${imageSource}`;
+      }
+      
+      return imageSource;
+    }
+
+    // Default fallback image
+    return 'https://images.pexels.com/photos/3945638/pexels-photo-3945638.jpeg';
   };
 
   if (loading) {
@@ -80,7 +100,7 @@ const Cart = () => {
               </div>
 
               {cartItems.map((item) => {
-                const fixedImageUrl = getFixedImageUrl(item.product?.image_url);
+                const fixedImageUrl = getFixedImageUrl(item.product);
                 
                 return (
                   <div
@@ -93,7 +113,7 @@ const Cart = () => {
                         alt={item.product?.name}
                         className="w-20 h-20 object-cover rounded-lg"
                         onError={(e) => {
-                          e.target.src = 'https://images.pexels.com/photos/1132047/pexels-photo-1132047.jpeg';
+                          e.target.src = 'https://images.pexels.com/photos/3945638/pexels-photo-3945638.jpeg';
                         }}
                       />
                       <div className="flex-1">

@@ -15,8 +15,7 @@ The React Compiler is not enabled on this template because of its impact on dev 
 
 If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
 
-
-## Landing page (Fruitables port)
+## Landing page (8tables port)
 
 I added a Tailwind-based landing page modeled after the Fruitables theme. Replace placeholder images in `src/assets/` with your crochet images.
 
@@ -28,10 +27,12 @@ pnpm run dev
 ```
 
 Files added:
+
 - `src/components/Landing.jsx` - landing page wrapper
 - `src/components/landing/*` - Hero, Features, Products, Testimonials, Footer
 - `src/assets/*` - placeholder images
 
 Next steps:
+
 - Replace `src/assets/hero-placeholder.png` and `product-placeholder.png` with your crochet images.
 - Tweak text, colors, and layout in the components as needed.
