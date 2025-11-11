@@ -17,8 +17,9 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    const adminData = localStorage.getItem('admin');
+    // ✅ FIX: Use the same keys as AdminLogin.js
+    const token = localStorage.getItem('adminToken');        // Changed from 'token'
+    const adminData = localStorage.getItem('adminData');     // Changed from 'admin'
     
     if (token && adminData) {
       // Set default authorization header for all requests
@@ -30,16 +31,18 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const login = (token, adminData) => {
-    localStorage.setItem('token', token);
-    localStorage.setItem('admin', JSON.stringify(adminData));
+    // ✅ FIX: Use consistent keys
+    localStorage.setItem('adminToken', token);                // Changed from 'token'
+    localStorage.setItem('adminData', JSON.stringify(adminData)); // Changed from 'admin'
     axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
     setIsAuthenticated(true);
     setAdmin(adminData);
   };
 
   const logout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('admin');
+    // ✅ FIX: Remove the correct keys
+    localStorage.removeItem('adminToken');                    // Changed from 'token'
+    localStorage.removeItem('adminData');                    // Changed from 'admin'
     delete axios.defaults.headers.common['Authorization'];
     setIsAuthenticated(false);
     setAdmin(null);
