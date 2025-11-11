@@ -13,7 +13,8 @@ const AdminLogin = () => {
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
-  const { login, isAuthenticated } = useAuth(); // ✅ get login & auth state from context
+  const { login, isAuthenticated } = useAuth(); 
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
   const { username, password } = formData;
 
@@ -37,7 +38,7 @@ const AdminLogin = () => {
 
     try {
       console.log('🔄 Sending login request...', { username, password });
-      const res = await axios.post('http://localhost:5000/api/auth/login', {
+      const res = await axios.post(`${API_BASE_URL}/auth/login`, {
         username,
         password,
       });
