@@ -227,13 +227,13 @@ const Home = () => {
           placeholder="Search crochet products..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className="grow px-5 py-3 text-gray-700 placeholder:text-pink-300 focus:outline-none focus:ring-2 focus:ring-pink-300 transition-all"
+          className="grow px-4 py-3 text-gray-700 placeholder:text-pink-300 focus:outline-none focus:ring-2 focus:ring-pink-300 transition-all"
         />
         <button
           type="submit"
-          className="flex items-center gap-2 bg-cyan-500 hover:bg-cyan-600 text-white font-semibold px-5 py-3 transition-colors"
+          className="flex items-center gap-1 bg-cyan-500 hover:bg-cyan-600 text-white font-semibold px-5 py-4 sm:px-5 sm:gap-2 transition-colors text-sm sm:text-base"
         >
-          <FaSearch className="text-md" />
+          <FaSearch className="text-sm sm:text-md" />
           Search
         </button>
       </form>
