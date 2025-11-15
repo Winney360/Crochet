@@ -194,17 +194,7 @@ const Shop = () => {
                 </button>
               </div>
 
-              {/* Search */}
-              <div className="mb-6">
-                <h3 className="text-lg font-semibold mb-3">Search</h3>
-                <input
-                  type="text"
-                  placeholder="Search products..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-400"
-                />
-              </div>
+              
 
               {/* Categories */}
               <div className="mb-6">

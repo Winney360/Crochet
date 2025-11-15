@@ -233,7 +233,7 @@ const Home = () => {
           type="submit"
           className="flex items-center gap-2 bg-cyan-500 hover:bg-cyan-600 text-white font-semibold px-5 py-3 transition-colors"
         >
-          <FaSearch className="text-lg" />
+          <FaSearch className="text-md" />
           Search
         </button>
       </form>
