@@ -16,7 +16,37 @@ const ProductDetail = () => {
   const [isZoomed, setIsZoomed] = useState(false);
   const { addToCart } = useCart();
 
-  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000/api';
+const getImageUrl = (imagePath) => {
+    console.log('🖼️ getImageUrl called with:', imagePath);
+    
+    if (!imagePath) return 'https://images.pexels.com/photos/3945638/pexels-photo-3945638.jpeg';
+    
+     if (imagePath.startsWith('http')) {
+    // Convert HTTP to HTTPS
+    if (imagePath.startsWith('http://')) {
+      const httpsUrl = imagePath.replace('http://', 'https://');
+      console.log('🔒 Converted HTTP URL to HTTPS:', httpsUrl);
+      return httpsUrl;
+    }
+    return imagePath; // Already HTTPS
+  } else if (imagePath.startsWith('/uploads')) {
+    let baseUrl = API_BASE_URL.replace('/api', '');
+    console.log('🔄 Base URL after removing /api:', baseUrl);
+    
+    // Force HTTPS
+    if (baseUrl.startsWith('http://')) {
+      baseUrl = baseUrl.replace('http://', 'https://');
+      console.log('🔒 Converted base URL to HTTPS:', baseUrl);
+    }
+    
+    const finalUrl = `${baseUrl}${imagePath}`;
+    console.log('🎯 Final URL:', finalUrl);
+    return finalUrl;
+  } else {
+    return imagePath;
+  }
+};
 
   useEffect(() => {
     fetchProduct();
@@ -34,7 +64,7 @@ const ProductDetail = () => {
       // FIRST: Try API by slug endpoint
       try {
         console.log('🔄 Trying API by slug:', slug);
-        const slugResponse = await axios.get(`${API_BASE_URL}/api/products/slug/${slug}`);
+        const slugResponse = await axios.get(`${API_BASE_URL}/products/slug/${slug}`);
         if (slugResponse.data) {
           foundProduct = slugResponse.data;
           console.log('✅ Product found via slug endpoint:', foundProduct.name);
@@ -56,7 +86,7 @@ const ProductDetail = () => {
       if (!foundProduct && /^[0-9a-fA-F]{24}$/.test(slug)) {
         try {
           console.log('🆔 Trying API by ID:', slug);
-          const response = await axios.get(`${API_BASE_URL}/api/products/${slug}`);
+          const response = await axios.get(`${API_BASE_URL}/products/${slug}`);
           if (response.data) {
             foundProduct = response.data;
             console.log('✅ Product found via ID:', foundProduct.name);
@@ -68,15 +98,13 @@ const ProductDetail = () => {
       }
 
       if (foundProduct) {
-        // Fix image URL for API products
+        // ✅ NOW getImageUrl is available
         const productWithFixedImage = {
           ...foundProduct,
-          // Ensure image_url is complete for API products
-          image_url: foundProduct.image_url?.startsWith('http') 
-            ? foundProduct.image_url 
-            : `${API_BASE_URL}${foundProduct.image_url}`
+          image_url: getImageUrl(foundProduct.image_url)
         };
         
+        console.log('🖼️ Final product image URL:', productWithFixedImage.image_url);
         setProduct(productWithFixedImage);
 
         // Find related products
@@ -112,18 +140,7 @@ const ProductDetail = () => {
     setQuantity(Math.max(1, newQuantity));
   };
 
-  // Fix image URLs for display
-  const getImageUrl = (imagePath) => {
-    if (!imagePath) return 'https://images.pexels.com/photos/3945638/pexels-photo-3945638.jpeg';
-    
-    if (imagePath.startsWith('http')) {
-      return imagePath; // External URL
-    } else if (imagePath.startsWith('/uploads')) {
-      return `${API_BASE_URL}${imagePath}`; // Local uploads
-    } else {
-      return imagePath; // Fallback
-    }
-  };
+ 
 
   // Use images array if available, otherwise fallback to image_url
   const images = product?.images && product.images.length > 0 

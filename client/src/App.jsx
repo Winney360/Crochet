@@ -4,6 +4,7 @@ import { ToastProvider } from './context/ToastContext';
 import { AuthProvider, useAuth } from './context/AuthContext'; 
 import Header from './components/Header';
 import Footer from './components/Footer';
+import ScrollToTop from './components/ScrollToTop';
 import Home from './pages/Home';
 import Shop from './pages/Shop';
 import ShopDetails from './pages/ShopDetails';
@@ -34,6 +35,7 @@ function App() {
       <ToastProvider>
         <CartProvider>
           <Router>
+           <ScrollToTop /> 
             <div className="min-h-screen flex flex-col">
               <Header />
               <main className="grow">

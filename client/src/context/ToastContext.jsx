@@ -79,7 +79,7 @@ export const ToastProvider = ({ children }) => {
       </div>
 
       {/* Add CSS animation if Tailwind animations aren't working */}
-      <style jsx>{`
+      <style>{`
         @keyframes slideInRight {
           from {
             transform: translateX(100%);
