@@ -155,12 +155,12 @@ const Header = () => {
 {/* Mobile Menu Button */}
 <button
   onClick={() => setIsMenuOpen(!isMenuOpen)}
-  className="lg:hidden p-3 rounded-2xl bg-linear-to-r from-pink-400 to-cyan-400 text-white shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 animate-pulse"
+  className="lg:hidden p-3 rounded-2xl bg-gradient-to-r from-pink-400 to-cyan-400 text-white shadow-lg hover:shadow-xl transition-all duration-500 transform hover:scale-105 hover:from-pink-500 hover:to-cyan-500"
 >
   {isMenuOpen ? (
-    <FaTimes className="text-xl animate-spin" />
+    <FaTimes className="text-xl transition-all duration-300 hover:rotate-90" />
   ) : (
-    <FaBars className="text-xl animate-bounce" />
+    <FaBars className="text-xl transition-all duration-300 hover:scale-110" />
   )}
 </button>
 </div>
@@ -322,11 +322,15 @@ const Header = () => {
         </div>
 
         {/* Contact Info with Sparkle */}
-        <div className="text-center bg-linear-to-r from-pink-50 to-cyan-50 rounded-2xl p-3 border border-pink-100/50 animate-pulse-slow">
+        <Link 
+          to="/contact"
+          onClick={() => setIsMenuOpen(false)}
+          className="text-center bg-gradient-to-r from-pink-50 to-cyan-50 rounded-2xl p-3 border border-pink-100/50 animate-pulse-slow hover:scale-105 transition-all duration-300 cursor-pointer block"
+        >
           <p className="text-xs text-gray-600">
-            Need help? <span className="font-semibold bg-linear-to-r from-pink-400 to-cyan-400 bg-clip-text text-transparent animate-textShine">Contact Us ✨</span>
+            Need help? <span className="font-semibold bg-gradient-to-r from-pink-400 to-cyan-400 bg-clip-text text-transparent animate-textShine">Contact Us ✨</span>
           </p>
-        </div>
+        </Link>
       </div>
     </div>
   </div>
