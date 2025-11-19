@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { 
   FaShoppingBag, FaBars, FaTimes, FaUser, FaMapMarkerAlt, 
-  FaEnvelope, FaWhatsapp, FaChevronDown 
+  FaEnvelope, FaWhatsapp, FaChevronDown,FaRocket, FaTag
 } from 'react-icons/fa';
 import { useCart } from '../context/CartContext';
 
@@ -152,110 +152,177 @@ const Header = () => {
               <FaUser className="text-pink-400 text-2xl" />
             </button>
           </div>
+{/* Mobile Menu Button */}
+<button
+  onClick={() => setIsMenuOpen(!isMenuOpen)}
+  className="lg:hidden p-3 rounded-2xl bg-linear-to-r from-pink-400 to-cyan-400 text-white shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+>
+  {isMenuOpen ? (
+    <FaTimes className="text-xl" />
+  ) : (
+    <FaBars className="text-xl" />
+  )}
+</button>
+</div>
 
-          {/* Mobile Menu Button */}
+{/* Mobile Menu Overlay */}
+{isMenuOpen && (
+  <div className="lg:hidden fixed inset-0 z-50 bg-linear-to-br from-pink-100/20 via-cyan-100/20 to-white backdrop-blur-lg">
+    {/* Menu Container */}
+    <div className="absolute top-0 right-0 h-full w-80 bg-white/95 shadow-2xl border-l border-pink-200/50 transform transition-transform duration-500">
+      {/* Header with Curved Bottom */}
+      <div className="relative p-6 bg-linear-to-br from-pink-400 via-purple-400 to-cyan-400 text-white rounded-br-3xl shadow-lg">
+        <div className="flex items-center justify-between">
+          <h2 className="text-2xl font-bold drop-shadow-md">🌸 Menu</h2>
           <button
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="lg:hidden p-2 hover:bg-gray-100 rounded-full transition-colors"
+            onClick={() => setIsMenuOpen(false)}
+            className="p-2 rounded-full bg-white/30 hover:bg-white/40 transition-all duration-300 transform hover:rotate-90"
           >
-            {isMenuOpen ? (
-              <FaTimes className="text-gray-700 text-xl" />
-            ) : (
-              <FaBars className="text-gray-700 text-xl" />
-            )}
+            <FaTimes className="text-lg" />
           </button>
         </div>
+        {/* Decorative Dots */}
+        <div className="flex gap-1 mt-3">
+          <div className="w-2 h-2 rounded-full bg-white/60"></div>
+          <div className="w-2 h-2 rounded-full bg-white/40"></div>
+          <div className="w-2 h-2 rounded-full bg-white/20"></div>
+        </div>
+      </div>
 
-        {/* Mobile Menu */}
-        {isMenuOpen && (
-          <div className="lg:hidden pb-4">
-            {/* Mobile Navigation Links */}
-            <div className="flex flex-col gap-2 mb-4">
-              {navLinks.map((link) => (
-                <div key={link.name}>
-                  {link.hasDropdown ? (
-                    <div className="flex flex-col">
-                      <button
-                        onClick={() => setIsPagesOpen(!isPagesOpen)}
-                        className={`px-4 py-2 rounded-lg font-medium transition-colors text-left flex items-center justify-between ${
-                          link.dropdownItems.some(item => isActive(item.path))
-                            ? 'bg-pink-400 text-white'
-                            : 'text-gray-700 hover:bg-gray-100'
-                        }`}
-                      >
+      {/* Scrollable Content */}
+      <div className="h-full overflow-y-auto pb-24 bg-linear-to-b from-white to-pink-50/30">
+        {/* Navigation Links */}
+        <div className="p-4 space-y-3">
+          {navLinks.map((link) => (
+            <div key={link.name} className="group">
+              {link.hasDropdown ? (
+                <div className="rounded-2xl bg-white/80 backdrop-blur-sm border border-pink-100 hover:border-cyan-200 transition-all duration-300 shadow-sm hover:shadow-md">
+                  <button
+                    onClick={() => setIsPagesOpen(!isPagesOpen)}
+                    className={`w-full px-4 py-4 rounded-2xl font-semibold transition-all duration-300 flex items-center justify-between group ${
+                      link.dropdownItems.some(item => isActive(item.path))
+                        ? 'bg-linear-to-r from-pink-400/10 to-cyan-400/10 text-pink-600 border-r-4 border-cyan-400'
+                        : 'text-gray-700 hover:text-pink-500 hover:bg-white/50'
+                    }`}
+                  >
+                    <span className="flex items-center gap-3">
+                      {link.icon && <link.icon className="text-lg text-cyan-500 group-hover:scale-110 transition-transform" />}
+                      <span className="bg-linear-to-r from-pink-400 to-cyan-400 bg-clip-text text-transparent">
                         {link.name}
-                        <FaChevronDown className={`text-xs transition-transform ${isPagesOpen ? 'rotate-180' : ''}`} />
-                      </button>
-
-                      {/* ✅ Fixed Dropdown for Mobile */}
-                      {isPagesOpen && (
-                        <div className="ml-4 mt-2 flex flex-col gap-1 bg-white border border-gray-200 rounded-lg shadow-sm">
-                          {link.dropdownItems.map((item) => (
-                            <button
-                              key={item.name}
-                              onClick={() => {
-                                navigate(item.path);
-                                setIsMenuOpen(false);
-                                setIsPagesOpen(false);
-                              }}
-                              className={`text-left w-full px-4 py-2 rounded-lg font-medium transition-colors ${
-                                isActive(item.path)
-                                  ? 'bg-cyan-400 text-white'
-                                  : 'text-gray-700 hover:bg-cyan-50'
-                              }`}
-                            >
-                              {item.name}
-                            </button>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-                  ) : (
-                    <Link
-                      to={link.path}
-                      onClick={() => setIsMenuOpen(false)}
-                      className={`px-4 py-2 rounded-lg font-medium transition-colors ${
-                        isActive(link.path)
-                          ? 'bg-pink-400 text-white'
-                          : 'text-gray-700 hover:bg-gray-100'
-                      }`}
-                    >
-                      {link.name}
-                    </Link>
-                  )}
-                </div>
-              ))}
-            </div>
-
-            {/* Mobile Icons */}
-            <div className="flex items-center gap-6 border-t pt-4">
-              <Link
-                to="/cart"
-                onClick={() => setIsMenuOpen(false)}
-                className="flex items-center gap-2 text-gray-700 hover:text-cyan-500 transition-colors"
-              >
-                <div className="relative">
-                  <FaShoppingBag className="text-2xl" />
-                  {getCartCount() > 0 && (
-                    <span className="absolute -top-2 -right-2 bg-pink-400 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-                      {getCartCount()}
+                      </span>
                     </span>
-                  )}
-                </div>
-                <span>Cart ({getCartCount()})</span>
-              </Link>
+                    <FaChevronDown 
+                      className={`text-xs transition-all duration-500 ${
+                        isPagesOpen ? 'rotate-180 text-cyan-500' : 'text-pink-400 group-hover:text-cyan-400'
+                      }`} 
+                    />
+                  </button>
 
-              <Link
-                to="/admin"
-                onClick={() => setIsMenuOpen(false)}
-                className="flex items-center gap-2 text-pink-400 hover:text-cyan-400 transition-colors"
-              >
-                <FaUser className="text-2xl" />
-                <span>Admin Account</span>
-              </Link>
+                  {/* Dropdown Items with Animation */}
+                  <div className={`overflow-hidden transition-all duration-500 ${
+                    isPagesOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+                  }`}>
+                    <div className="p-3 space-y-2 bg-white/50 rounded-b-2xl">
+                      {link.dropdownItems.map((item) => (
+                        <button
+                          key={item.name}
+                          onClick={() => {
+                            navigate(item.path);
+                            setIsMenuOpen(false);
+                            setIsPagesOpen(false);
+                          }}
+                          className={`w-full text-left px-4 py-3 rounded-xl font-medium transition-all duration-300 flex items-center gap-3 group ${
+                            isActive(item.path)
+                              ? 'bg-linear-to-r from-cyan-400 to-pink-400 text-white shadow-lg transform scale-105'
+                              : 'text-gray-600 hover:bg-white hover:text-cyan-600 hover:translate-x-3 hover:shadow-md'
+                          }`}
+                        >
+                          {item.icon && <item.icon className={`text-sm ${isActive(item.path) ? 'text-white' : 'text-pink-400 group-hover:text-cyan-400'} transition-colors`} />}
+                          <span className="flex-1">{item.name}</span>
+                          <div className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                            isActive(item.path) ? 'bg-white scale-125' : 'bg-cyan-300/0 group-hover:bg-cyan-300'
+                          }`}></div>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <Link
+                  to={link.path}
+                  onClick={() => setIsMenuOpen(false)}
+                  className={`flex items-center gap-3 px-4 py-4 rounded-2xl font-semibold transition-all duration-300 group border border-transparent hover:border-pink-200 ${
+                    isActive(link.path)
+                      ? 'bg-linear-to-r from-pink-400/20 to-cyan-400/20 text-pink-600 shadow-inner border-r-4 border-cyan-400'
+                      : 'text-gray-700 hover:bg-white/80 hover:shadow-md'
+                  }`}
+                >
+                  {link.icon && <link.icon className="text-lg text-cyan-500 group-hover:scale-110 transition-transform" />}
+                  <span className="bg-linear-to-r from-pink-400 to-cyan-400 bg-clip-text text-transparent">
+                    {link.name}
+                  </span>
+                  <div className="ml-auto w-1 h-6 bg-linear-to-b from-pink-400 to-cyan-400 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                </Link>
+              )}
+            </div>
+          ))}
+        </div>
+
+        {/* Decorative Separator */}
+        <div className="px-4 my-6">
+          <div className="relative">
+            <div className="absolute inset-0 flex items-center">
+              <div className="w-full border-t border-cyan-200/50"></div>
+            </div>
+            <div className="relative flex justify-center">
+              <span className="bg-white px-3 text-sm text-cyan-400">✨</span>
             </div>
           </div>
-        )}
+        </div>
+      </div>
+
+      {/* Fixed Bottom Section with Curved Top */}
+      <div className="absolute bottom-0 left-0 right-0 bg-white/95 border-t border-pink-100 rounded-t-3xl shadow-2xl p-4">
+        {/* Cart & Account Buttons */}
+        <div className="flex items-center justify-between gap-3 mb-4">
+          {/* Cart Button */}
+          <Link
+            to="/cart"
+            onClick={() => setIsMenuOpen(false)}
+            className="flex-1 flex items-center gap-3 px-4 py-3 bg-linear-to-r from-pink-400 to-cyan-400 text-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 group"
+          >
+            <div className="relative">
+              <FaShoppingBag className="text-xl group-hover:rotate-12 transition-transform" />
+              {getCartCount() > 0 && (
+                <span className="absolute -top-2 -right-2 bg-white text-pink-400 text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center shadow-lg animate-pulse">
+                  {getCartCount()}
+                </span>
+              )}
+            </div>
+            <span className="font-semibold">Cart</span>
+          </Link>
+
+          {/* Account Button */}
+          <Link
+            to="/admin"
+            onClick={() => setIsMenuOpen(false)}
+            className="flex-1 flex items-center gap-3 px-4 py-3 bg-linear-to-r from-cyan-50 to-pink-50 text-gray-700 rounded-2xl border border-cyan-200 hover:border-cyan-300 shadow-sm hover:shadow-md transition-all duration-300 transform hover:scale-105 group"
+          >
+            <FaUser className="text-xl text-cyan-400 group-hover:scale-110 transition-transform" />
+            <span className="font-semibold">Account</span>
+          </Link>
+        </div>
+
+        {/* Contact Info with Sparkle */}
+        <div className="text-center bg-linear-to-r from-pink-50 to-cyan-50 rounded-2xl p-3 border border-pink-100/50">
+          <p className="text-xs text-gray-600">
+            Need help? <span className="font-semibold bg-linear-to-r from-pink-400 to-cyan-400 bg-clip-text text-transparent">Contact Us ✨</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+)}
       </nav>
     </header>
   );

@@ -24,7 +24,7 @@ const StatsPanel = () => {
               </div>
               
               {/* Label */}
-              <h3 className="text-pink-400 font-semibold text-xs sm:text-sm lg:text-lg xl:text-xl uppercase tracking-wide mb-4 lg:mb-6 leading-tight px-2 break-words">
+              <h3 className="text-pink-400 font-semibold text-xs sm:text-sm lg:text-lg xl:text-xl uppercase tracking-wide mb-4 lg:mb-6 leading-tight px-2 wrap-break-word">
                 {stat.label}
               </h3>
               
