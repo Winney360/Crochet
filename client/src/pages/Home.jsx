@@ -435,7 +435,7 @@ const Home = () => {
           <div className="transition-opacity duration-500 opacity-100">
             {/* Description at the top */}
             <p className="text-gray-600 italic mb-6 text-base md:text-lg leading-relaxed">
-              "{testimonials[currentTestimonialIndex]?.comment}"
+              "{testimonials[currentTestimonialIndex]?.comment || 'No comment available'}"
             </p>
 
             {/* Horizontal line */}
@@ -446,25 +446,25 @@ const Home = () => {
               {/* Left: Client image and info */}
               <div className="flex items-center gap-3 md:gap-4">
                 <img
-                  src={testimonials[currentTestimonialIndex]?.image_url}
-                  alt={testimonials[currentTestimonialIndex]?.customer_name}
+                  src={testimonials[currentTestimonialIndex]?.image_url || ''}
+                  alt={testimonials[currentTestimonialIndex]?.customer_name || 'Customer'}
                   className="w-12 h-12 md:w-16 md:h-16 rounded-full object-cover"
                 />
                 
                 {/* Center: Client name, profession, and stars */}
                 <div className="text-center">
                   <h4 className="font-semibold text-gray-800 text-sm md:text-base">
-                    {testimonials[currentTestimonialIndex].customer_name}
+                    {testimonials[currentTestimonialIndex]?.customer_name || 'Anonymous'}
                   </h4>
                   <p className="text-xs md:text-sm text-gray-600 mb-2">
-                    {testimonials[currentTestimonialIndex].profession}
+                    {testimonials[currentTestimonialIndex]?.profession || 'Customer'}
                   </p>
                   <div className="flex gap-1 justify-center">
                     {[...Array(5)].map((_, i) => (
                       <FaStar
                         key={i}
                         className={`text-xs md:text-sm ${
-                          i < testimonials[currentTestimonialIndex].rating ? 'text-pink-400' : 'text-gray-300'
+                          i < (testimonials[currentTestimonialIndex]?.rating || 0) ? 'text-pink-400' : 'text-gray-300'
                         }`}
                       />
                     ))}
@@ -485,7 +485,7 @@ const Home = () => {
           <div className="transition-opacity duration-500 opacity-100">
             {/* Description at the top */}
             <p className="text-gray-600 italic mb-6 text-lg leading-relaxed">
-              "{testimonials[(currentTestimonialIndex + 1) % testimonials.length].comment}"
+              "{testimonials[(currentTestimonialIndex + 1) % testimonials.length]?.comment || 'No comment available'}"
             </p>
 
             {/* Horizontal line */}
@@ -496,25 +496,25 @@ const Home = () => {
               {/* Left: Client image and info */}
               <div className="flex items-center gap-4">
                 <img
-                  src={testimonials[(currentTestimonialIndex + 1) % testimonials.length].image_url}
-                  alt={testimonials[(currentTestimonialIndex + 1) % testimonials.length].customer_name}
+                  src={testimonials[(currentTestimonialIndex + 1) % testimonials.length]?.image_url || ''}
+                  alt={testimonials[(currentTestimonialIndex + 1) % testimonials.length]?.customer_name || 'Customer'}
                   className="w-16 h-16 rounded-full object-cover"
                 />
                 
                 {/* Center: Client name, profession, and stars */}
                 <div className="text-center">
                   <h4 className="font-semibold text-gray-800">
-                    {testimonials[(currentTestimonialIndex + 1) % testimonials.length].customer_name}
+                    {testimonials[(currentTestimonialIndex + 1) % testimonials.length]?.customer_name || 'Anonymous'}
                   </h4>
                   <p className="text-sm text-gray-600 mb-2">
-                    {testimonials[(currentTestimonialIndex + 1) % testimonials.length].profession}
+                    {testimonials[(currentTestimonialIndex + 1) % testimonials.length]?.profession || 'Customer'}
                   </p>
                   <div className="flex gap-1 justify-center">
                     {[...Array(5)].map((_, i) => (
                       <FaStar
                         key={i}
                         className={`text-sm ${
-                          i < testimonials[(currentTestimonialIndex + 1) % testimonials.length].rating ? 'text-pink-400' : 'text-gray-300'
+                          i < (testimonials[(currentTestimonialIndex + 1) % testimonials.length]?.rating || 0) ? 'text-pink-400' : 'text-gray-300'
                         }`}
                       />
                     ))}

@@ -20,7 +20,7 @@ const StatsPanel = () => {
             <div className="text-cyan-400 text-4xl md:text-5xl mb-4 md:mb-15 mt-4 md:mt-10">
               {stat.icon}
             </div>
-            <h3 className="text-pink-400 font-semibold text-sm md:text-4xl uppercase tracking-wide mb-4 md:mb-10 px-2 break-words">
+            <h3 className="text-pink-400 font-semibold text-sm md:text-4xl uppercase tracking-wide mb-4 md:mb-10 px-2 wrap-break-word">
               {stat.label}
             </h3>
             <p className="text-2xl md:text-4xl font-semibold text-gray-700 mt-2 md:mt-2">
