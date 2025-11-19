@@ -27,17 +27,17 @@ const Footer = () => {
   };
 
   return (
-    <footer className="bg-gradient-to-br from-purple-900 via-pink-900 to-cyan-900 text-white">
+    <footer className="bg-linear-to-br from-purple-900 via-pink-900 to-cyan-900 text-white">
       <div className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* First Part - Brand with Phone, WhatsApp */}
           <div>
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-12 h-12 bg-gradient-to-br from-pink-400 to-cyan-400 rounded-full flex items-center justify-center shadow-lg">
+              <div className="w-12 h-12 bg-linear-to-br from-pink-400 to-cyan-400 rounded-full flex items-center justify-center shadow-lg">
                 <span className="text-white text-xl font-bold">🎀</span>
               </div>
               <div>
-                <span className="text-2xl font-bold bg-gradient-to-r from-pink-300 to-cyan-300 bg-clip-text text-transparent">
+                <span className="text-2xl font-bold bg-linear-to-r from-pink-300 to-cyan-300 bg-clip-text text-transparent">
                   Crochet Creation
                 </span>
                 <p className="text-pink-200 text-sm mt-1">Handmade with Love</p>
@@ -49,14 +49,14 @@ const Footer = () => {
             <div className="flex gap-3">
               <button
                 onClick={handlePhoneClick}
-                className="w-12 h-12 bg-gradient-to-br from-cyan-500 to-cyan-600 text-white rounded-full flex items-center justify-center hover:from-cyan-600 hover:to-cyan-700 transition-all duration-300 shadow-lg hover:shadow-cyan-500/25 hover:scale-110 cursor-pointer"
+                className="w-12 h-12 bg-linear-to-br from-cyan-500 to-cyan-600 text-white rounded-full flex items-center justify-center hover:from-cyan-600 hover:to-cyan-700 transition-all duration-300 shadow-lg hover:shadow-cyan-500/25 hover:scale-110 cursor-pointer"
                 title="Call +254 720 951 221"
               >
                 <FaPhoneAlt />
               </button>
               <button
                 onClick={handleWhatsAppClick}
-                className="w-12 h-12 bg-gradient-to-br from-green-500 to-green-600 text-white rounded-full flex items-center justify-center hover:from-green-600 hover:to-green-700 transition-all duration-300 shadow-lg hover:shadow-green-500/25 hover:scale-110 cursor-pointer"
+                className="w-12 h-12 bg-linear-to-br from-green-500 to-green-600 text-white rounded-full flex items-center justify-center hover:from-green-600 hover:to-green-700 transition-all duration-300 shadow-lg hover:shadow-green-500/25 hover:scale-110 cursor-pointer"
                 title="Chat on WhatsApp +254 791 995 578"
               >
                 <FaWhatsapp />

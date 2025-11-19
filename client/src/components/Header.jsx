@@ -155,7 +155,7 @@ const Header = () => {
 {/* Mobile Menu Button */}
 <button
   onClick={() => setIsMenuOpen(!isMenuOpen)}
-  className="lg:hidden p-3 rounded-2xl bg-gradient-to-r from-pink-400 to-cyan-400 text-white shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 animate-pulse"
+  className="lg:hidden p-3 rounded-2xl bg-linear-to-r from-pink-400 to-cyan-400 text-white shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 animate-pulse"
 >
   {isMenuOpen ? (
     <FaTimes className="text-xl animate-spin" />
@@ -169,12 +169,12 @@ const Header = () => {
 {isMenuOpen && (
   <div className="lg:hidden fixed inset-0 z-50 animate-fadeIn">
     {/* Animated Background */}
-    <div className="absolute inset-0 bg-gradient-to-br from-pink-100/20 via-cyan-100/20 to-white backdrop-blur-lg animate-gradientShift"></div>
+    <div className="absolute inset-0 bg-linear-to-br from-pink-100/20 via-cyan-100/20 to-white backdrop-blur-lg animate-gradientShift"></div>
     
     {/* Menu Container */}
     <div className="absolute top-0 right-0 h-full w-80 bg-white/95 shadow-2xl border-l border-pink-200/50 transform transition-all duration-700 animate-slideInRight">
       {/* Header with Curved Bottom */}
-      <div className="relative p-6 bg-gradient-to-br from-pink-400 via-purple-400 to-cyan-400 text-white rounded-br-3xl shadow-lg animate-pulse-glow">
+      <div className="relative p-6 bg-linear-to-br from-pink-400 via-purple-400 to-cyan-400 text-white rounded-br-3xl shadow-lg animate-pulse-glow">
         <div className="flex items-center justify-between">
           <h2 className="text-2xl font-bold drop-shadow-md animate-bounce">🌸 Menu</h2>
           <button
@@ -193,7 +193,7 @@ const Header = () => {
       </div>
 
       {/* Scrollable Content */}
-      <div className="h-full overflow-y-auto pb-24 bg-gradient-to-b from-white to-pink-50/30 animate-fadeInUp">
+      <div className="h-full overflow-y-auto pb-24 bg-linear-to-b from-white to-pink-50/30 animate-fadeInUp">
         {/* Navigation Links */}
         <div className="p-4 space-y-3">
           {navLinks.map((link, index) => (
@@ -208,13 +208,13 @@ const Header = () => {
                     onClick={() => setIsPagesOpen(!isPagesOpen)}
                     className={`w-full px-4 py-4 rounded-2xl font-semibold transition-all duration-500 flex items-center justify-between group ${
                       link.dropdownItems.some(item => isActive(item.path))
-                        ? 'bg-gradient-to-r from-pink-400/10 to-cyan-400/10 text-pink-600 border-r-4 border-cyan-400 animate-pulse-slow'
+                        ? 'bg-linear-to-r from-pink-400/10 to-cyan-400/10 text-pink-600 border-r-4 border-cyan-400 animate-pulse-slow'
                         : 'text-gray-700 hover:text-pink-500 hover:bg-white/50'
                     }`}
                   >
                     <span className="flex items-center gap-3">
                       {link.icon && <link.icon className="text-lg text-cyan-500 group-hover:scale-110 transition-transform animate-wiggle" />}
-                      <span className="bg-gradient-to-r from-pink-400 to-cyan-400 bg-clip-text text-transparent animate-textShine">
+                      <span className="bg-linear-to-r from-pink-400 to-cyan-400 bg-clip-text text-transparent animate-textShine">
                         {link.name}
                       </span>
                     </span>
@@ -240,7 +240,7 @@ const Header = () => {
                           }}
                           className={`w-full text-left px-4 py-3 rounded-xl font-medium transition-all duration-500 flex items-center gap-3 group animate-slideInRight ${
                             isActive(item.path)
-                              ? 'bg-gradient-to-r from-cyan-400 to-pink-400 text-white shadow-lg transform scale-105 animate-pulse-glow'
+                              ? 'bg-linear-to-r from-cyan-400 to-pink-400 text-white shadow-lg transform scale-105 animate-pulse-glow'
                               : 'text-gray-600 hover:bg-white hover:text-cyan-600 hover:translate-x-3 hover:shadow-md'
                           }`}
                           style={{animationDelay: `${itemIndex * 0.05}s`}}
@@ -261,15 +261,15 @@ const Header = () => {
                   onClick={() => setIsMenuOpen(false)}
                   className={`flex items-center gap-3 px-4 py-4 rounded-2xl font-semibold transition-all duration-500 group border border-transparent hover:border-pink-200 animate-float ${
                     isActive(link.path)
-                      ? 'bg-gradient-to-r from-pink-400/20 to-cyan-400/20 text-pink-600 shadow-inner border-r-4 border-cyan-400 animate-pulse-slow'
+                      ? 'bg-linear-to-r from-pink-400/20 to-cyan-400/20 text-pink-600 shadow-inner border-r-4 border-cyan-400 animate-pulse-slow'
                       : 'text-gray-700 hover:bg-white/80 hover:shadow-md'
                   }`}
                 >
                   {link.icon && <link.icon className="text-lg text-cyan-500 group-hover:scale-110 transition-transform animate-wiggle" />}
-                  <span className="bg-gradient-to-r from-pink-400 to-cyan-400 bg-clip-text text-transparent animate-textShine">
+                  <span className="bg-linear-to-r from-pink-400 to-cyan-400 bg-clip-text text-transparent animate-textShine">
                     {link.name}
                   </span>
-                  <div className="ml-auto w-1 h-6 bg-gradient-to-b from-pink-400 to-cyan-400 rounded-full opacity-0 group-hover:opacity-100 transition-opacity animate-pulse"></div>
+                  <div className="ml-auto w-1 h-6 bg-linear-to-b from-pink-400 to-cyan-400 rounded-full opacity-0 group-hover:opacity-100 transition-opacity animate-pulse"></div>
                 </Link>
               )}
             </div>
@@ -297,7 +297,7 @@ const Header = () => {
           <Link
             to="/cart"
             onClick={() => setIsMenuOpen(false)}
-            className="flex-1 flex items-center gap-3 px-4 py-3 bg-gradient-to-r from-pink-400 to-cyan-400 text-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-500 transform hover:scale-105 group animate-pulse-glow"
+            className="flex-1 flex items-center gap-3 px-4 py-3 bg-linear-to-r from-pink-400 to-cyan-400 text-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-500 transform hover:scale-105 group animate-pulse-glow"
           >
             <div className="relative">
               <FaShoppingBag className="text-xl group-hover:rotate-12 transition-transform animate-bounce" />
@@ -314,7 +314,7 @@ const Header = () => {
           <Link
             to="/admin"
             onClick={() => setIsMenuOpen(false)}
-            className="flex-1 flex items-center gap-3 px-4 py-3 bg-gradient-to-r from-cyan-50 to-pink-50 text-gray-700 rounded-2xl border border-cyan-200 hover:border-cyan-300 shadow-sm hover:shadow-md transition-all duration-500 transform hover:scale-105 group animate-float"
+            className="flex-1 flex items-center gap-3 px-4 py-3 bg-linear-to-r from-cyan-50 to-pink-50 text-gray-700 rounded-2xl border border-cyan-200 hover:border-cyan-300 shadow-sm hover:shadow-md transition-all duration-500 transform hover:scale-105 group animate-float"
           >
             <FaUser className="text-xl text-cyan-400 group-hover:scale-110 transition-transform animate-wiggle" />
             <span className="font-semibold">Account</span>
@@ -322,9 +322,9 @@ const Header = () => {
         </div>
 
         {/* Contact Info with Sparkle */}
-        <div className="text-center bg-gradient-to-r from-pink-50 to-cyan-50 rounded-2xl p-3 border border-pink-100/50 animate-pulse-slow">
+        <div className="text-center bg-linear-to-r from-pink-50 to-cyan-50 rounded-2xl p-3 border border-pink-100/50 animate-pulse-slow">
           <p className="text-xs text-gray-600">
-            Need help? <span className="font-semibold bg-gradient-to-r from-pink-400 to-cyan-400 bg-clip-text text-transparent animate-textShine">Contact Us ✨</span>
+            Need help? <span className="font-semibold bg-linear-to-r from-pink-400 to-cyan-400 bg-clip-text text-transparent animate-textShine">Contact Us ✨</span>
           </p>
         </div>
       </div>
