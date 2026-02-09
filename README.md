@@ -2,12 +2,16 @@
 
 A full-stack e-commerce platform for selling handmade crochet products. Built with React, Node.js, Express, and MongoDB, featuring a modern UI, shopping cart, admin dashboard, and more.
 
+**[🌐 View Live Demo](https://shikuku-crochet.vercel.app/)** | **[📖 GitHub Repository](#)**
+
 ![React](https://img.shields.io/badge/React-19.1.1-61DAFB?logo=react)
 ![Node.js](https://img.shields.io/badge/Node.js-Express-339933?logo=node.js)
 ![MongoDB](https://img.shields.io/badge/MongoDB-Database-47A248?logo=mongodb)
 ![TailwindCSS](https://img.shields.io/badge/TailwindCSS-4.1.15-06B6D4?logo=tailwindcss)
 
 ## ✨ Features
+
+**Live at:** [https://shikuku-crochet.vercel.app/](https://shikuku-crochet.vercel.app/)
 
 ### Customer Features
 
