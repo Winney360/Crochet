@@ -55,7 +55,7 @@ const ProductForm = ({ product, onSubmit, onCancel }) => {
     
     if (files.length === 0) return;
 
-    // Check total images limit (you can adjust this)
+    // Check total images limit
     if (imageFiles.length + imagePreviews.length + files.length > 10) {
       alert('Maximum 10 images allowed per product');
       return;
@@ -66,13 +66,18 @@ const ProductForm = ({ product, onSubmit, onCancel }) => {
 
     files.forEach(file => {
       if (file) {
+        // Basic client-side validation
+        if (file.size > 10 * 1024 * 1024) { // 10MB limit
+          alert(`Image ${file.name} is too large (max 10MB)`);
+          return;
+        }
+
         newImageFiles.push(file);
         
         // Create preview
         const reader = new FileReader();
         reader.onloadend = () => {
           newImagePreviews.push(reader.result);
-          // Update previews when all images are processed
           if (newImagePreviews.length === files.length) {
             setImagePreviews(prev => [...prev, ...newImagePreviews]);
           }
@@ -113,7 +118,7 @@ const ProductForm = ({ product, onSubmit, onCancel }) => {
       
       // Append multiple image files
       imageFiles.forEach((file, index) => {
-        submitData.append('images', file); // Note: using 'images' (plural) for multiple files
+        submitData.append('images', file);
       });
 
       // For editing, also send existing image URLs
@@ -136,12 +141,9 @@ const ProductForm = ({ product, onSubmit, onCancel }) => {
 
   const removeImage = (index, isPreview = false) => {
     if (isPreview) {
-      // Remove from previews (existing images)
       setImagePreviews(prev => prev.filter((_, i) => i !== index));
     } else {
-      // Remove from new files
       setImageFiles(prev => prev.filter((_, i) => i !== index));
-      // Also remove the corresponding preview
       setImagePreviews(prev => prev.filter((_, i) => i !== index));
     }
   };
@@ -150,11 +152,9 @@ const ProductForm = ({ product, onSubmit, onCancel }) => {
     const updatedPreviews = [...imagePreviews];
     const updatedFiles = [...imageFiles];
     
-    // Move preview
     const [movedPreview] = updatedPreviews.splice(fromIndex, 1);
     updatedPreviews.splice(toIndex, 0, movedPreview);
     
-    // Move file if it exists at that index
     if (fromIndex < updatedFiles.length) {
       const [movedFile] = updatedFiles.splice(fromIndex, 1);
       updatedFiles.splice(toIndex, 0, movedFile);
@@ -176,6 +176,7 @@ const ProductForm = ({ product, onSubmit, onCancel }) => {
             <button
               onClick={onCancel}
               className="text-white hover:text-gray-200 transition-colors"
+              aria-label="Close"
             >
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -186,6 +187,21 @@ const ProductForm = ({ product, onSubmit, onCancel }) => {
 
         {/* Form Content */}
         <div className="p-6 overflow-y-auto max-h-[calc(90vh-80px)]">
+          {/* Image Optimization Notice */}
+          <div className="mb-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+            <div className="flex items-start">
+              <svg className="w-5 h-5 text-blue-500 mt-0.5 mr-2 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <div>
+                <p className="text-sm text-blue-800 font-medium">Image Optimization Notice</p>
+                <p className="text-xs text-blue-600 mt-1">
+                  Images will be automatically optimized for fast loading. They will be resized and compressed for optimal web performance.
+                </p>
+              </div>
+            </div>
+          </div>
+
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* Multiple Image Upload */}
             <div>
@@ -203,6 +219,9 @@ const ProductForm = ({ product, onSubmit, onCancel }) => {
                       src={preview}
                       alt={`Preview ${index + 1}`}
                       className="w-full h-32 object-cover rounded-lg border-2 border-gray-300"
+                      loading="lazy" 
+                      width="200"
+                      height="128"
                     />
                     <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all rounded-lg flex items-center justify-center opacity-0 group-hover:opacity-100">
                       <div className="flex space-x-2">
@@ -212,6 +231,7 @@ const ProductForm = ({ product, onSubmit, onCancel }) => {
                             onClick={() => moveImage(index, index - 1)}
                             className="bg-blue-500 hover:bg-blue-600 text-white p-2 rounded-full transition-colors"
                             title="Move left"
+                            aria-label="Move image left"
                           >
                             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -224,6 +244,7 @@ const ProductForm = ({ product, onSubmit, onCancel }) => {
                             onClick={() => moveImage(index, index + 1)}
                             className="bg-blue-500 hover:bg-blue-600 text-white p-2 rounded-full transition-colors"
                             title="Move right"
+                            aria-label="Move image right"
                           >
                             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -235,6 +256,7 @@ const ProductForm = ({ product, onSubmit, onCancel }) => {
                           onClick={() => removeImage(index, preview.startsWith('http') || preview.startsWith('/'))}
                           className="bg-red-500 hover:bg-red-600 text-white p-2 rounded-full transition-colors"
                           title="Remove image"
+                          aria-label="Remove image"
                         >
                           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -255,6 +277,9 @@ const ProductForm = ({ product, onSubmit, onCancel }) => {
                   <div 
                     className="border-2 border-dashed border-gray-300 rounded-lg flex flex-col items-center justify-center p-6 cursor-pointer hover:border-pink-400 transition-colors h-32"
                     onClick={() => document.getElementById('image-upload').click()}
+                    role="button"
+                    tabIndex={0}
+                    onKeyPress={(e) => e.key === 'Enter' && document.getElementById('image-upload').click()}
                   >
                     <svg className="w-8 h-8 text-gray-400 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
@@ -276,9 +301,14 @@ const ProductForm = ({ product, onSubmit, onCancel }) => {
                 className="hidden"
               />
               
-              {imagePreviews.length === 0 && !product && (
-                <p className="text-xs text-red-500">* At least one image is required for new products</p>
-              )}
+              <div className="text-xs text-gray-500 space-y-1">
+                <p>• Supported formats: JPG, PNG, WebP</p>
+                <p>• Maximum file size: 10MB per image</p>
+                <p>• Images will be automatically optimized for web</p>
+                {imagePreviews.length === 0 && !product && (
+                  <p className="text-red-500 font-medium">* At least one image is required for new products</p>
+                )}
+              </div>
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -406,13 +436,14 @@ const ProductForm = ({ product, onSubmit, onCancel }) => {
                           checked={formData.is_featured}
                           onChange={handleChange}
                           className="w-5 h-5 text-pink-500 rounded focus:ring-pink-500"
+                          id="is_featured"
                         />
-                        <div>
-                          <label className="text-sm font-medium text-gray-700">
+                        <label htmlFor="is_featured" className="cursor-pointer">
+                          <div className="text-sm font-medium text-gray-700">
                             Featured Product
-                          </label>
+                          </div>
                           <p className="text-xs text-gray-500">Show this product in featured section</p>
-                        </div>
+                        </label>
                       </div>
                     </div>
                   </div>

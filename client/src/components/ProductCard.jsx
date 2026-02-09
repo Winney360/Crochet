@@ -3,10 +3,12 @@ import { useCart } from '../context/CartContext';
 import { Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect, useRef } from 'react';
 import { useToast } from '../context/ToastContext';
+// ✅ Import your image optimizer
+import { optimizeCloudinaryUrl, optimizeAllCloudinaryUrls } from '../utils/imageOptimizer';
 
 const ProductCard = ({ product }) => {
   const { addToCart } = useCart();
-  const { addToast } = useToast(); // ✅ Get toast functions here
+  const { addToast } = useToast();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isHovering, setIsHovering] = useState(false);
   const [isAddingToCart, setIsAddingToCart] = useState(false);
@@ -28,9 +30,9 @@ const ProductCard = ({ product }) => {
     setIsAddingToCart(true);
     try {
       await addToCart(product._id, 1);
-      addToast(`${product.name} added to cart 🛍️`, 'success'); // ✅ Correct toast usage
+      addToast(`${product.name} added to cart 🛍️`, 'success');
     } catch (error) {
-      addToast('Failed to add to cart ❌', 'error'); // ✅ Correct toast usage
+      addToast('Failed to add to cart ❌', 'error');
     }
     setIsAddingToCart(false);
   };
@@ -41,10 +43,14 @@ const ProductCard = ({ product }) => {
       )
     : 0;
 
-  const images =
+  // ✅ OPTIMIZE IMAGES HERE
+  const images = (
     product.images && product.images.length > 0
-      ? product.images
-      : [product.image_url || 'https://images.pexels.com/photos/3945638/pexels-photo-3945638.jpeg'];
+      ? optimizeAllCloudinaryUrls(product.images) // Optimize all images in array
+      : [optimizeCloudinaryUrl(
+          product.image_url || 'https://images.pexels.com/photos/3945638/pexels-photo-3945638.jpeg'
+        )] // Optimize single image or fallback
+  );
 
   useEffect(() => {
     if (images.length <= 1) return;
@@ -84,10 +90,14 @@ const ProductCard = ({ product }) => {
         onTouchEnd={handleTouchEnd}
         onClick={handleProductClick}
       >
+        {/* ✅ This image now uses optimized URL */}
         <img
           src={images[currentImageIndex]}
           alt={product.name}
           className="w-full h-64 object-cover transition-opacity duration-500"
+          loading="lazy"
+          width="500"
+          height="500" // ✅ Add explicit dimensions for better performance
         />
 
         {images.length > 1 && (
@@ -135,7 +145,7 @@ const ProductCard = ({ product }) => {
         </div>
       </div>
 
-      {/* Product Info Section */}
+      {/* Product Info Section - unchanged */}
       <div className="p-4">
         <h3
           className="text-lg font-semibold text-gray-800 mb-2 group-hover:text-cyan-500 transition-colors cursor-pointer"

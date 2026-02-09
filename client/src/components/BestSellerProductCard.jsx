@@ -85,6 +85,7 @@ const BestsellerProductCard = ({ product }) => {
               src={images[currentImageIndex]}
               alt={product.name}
               className="w-full h-full object-cover transition-opacity duration-500"
+              loading="lazy"
             />
 
             {/* Image Navigation Dots (if multiple images) */}

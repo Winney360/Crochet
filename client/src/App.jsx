@@ -1,3 +1,4 @@
+import { lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { CartProvider } from './context/CartContext';
 import { ToastProvider } from './context/ToastContext';
@@ -5,18 +6,30 @@ import { AuthProvider, useAuth } from './context/AuthContext';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
-import Home from './pages/Home';
-import Shop from './pages/Shop';
-import ShopDetails from './pages/ShopDetails';
-import ProductDetail from './pages/ProductDetail';
-import Cart from './pages/Cart';
-import Checkout from './pages/Checkout';
-import OrderSuccess from './pages/OrderSuccess';
-import Contact from './pages/Contact';
-import AboutUs from './pages/AboutUs';
-import FAQs from './pages/FAQs';
-import AdminLogin from './components/AdminLogin'; 
-import AdminDashboard from './pages/AdminDashboard';
+
+// Lazy load route components
+const Home = lazy(() => import('./pages/Home'));
+const Shop = lazy(() => import('./pages/Shop'));
+const ShopDetails = lazy(() => import('./pages/ShopDetails'));
+const ProductDetail = lazy(() => import('./pages/ProductDetail'));
+const Cart = lazy(() => import('./pages/Cart'));
+const Checkout = lazy(() => import('./pages/Checkout'));
+const OrderSuccess = lazy(() => import('./pages/OrderSuccess'));
+const Contact = lazy(() => import('./pages/Contact'));
+const AboutUs = lazy(() => import('./pages/AboutUs'));
+const FAQs = lazy(() => import('./pages/FAQs'));
+const AdminLogin = lazy(() => import('./components/AdminLogin'));
+const AdminDashboard = lazy(() => import('./pages/AdminDashboard'));
+
+// Loading fallback component
+const PageLoader = () => (
+  <div className="min-h-screen flex items-center justify-center">
+    <div className="text-center">
+      <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-pink-400 mx-auto"></div>
+      <p className="mt-4 text-gray-600">Loading...</p>
+    </div>
+  </div>
+);
 
 // Protected Route Component
 const ProtectedRoute = ({ children }) => {
@@ -39,8 +52,9 @@ function App() {
             <div className="min-h-screen flex flex-col">
               <Header />
               <main className="grow">
-                <Routes>
-                  <Route path="/" element={<Home />} />
+                <Suspense fallback={<PageLoader />}>
+                  <Routes>
+                    <Route path="/" element={<Home />} />
                   <Route path="/shop" element={<Shop />} />
                   <Route path="/shop-detail" element={<ShopDetails />} />
                   <Route path="/product/:slug" element={<ProductDetail />} />
@@ -61,8 +75,9 @@ function App() {
                       </ProtectedRoute>
                     } 
                   />
-                  <Route path="/admin" element={<Navigate to="/admin/login" />} />
-                </Routes>
+                    <Route path="/admin" element={<Navigate to="/admin/login" />} />
+                  </Routes>
+                </Suspense>
               </main>
               <Footer />
             </div>

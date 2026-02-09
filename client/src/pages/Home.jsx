@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo, useCallback } from 'react';
 import { Link, useNavigate } from 'react-router-dom'; // ADD useNavigate here
 import { FaStar, FaShippingFast, FaShieldAlt, FaExchangeAlt, FaPhoneAlt, FaChevronLeft, FaChevronRight, FaArrowDown, FaArrowUp,  FaQuoteRight, FaSearch } from 'react-icons/fa'; // ADD FaSearch here
 import ProductCard from '../components/ProductCard';
@@ -21,12 +21,9 @@ const Home = () => {
   const [featuredProducts, setFeaturedProducts] = useState([]);
   const [bestsellerProducts, setBestsellerProducts] = useState([]);
   const [allProducts, setAllProducts] = useState([]);
-  const [testimonials, setTestimonials] = useState([]);
-  const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [activeCollection, setActiveCollection] = useState('All Products');
-  const [allProductsForCategories, setAllProductsForCategories] = useState([]);
   const [showAllProducts, setShowAllProducts] = useState(false);
   const [currentTestimonialIndex, setCurrentTestimonialIndex] = useState(0);
   
@@ -35,11 +32,45 @@ const Home = () => {
   const navigate = useNavigate();
 
   const collectionCategories = ['All Products', 'Baby Collection', 'Adult Clothing', 'Bags Collection'];
-  const filteredCollection =
-    activeCollection === 'All Products'
+  
+  // Static testimonials (no need to fetch or store in state since they're static)
+  const testimonials = useMemo(() => [
+    {
+      _id: 1,
+      customer_name: "Winnie",
+      profession: "Crochet Enthusiast",
+      comment: "Absolutely love my crochet bunny! The quality is amazing. Will definitely order again!",
+      rating: 5,
+      image_url: meimage
+    },
+    {
+      _id: 2,
+      customer_name: " Loise ",
+      profession: "Gift Buyer",
+      comment: "Perfect gifts for my nieces. They adored the handmade quality and unique designs. The attention to detail is incredible!",
+      rating: 5,
+      image_url: loiseimage
+    },
+    {
+      _id: 3,
+      customer_name: "Sharline",
+      profession: "Student",
+      comment: "The crochet bag I purchased is not only stylish but also very durable. I've received so many compliments on it!",
+      rating: 4,
+      image_url: sharlineimage
+    }
+  ], []);
+  
+  // Memoize filtered collection to prevent recalculation on every render
+  const filteredCollection = useMemo(() => {
+    return activeCollection === 'All Products'
       ? allProducts
       : allProducts.filter((product) => product.category === activeCollection);
-  const productsToShow = showAllProducts ? filteredCollection : filteredCollection.slice(0, 12);
+  }, [activeCollection, allProducts]);
+  
+  const productsToShow = useMemo(() => {
+    return showAllProducts ? filteredCollection : filteredCollection.slice(0, 12);
+  }, [showAllProducts, filteredCollection]);
       
 
   const heroSlides = [
@@ -58,7 +89,7 @@ const Home = () => {
   ];
 
   // ADD THIS SEARCH FUNCTION
-  const handleSearch = (e) => {
+  const handleSearch = useCallback((e) => {
     e.preventDefault();
     if (searchTerm.trim()) {
       // Navigate to shop page with search query
@@ -66,15 +97,15 @@ const Home = () => {
       // Clear search input
       setSearchTerm('');
     }
-  };
+  }, [searchTerm, navigate]);
 
-  const handlePrev = () => {
+  const handlePrev = useCallback(() => {
     setCurrentSlide((prev) => (prev === 0 ? heroSlides.length - 1 : prev - 1));
-  };
+  }, []);
 
-  const handleNext = () => {
+  const handleNext = useCallback(() => {
     setCurrentSlide((prev) => (prev === heroSlides.length - 1 ? 0 : prev + 1));
-  };
+  }, []);
 
   useEffect(() => {
     fetchData();
@@ -95,7 +126,8 @@ const Home = () => {
   try {
     setLoading(true);
 
-    let allProducts = [...hardcodedProducts];
+    // Start with hardcoded products immediately for faster initial render
+    let allProducts = hardcodedProducts;
     
     try {
       const featuredResponse = await axios.get(`${API_BASE_URL}/products`);
@@ -116,69 +148,27 @@ const Home = () => {
 
     setAllProducts(allProducts);
 
-    // FEATURED: Only products with is_featured: true
+    // FEATURED: Only products with is_featured: true (limit to 9 for performance)
     const featured = allProducts
       .filter(product => product.is_featured === true)
       .slice(0, 9);
     
-    // BESTSELLER: Only products with rating >= 4.5
+    // BESTSELLER: Only products with rating >= 4.5 (limit to 9 for performance)
     const bestsellers = allProducts
       .filter(product => (product.rating || 0) >= 4.5)
       .slice(0, 9);
-    
-    // CATEGORIES: Use ALL products for category filtering
-    const allProductsForCategories = allProducts;
 
     setFeaturedProducts(featured);
     setBestsellerProducts(bestsellers);
-    
-    // Use ALL products for category filtering, not just featured
-    setAllProductsForCategories(allProductsForCategories);
-
-      
-      const staticTestimonials = [
-        {
-          _id: 1,
-          customer_name: "Winnie",
-          profession: "Crochet Enthusiast",
-          comment: "Absolutely love my crochet bunny! The quality is amazing. Will definitely order again!",
-          rating: 5,
-          image_url: meimage
-        },
-        {
-          _id: 2,
-          customer_name: " Loise ",
-          profession: "Gift Buyer",
-          comment: "Perfect gifts for my nieces. They adored the handmade quality and unique designs. The attention to detail is incredible!",
-          rating: 5,
-          image_url: loiseimage
-        },
-        {
-          _id: 3,
-          customer_name: "Sharline",
-          profession: "Student",
-          comment: "The crochet bag I purchased is not only stylish but also very durable. I've received so many compliments on it!",
-          rating: 4,
-          image_url: sharlineimage
-        }
-      ];
-
-      setTestimonials(staticTestimonials);
-    
-
-      // Static categories for now
-      setCategories(collectionCategories);
     } catch (error) {
       console.error('Error fetching data:', error);
 
       // Fallback: use only hardcoded products
-      const featured = hardcodedProducts.filter(product => product.is_featured).slice(0, 8);
-      const bestsellers = hardcodedProducts.filter(product => product.rating >= 4.5).slice(0, 8);
+      const featured = hardcodedProducts.filter(product => product.is_featured).slice(0, 9);
+      const bestsellers = hardcodedProducts.filter(product => product.rating >= 4.5).slice(0, 9);
       setFeaturedProducts(featured);
       setBestsellerProducts(bestsellers);
-      setAllProductsForCategories(hardcodedProducts);
-      setTestimonials([]);
-      setCategories(collectionCategories);
+      setAllProducts(hardcodedProducts);
     } finally {
       setLoading(false);
     }
@@ -205,6 +195,7 @@ const Home = () => {
       src={background}
       alt="Organic Background"
       className="w-full h-full object-cover"
+      loading="eager"
     />
     <div className="absolute inset-0 bg-white/30 backdrop-blur-sm z-10"></div>
   </div>
@@ -252,6 +243,7 @@ const Home = () => {
             src={slide.image}
             alt={slide.title}
             className="w-full h-full object-cover"
+            loading={index === 0 ? 'eager' : 'lazy'}
           />
           <div className="absolute inset-0 z-10"></div>
           <div className="absolute inset-0 z-20 flex items-center justify-center px-6 text-center">
@@ -280,7 +272,7 @@ const Home = () => {
 </section>
 
       {/* Categories Section */}
-      {categories.length > 0 && (
+      {allProducts.length > 0 && (
         <section className="py-16 bg-white">
           <div className="container mx-auto px-4">
             {/* Header + Tabs Row */}
@@ -449,6 +441,7 @@ const Home = () => {
                   src={testimonials[currentTestimonialIndex]?.image_url || ''}
                   alt={testimonials[currentTestimonialIndex]?.customer_name || 'Customer'}
                   className="w-12 h-12 md:w-16 md:h-16 rounded-full object-cover"
+                  loading="lazy"
                 />
                 
                 {/* Center: Client name, profession, and stars */}
@@ -499,6 +492,7 @@ const Home = () => {
                   src={testimonials[(currentTestimonialIndex + 1) % testimonials.length]?.image_url || ''}
                   alt={testimonials[(currentTestimonialIndex + 1) % testimonials.length]?.customer_name || 'Customer'}
                   className="w-16 h-16 rounded-full object-cover"
+                  loading="lazy"
                 />
                 
                 {/* Center: Client name, profession, and stars */}
