@@ -5,7 +5,7 @@ export const hardcodedProducts = [
     description: "Soft shoulder wrap with delicate stitch",
     price: 600,
     original_price: 750,
-    image_url: "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215388/20251008_155326_f0drrh.jpg",
+    image_url: "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215388/20251008_155326_f0drrh.jpg",
     category: "Adult Clothing",
     rating: 4.8,
     is_featured: false,
@@ -19,9 +19,9 @@ export const hardcodedProducts = [
     price: 1400,
     original_price: 1500,
     images: [
-      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215384/20251008_160752_bdzwqe.jpg",
-      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215229/20251008_150429_gc01af.jpg",
-      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215228/20251008_150449_tonnhs.jpg"
+      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215384/20251008_160752_bdzwqe.jpg",
+      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215229/20251008_150429_gc01af.jpg",
+      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215228/20251008_150449_tonnhs.jpg"
     ],
     category: "Adult Clothing", 
     rating: 3.6,
@@ -36,8 +36,8 @@ export const hardcodedProducts = [
     price: 600,
     original_price: 675,
     images: [
-      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215328/20251008_154907_yz7oi8.jpg",
-      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215325/20251008_154849_kzvafg.jpg"
+      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215328/20251008_154907_yz7oi8.jpg",
+      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215325/20251008_154849_kzvafg.jpg"
     ],
     category: "Adult Clothing",
     rating: 4.3,
@@ -51,7 +51,7 @@ export const hardcodedProducts = [
     description: "Soft shoulder wrap with delicate stitch",
     price: 700,
     original_price: 750,
-    image_url: "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215326/20251008_155006_ohjgvd.jpg",
+    image_url: "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215326/20251008_155006_ohjgvd.jpg",
     category: "Adult Clothing",
     rating: 2.8,
     is_featured: false,
@@ -64,7 +64,7 @@ export const hardcodedProducts = [
     description: "Soft shoulder wrap with delicate stitch",
     price: 600,
     original_price: 750,
-    image_url: "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215325/20251008_155128_iiudfp.jpg",
+    image_url: "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215325/20251008_155128_iiudfp.jpg",
     category: "Adult Clothing",
     rating: 2.8,
     is_featured: false,
@@ -77,7 +77,7 @@ export const hardcodedProducts = [
     description: "Stylish and durable crochet hat",
     price: 600,
     original_price: 750,
-    image_url: "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215323/20251008_154800_s3blm6.jpg",
+    image_url: "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215323/20251008_154800_s3blm6.jpg",
     category: "Adult Clothing",
     rating: 4.3,
     is_featured: false,
@@ -90,7 +90,7 @@ export const hardcodedProducts = [
     description: "Soft, breathable yarn with a white lining",
     price: 600,
     original_price: 750,
-    image_url: "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215323/20251008_154714_ipf3oz.jpg",
+    image_url: "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215323/20251008_154714_ipf3oz.jpg",
     category: "Adult Clothing",
     rating: 4.8,
     is_featured: false,
@@ -103,7 +103,7 @@ export const hardcodedProducts = [
     description: "Stylish and durable crochet hat",
     price: 600,
     original_price: 750,
-    image_url: "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215323/20251008_154813_qgmphq.jpg",
+    image_url: "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215323/20251008_154813_qgmphq.jpg",
     category: "Adult Clothing",
     rating: 4.9,
     is_featured: false,
@@ -116,7 +116,7 @@ export const hardcodedProducts = [
     description: "Ideal for carrying your things everywhere",
     price: 1500,
     original_price: 1670,
-    image_url: "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215308/20251008_153713_n9rlbf.jpg",
+    image_url: "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215308/20251008_153713_n9rlbf.jpg",
     category: "Bags Collection",
     rating: 4.9,
     is_featured: false,
@@ -130,8 +130,8 @@ export const hardcodedProducts = [
     price: 1500,
     original_price: 1650,
     images: [
-      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215304/20251008_152652_ojixkp.jpg",
-      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215294/20251008_152708_zff3ky.jpg"
+      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215304/20251008_152652_ojixkp.jpg",
+      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215294/20251008_152708_zff3ky.jpg"
     ],
     category: "Baby Collection",
     rating: 4.9,
@@ -145,7 +145,7 @@ export const hardcodedProducts = [
     description: "Has a black waist draw string.",
     price: 600,
     original_price: 750,
-    image_url: "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215208/20251008_145635_mcwgee.jpg",
+    image_url: "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215208/20251008_145635_mcwgee.jpg",
     category: "Adult Clothing",
     rating: 4.9,
     is_featured: false,
@@ -159,8 +159,8 @@ export const hardcodedProducts = [
     price: 600,
     original_price: 750,
     images: [
-      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215202/20251008_145218_rvms9s.jpg",
-      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215203/20251008_145300_ci7oii.jpg"
+      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215202/20251008_145218_rvms9s.jpg",
+      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215203/20251008_145300_ci7oii.jpg"
     ],
     category: "Adult Clothing",
     rating: 2.9,
@@ -175,8 +175,8 @@ export const hardcodedProducts = [
     price: 1500,
     original_price: 1600,
     images: [
-      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215191/20251008_143359_umptdy.jpg",
-      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215192/20251008_143335_p9lshq.jpg"
+      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215191/20251008_143359_umptdy.jpg",
+      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215192/20251008_143335_p9lshq.jpg"
     ],
     category: "Adult Clothing",
     rating: 4.9,
@@ -191,8 +191,8 @@ export const hardcodedProducts = [
     price: 450,
     original_price: 500,
     images: [
-      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215192/20251008_143420_itl4dd.jpg",
-      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215194/20251008_143440_ngtqop.jpg"
+      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215192/20251008_143420_itl4dd.jpg",
+      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215194/20251008_143440_ngtqop.jpg"
     ],
     category: "Adult Clothing",
     rating: 4.9,
@@ -207,8 +207,8 @@ export const hardcodedProducts = [
     price: 600,
     original_price: 700,
     images: [
-      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215194/20251008_143609_z4efwd.jpg",
-      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215194/20251008_143625_zeqngn.jpg"
+      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215194/20251008_143609_z4efwd.jpg",
+      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215194/20251008_143625_zeqngn.jpg"
     ],
     category: "Adult Clothing",
     rating: 3.9,
@@ -223,8 +223,8 @@ export const hardcodedProducts = [
     price: 500,
     original_price: 650,
     images: [
-      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215192/20251008_143829_ehfhwk.jpg",
-      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215195/20251008_143845_hbidex.jpg"
+      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215192/20251008_143829_ehfhwk.jpg",
+      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215195/20251008_143845_hbidex.jpg"
     ],
     category: "Adult Clothing",
     rating: 4.9,
@@ -238,7 +238,7 @@ export const hardcodedProducts = [
     description: "A stylish orange top",
     price: 600,
     original_price: 780,
-    image_url: "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215192/20251008_143801_hcklus.jpg",
+    image_url: "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215192/20251008_143801_hcklus.jpg",
     category: "Adult Clothing",
     rating: 2.9,
     is_featured: false,
@@ -251,7 +251,7 @@ export const hardcodedProducts = [
     description: "With a yellow waist drawstring",
     price: 1500,
     original_price: 1650,
-    image_url: "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215196/20251008_143743_ytsr5g.jpg",
+    image_url: "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215196/20251008_143743_ytsr5g.jpg",
     category: "Adult Clothing",
     rating: 2.9,
     is_featured: false,
@@ -265,8 +265,8 @@ export const hardcodedProducts = [
     price: 1800,
     original_price: 1950,
     images: [
-      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215196/20251008_144141_t7akap.jpg",
-      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215198/20251008_144134_noykil.jpg"
+      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215196/20251008_144141_t7akap.jpg",
+      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215198/20251008_144134_noykil.jpg"
     ],
     category: "Adult Clothing",
     rating: 2.9,
@@ -281,8 +281,8 @@ export const hardcodedProducts = [
     price: 1800,
     original_price: 1950,
     images: [
-      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215198/20251008_144730_iwvkkt.jpg",
-      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215199/20251008_144725_eydyrj.jpg"
+      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215198/20251008_144730_iwvkkt.jpg",
+      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215199/20251008_144725_eydyrj.jpg"
     ],
     category: "Adult Clothing",
     rating: 3.9,
@@ -296,7 +296,7 @@ export const hardcodedProducts = [
     description: "Warm and comfortable",
     price: 3600,
     original_price: 3999,
-    image_url: "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215201/20251008_144850_kcfs99.jpg",
+    image_url: "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215201/20251008_144850_kcfs99.jpg",
     category: "Adult Clothing",
     rating: 2.9,
     is_featured: false,
@@ -309,7 +309,7 @@ export const hardcodedProducts = [
     description: "Warm and comfortable",
     price: 3600,
     original_price: 3999,
-    image_url: "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215200/20251008_144452_pracic.jpg",
+    image_url: "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215200/20251008_144452_pracic.jpg",
     category: "Adult Clothing",
     rating: 2.9,
     is_featured: false,
@@ -323,8 +323,8 @@ export const hardcodedProducts = [
     price: 800,
     original_price: 950,
     images: [
-      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215199/20251008_145141_qsopya.jpg",
-      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215234/20251008_150628_zaapvd.jpg"
+      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215199/20251008_145141_qsopya.jpg",
+      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215234/20251008_150628_zaapvd.jpg"
     ],
     category: "Adult Clothing",
     rating: 2.9,
@@ -338,7 +338,7 @@ export const hardcodedProducts = [
     description: "With short sleeves",
     price: 2500,
     original_price: 2999,
-    image_url: "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215205/20251008_145450_vxzmwj.jpg",
+    image_url: "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215205/20251008_145450_vxzmwj.jpg",
     category: "Adult Clothing",
     rating: 2.9,
     is_featured: false,
@@ -351,7 +351,7 @@ export const hardcodedProducts = [
     description: "With long sleeves",
     price: 4000,
     original_price: 4500,
-    image_url: "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215205/20251008_145551_z45ai3.jpg",
+    image_url: "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215205/20251008_145551_z45ai3.jpg",
     category: "Adult Clothing",
     rating: 2.9,
     is_featured: false,
@@ -364,7 +364,7 @@ export const hardcodedProducts = [
     description: "Elegant colorful cardigan",
     price: 4500,
     original_price: 5000,
-    image_url: "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215209/20251008_145526_dzc9lj.jpg",
+    image_url: "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215209/20251008_145526_dzc9lj.jpg",
     category: "Adult Clothing",
     rating: 3.9,
     is_featured: false,
@@ -377,7 +377,7 @@ export const hardcodedProducts = [
     description: "With long sleeves",
     price: 2500,
     original_price: 2999,
-    image_url: "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215202/20251008_145419_hpngyj.jpg",
+    image_url: "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215202/20251008_145419_hpngyj.jpg",
     category: "Adult Clothing",
     rating: 3.9,
     is_featured: false,
@@ -390,7 +390,7 @@ export const hardcodedProducts = [
     description: "With long sleeves and a pole neck",
     price: 3500,
     original_price: 3900,
-    image_url: "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215228/20251008_150302_ywsppc.jpg",
+    image_url: "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215228/20251008_150302_ywsppc.jpg",
     category: "Adult Clothing",
     rating: 3.9,
     is_featured: false,
@@ -403,7 +403,7 @@ export const hardcodedProducts = [
     description: "A sleeveless top & skirt set",
     price: 1800,
     original_price: 1950,
-    image_url: "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215206/20251008_145840_avdeya.jpg",
+    image_url: "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215206/20251008_145840_avdeya.jpg",
     category: "Adult Clothing",
     rating: 3.9,
     is_featured: false,
@@ -417,8 +417,8 @@ export const hardcodedProducts = [
     price: 1500,
     original_price: 1650,
     images: [
-      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215210/20251008_150019_o2hbl5.jpg",
-      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215208/20251008_150134_ijghlc.jpg"
+      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215210/20251008_150019_o2hbl5.jpg",
+      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215208/20251008_150134_ijghlc.jpg"
     ],
     category: "Adult Clothing",
     rating: 3.9,
@@ -432,7 +432,7 @@ export const hardcodedProducts = [
     description: "A stylish white loose shrug",
     price: 800,
     original_price: 950,
-    image_url: "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215235/20251008_150604_ggkvdy.jpg",
+    image_url: "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215235/20251008_150604_ggkvdy.jpg",
     category: "Adult Clothing",
     rating: 3.9,
     is_featured: false,
@@ -445,7 +445,7 @@ export const hardcodedProducts = [
     description: "Suitable for sunny days",
     price: 800,
     original_price: 950,
-    image_url: "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215230/20251008_150646_jtd6xf.jpg",
+    image_url: "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215230/20251008_150646_jtd6xf.jpg",
     category: "Adult Clothing",
     rating: 3.9,
     is_featured: false,
@@ -459,8 +459,8 @@ export const hardcodedProducts = [
     price: 800,
     original_price: 950,
     images: [
-      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215231/20251008_150844_sp7vkr.jpg",
-      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215231/20251008_150824_cihbjo.jpg"
+      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215231/20251008_150844_sp7vkr.jpg",
+      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215231/20251008_150824_cihbjo.jpg"
     ],
     category: "Adult Clothing",
     rating: 3.9,
@@ -475,9 +475,9 @@ export const hardcodedProducts = [
     price: 800,
     original_price: 950,
     images: [
-      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215233/20251008_151020_zfvuhv.jpg",
-      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215233/20251008_151054_w8mylf.jpg",
-      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215234/20251008_151155_wwnnoo.jpg"
+      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215233/20251008_151020_zfvuhv.jpg",
+      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215233/20251008_151054_w8mylf.jpg",
+      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215234/20251008_151155_wwnnoo.jpg"
     ],
     category: "Adult Clothing",
     rating: 3.9,
@@ -491,7 +491,7 @@ export const hardcodedProducts = [
     description: "With a waist drawstring",
     price: 800,
     original_price: 950,
-    image_url: "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215234/20251008_151225_cmm5ri.jpg",
+    image_url: "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215234/20251008_151225_cmm5ri.jpg",
     category: "Adult Clothing",
     rating: 3.9,
     is_featured: false,
@@ -505,8 +505,8 @@ export const hardcodedProducts = [
     price: 600,
     original_price: 750,
     images: [
-      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215236/20251008_151356_khxbec.jpg",
-      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215238/20251008_151423_udofff.jpg"
+      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215236/20251008_151356_khxbec.jpg",
+      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215238/20251008_151423_udofff.jpg"
     ],
     category: "Adult Clothing",
     rating: 3.9,
@@ -521,8 +521,8 @@ export const hardcodedProducts = [
     price: 1200,
     original_price: 1450,
     images: [
-      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215237/20251008_151643_v14coy.jpg",
-      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215244/20251008_151551_daqa2c.jpg"
+      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215237/20251008_151643_v14coy.jpg",
+      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215244/20251008_151551_daqa2c.jpg"
     ],
     category: "Baby Collection",
     rating: 3.9,
@@ -537,8 +537,8 @@ export const hardcodedProducts = [
     price: 1200,
     original_price: 1450,
     images: [
-      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215237/20251008_151716_qaowgk.jpg",
-      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215246/20251008_151733_ppj1xt.jpg"
+      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215237/20251008_151716_qaowgk.jpg",
+      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215246/20251008_151733_ppj1xt.jpg"
     ],
     category: "Baby Collection",
     rating: 3.9,
@@ -553,8 +553,8 @@ export const hardcodedProducts = [
     price: 1200,
     original_price: 1450,
     images: [
-      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215238/20251008_151802_siyiky.jpg",
-      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215240/20251008_151823_ml4vez.jpg"
+      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215238/20251008_151802_siyiky.jpg",
+      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215240/20251008_151823_ml4vez.jpg"
     ],
     category: "Baby Collection",
     rating: 3.9,
@@ -569,8 +569,8 @@ export const hardcodedProducts = [
     price: 1200,
     original_price: 1450,
     images: [
-      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215244/20251008_151902_km17gc.jpg",
-      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215240/20251008_151849_jlcwr0.jpg"
+      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215244/20251008_151902_km17gc.jpg",
+      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215240/20251008_151849_jlcwr0.jpg"
     ],
     category: "Baby Collection",
     rating: 3.9,
@@ -585,8 +585,8 @@ export const hardcodedProducts = [
     price: 1200,
     original_price: 1450,
     images: [
-      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215242/20251008_151921_oxnxpu.jpg",
-      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215245/20251008_151934_pqgris.jpg"
+      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215242/20251008_151921_oxnxpu.jpg",
+      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215245/20251008_151934_pqgris.jpg"
     ],
     category: "Baby Collection",
     rating: 3.9,
@@ -601,8 +601,8 @@ export const hardcodedProducts = [
     price: 1200,
     original_price: 1450,
     images: [
-      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215244/20251008_151551_daqa2c.jpg",
-      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215243/20251008_152021_rl7wpa.jpg"
+      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215244/20251008_151551_daqa2c.jpg",
+      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215243/20251008_152021_rl7wpa.jpg"
     ],
     category: "Baby Collection",
     rating: 3.9,
@@ -617,8 +617,8 @@ export const hardcodedProducts = [
     price: 1200,
     original_price: 1450,
     images: [
-      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215262/20251008_152100_g39blr.jpg",
-      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215274/20251008_152114_jrchc3.jpg"
+      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215262/20251008_152100_g39blr.jpg",
+      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215274/20251008_152114_jrchc3.jpg"
     ],
     category: "Baby Collection",
     rating: 3.9,
@@ -633,8 +633,8 @@ export const hardcodedProducts = [
     price: 1200,
     original_price: 1450,
     images: [
-      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215268/20251008_152155_kdsqa7.jpg",
-      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215264/20251008_152137_er7kll.jpg"
+      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215268/20251008_152155_kdsqa7.jpg",
+      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215264/20251008_152137_er7kll.jpg"
     ],
     category: "Baby Collection",
     rating: 3.9,
@@ -649,8 +649,8 @@ export const hardcodedProducts = [
     price: 1200,
     original_price: 1450,
     images: [
-      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215263/20251008_152220_efsfan.jpg",
-      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215263/20251008_152233_dkrsgi.jpg"
+      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215263/20251008_152220_efsfan.jpg",
+      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215263/20251008_152233_dkrsgi.jpg"
     ],
     category: "Baby Collection",
     rating: 3.9,
@@ -665,8 +665,8 @@ export const hardcodedProducts = [
     price: 1200,
     original_price: 1450,
     images: [
-      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215265/20251008_152327_svp1oa.jpg",
-      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215265/20251008_152310_tyhkzu.jpg"
+      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215265/20251008_152327_svp1oa.jpg",
+      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215265/20251008_152310_tyhkzu.jpg"
     ],
     category: "Baby Collection",
     rating: 3.9,
@@ -681,8 +681,8 @@ export const hardcodedProducts = [
     price: 1200,
     original_price: 1450,
     images: [
-      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215266/20251008_152343_kzwgy8.jpg",
-      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215268/20251008_152355_cpm0de.jpg"
+      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215266/20251008_152343_kzwgy8.jpg",
+      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215268/20251008_152355_cpm0de.jpg"
     ],
     category: "Baby Collection",
     rating: 3.9,
@@ -697,8 +697,8 @@ export const hardcodedProducts = [
     price: 1200,
     original_price: 1450,
     images: [
-      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215268/20251008_152410_umiazc.jpg",
-      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215269/20251008_152424_abs7io.jpg"
+      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215268/20251008_152410_umiazc.jpg",
+      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215269/20251008_152424_abs7io.jpg"
     ],
     category: "Baby Collection",
     rating: 3.9,
@@ -713,8 +713,8 @@ export const hardcodedProducts = [
     price: 1200,
     original_price: 1450,
     images: [
-      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215270/20251008_152452_ckxufv.jpg",
-      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215277/20251008_152509_ldujit.jpg"
+      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215270/20251008_152452_ckxufv.jpg",
+      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215277/20251008_152509_ldujit.jpg"
     ],
     category: "Baby Collection",
     rating: 3.9,
@@ -729,8 +729,8 @@ export const hardcodedProducts = [
     price: 1200,
     original_price: 1450,
     images: [
-      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215271/20251008_152557_f4bcvh.jpg",
-      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215272/20251008_152534_ejptfz.jpg"
+      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215271/20251008_152557_f4bcvh.jpg",
+      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215272/20251008_152534_ejptfz.jpg"
     ],
     category: "Baby Collection",
     rating: 3.9,
@@ -745,8 +745,8 @@ export const hardcodedProducts = [
     price: 1200,
     original_price: 1450,
     images: [
-      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215273/20251008_152628_sreb8w.jpg",
-      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215272/20251008_152616_xjkd47.jpg"
+      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215273/20251008_152628_sreb8w.jpg",
+      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215272/20251008_152616_xjkd47.jpg"
     ],
     category: "Baby Collection",
     rating: 3.9,
@@ -760,7 +760,7 @@ export const hardcodedProducts = [
     description: "Your stylish companion for every occasion",
     price: 1500,
     original_price: 1700,
-    image_url: "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215304/20251008_152913_nqxaln.jpg",
+    image_url: "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215304/20251008_152913_nqxaln.jpg",
     category: "Bags Collection",
     rating: 3.9,
     is_featured: false,
@@ -773,7 +773,7 @@ export const hardcodedProducts = [
     description: "Your stylish companion for every occasion",
     price: 2000,
     original_price: 2450,
-    image_url: "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215296/20251008_152807_ssvdmz.jpg",
+    image_url: "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215296/20251008_152807_ssvdmz.jpg",
     category: "Bags Collection",
     rating: 3.9,
     is_featured: false,
@@ -786,7 +786,7 @@ export const hardcodedProducts = [
     description: "Your stylish companion for every occasion",
     price: 1500,
     original_price: 1800,
-    image_url: "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215310/20251008_152945_h9ezvw.jpg",
+    image_url: "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215310/20251008_152945_h9ezvw.jpg",
     category: "Bags Collection",
     rating: 3.9,
     is_featured: false,
@@ -799,7 +799,7 @@ export const hardcodedProducts = [
     description: "Your stylish companion for every occasion",
     price: 1500,
     original_price: 1800,
-    image_url: "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215299/20251008_153108_zzuajs.jpg",
+    image_url: "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215299/20251008_153108_zzuajs.jpg",
     category: "Bags Collection",
     rating: 3.9,
     is_featured: false,
@@ -812,7 +812,7 @@ export const hardcodedProducts = [
     description: "Your stylish companion for every occasion",
     price: 1500,
     original_price: 1800,
-    image_url: "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215297/20251008_153009_jto6p4.jpg",
+    image_url: "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215297/20251008_153009_jto6p4.jpg",
     category: "Bags Collection",
     rating: 3.9,
     is_featured: false,
@@ -825,7 +825,7 @@ export const hardcodedProducts = [
     description: "Your stylish companion for every occasion",
     price: 1500,
     original_price: 1800,
-    image_url: "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215299/20251008_153138_aev3i6.jpg",
+    image_url: "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215299/20251008_153138_aev3i6.jpg",
     category: "Bags Collection",
     rating: 3.9,
     is_featured: false,
@@ -838,7 +838,7 @@ export const hardcodedProducts = [
     description: "Your stylish companion for every occasion",
     price: 1500,
     original_price: 1800,
-    image_url: "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215301/20251008_153251_g4xtg7.jpg",
+    image_url: "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215301/20251008_153251_g4xtg7.jpg",
     category: "Bags Collection",
     rating: 3.9,
     is_featured: false,
@@ -851,7 +851,7 @@ export const hardcodedProducts = [
     description: "Your stylish companion for every occasion",
     price: 1500,
     original_price: 1800,
-    image_url: "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215301/20251008_153222_reh2qw.jpg",
+    image_url: "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215301/20251008_153222_reh2qw.jpg",
     category: "Bags Collection",
     rating: 3.9,
     is_featured: false,
@@ -864,7 +864,7 @@ export const hardcodedProducts = [
     description: "Your stylish companion for every occasion",
     price: 1500,
     original_price: 1800,
-    image_url: "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215305/20251008_153337_u8zrvw.jpg",
+    image_url: "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215305/20251008_153337_u8zrvw.jpg",
     category: "Bags Collection",
     rating: 3.9,
     is_featured: false,
@@ -877,7 +877,7 @@ export const hardcodedProducts = [
     description: "Your stylish companion for every occasion",
     price: 2500,
     original_price: 3000,
-    image_url: "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215305/20251008_153406_cehv56.jpg",
+    image_url: "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215305/20251008_153406_cehv56.jpg",
     category: "Bags Collection",
     rating: 3.9,
     is_featured: false,
@@ -890,7 +890,7 @@ export const hardcodedProducts = [
     description: "Your stylish companion for every occasion",
     price: 1500,
     original_price: 1800,
-    image_url: "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215303/20251008_153311_cl1n19.jpg",
+    image_url: "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215303/20251008_153311_cl1n19.jpg",
     category: "Bags Collection",
     rating: 3.9,
     is_featured: false,
@@ -903,7 +903,7 @@ export const hardcodedProducts = [
     description: "Your stylish companion for every occasion",
     price: 1500,
     original_price: 1800,
-    image_url: "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215303/20251008_153311_cl1n19.jpg",
+    image_url: "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215303/20251008_153311_cl1n19.jpg",
     category: "Bags Collection",
     rating: 3.9,
     is_featured: false,
@@ -916,7 +916,7 @@ export const hardcodedProducts = [
     description: "Your stylish companion for every occasion",
     price: 1500,
     original_price: 1800,
-    image_url: "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215309/20251008_153535_gi2ow9.jpg",
+    image_url: "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215309/20251008_153535_gi2ow9.jpg",
     category: "Bags Collection",
     rating: 3.9,
     is_featured: false,
@@ -929,7 +929,7 @@ export const hardcodedProducts = [
     description: "Your stylish companion for every occasion",
     price: 1500,
     original_price: 1800,
-    image_url: "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215310/20251008_153510_p6chme.jpg",
+    image_url: "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215310/20251008_153510_p6chme.jpg",
     category: "Bags Collection",
     rating: 3.9,
     is_featured: false,
@@ -942,7 +942,7 @@ export const hardcodedProducts = [
     description: "Your stylish companion for every occasion",
     price: 1500,
     original_price: 1800,
-    image_url: "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215311/20251008_153752_w42klv.jpg",
+    image_url: "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215311/20251008_153752_w42klv.jpg",
     category: "Bags Collection",
     rating: 3.9,
     is_featured: false,
@@ -955,7 +955,7 @@ export const hardcodedProducts = [
     description: "Your stylish companion for every occasion",
     price: 1500,
     original_price: 1800,
-    image_url: "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215309/20251008_153606_j7bqhz.jpg",
+    image_url: "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215309/20251008_153606_j7bqhz.jpg",
     category: "Bags Collection",
     rating: 3.9,
     is_featured: false,
@@ -968,7 +968,7 @@ export const hardcodedProducts = [
     description: "Your stylish companion for every occasion",
     price: 1500,
     original_price: 1800,
-    image_url: "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215313/20251008_153932_en7zy0.jpg",
+    image_url: "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215313/20251008_153932_en7zy0.jpg",
     category: "Bags Collection",
     rating: 3.9,
     is_featured: false,
@@ -981,7 +981,7 @@ export const hardcodedProducts = [
     description: "Your stylish companion for every occasion",
     price: 1500,
     original_price: 1800,
-    image_url: "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215311/20251008_153819_ignizh.jpg",
+    image_url: "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215311/20251008_153819_ignizh.jpg",
     category: "Bags Collection",
     rating: 3.9,
     is_featured: false,
@@ -994,7 +994,7 @@ export const hardcodedProducts = [
     description: "Your stylish companion for every occasion",
     price: 1500,
     original_price: 1800,
-    image_url: "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215315/20251008_153855_kn6ibt.jpg",
+    image_url: "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215315/20251008_153855_kn6ibt.jpg",
     category: "Bags Collection",
     rating: 3.9,
     is_featured: false,
@@ -1007,7 +1007,7 @@ export const hardcodedProducts = [
     description: "Your stylish companion for every occasion",
     price: 1500,
     original_price: 1800,
-    image_url: "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215313/20251008_154054_hrkewh.jpg",
+    image_url: "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215313/20251008_154054_hrkewh.jpg",
     category: "Bags Collection",
     rating: 3.9,
     is_featured: false,
@@ -1020,7 +1020,7 @@ export const hardcodedProducts = [
     description: "Your stylish companion for every occasion",
     price: 1500,
     original_price: 1800,
-    image_url: "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215316/20251008_154205_hg5byh.jpg",
+    image_url: "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215316/20251008_154205_hg5byh.jpg",
     category: "Bags Collection",
     rating: 3.9,
     is_featured: false,
@@ -1033,7 +1033,7 @@ export const hardcodedProducts = [
     description: "Your stylish companion for every occasion",
     price: 1500,
     original_price: 1800,
-    image_url: "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215313/20251008_154127_oqrain.jpg",
+    image_url: "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215313/20251008_154127_oqrain.jpg",
     category: "Bags Collection",
     rating: 3.9,
     is_featured: false,
@@ -1046,7 +1046,7 @@ export const hardcodedProducts = [
     description: "Your stylish companion for every occasion",
     price: 1500,
     original_price: 1800,
-    image_url: "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215316/20251008_154238_uevbuj.jpg",
+    image_url: "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215316/20251008_154238_uevbuj.jpg",
     category: "Bags Collection",
     rating: 3.9,
     is_featured: false,
@@ -1059,7 +1059,7 @@ export const hardcodedProducts = [
     description: "Your stylish companion for every occasion",
     price: 1500,
     original_price: 1800,
-    image_url: "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215318/20251008_154404_buswpd.jpg",
+    image_url: "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215318/20251008_154404_buswpd.jpg",
     category: "Bags Collection",
     rating: 3.9,
     is_featured: false,
@@ -1072,7 +1072,7 @@ export const hardcodedProducts = [
     description: "Your stylish companion for every occasion",
     price: 1500,
     original_price: 1800,
-    image_url: "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215318/20251008_154310_in3q7l.jpg",
+    image_url: "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215318/20251008_154310_in3q7l.jpg",
     category: "Bags Collection",
     rating: 3.9,
     is_featured: false,
@@ -1085,7 +1085,7 @@ export const hardcodedProducts = [
     description: "Your stylish companion for every occasion",
     price: 1500,
     original_price: 1800,
-    image_url: "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215322/20251008_154431_iqpxaj.jpg",
+    image_url: "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215322/20251008_154431_iqpxaj.jpg",
     category: "Bags Collection",
     rating: 3.9,
     is_featured: false,
@@ -1098,7 +1098,7 @@ export const hardcodedProducts = [
     description: "Your stylish companion for every occasion",
     price: 1500,
     original_price: 1800,
-    image_url: "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215319/20251008_154457_ub2tw2.jpg",
+    image_url: "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215319/20251008_154457_ub2tw2.jpg",
     category: "Bags Collection",
     rating: 3.9,
     is_featured: false,
@@ -1111,7 +1111,7 @@ export const hardcodedProducts = [
     description: "Your stylish companion for every occasion",
     price: 1500,
     original_price: 1800,
-    image_url: "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215320/20251008_154526_ysicfo.jpg",
+    image_url: "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215320/20251008_154526_ysicfo.jpg",
     category: "Bags Collection",
     rating: 3.9,
     is_featured: false,
@@ -1124,7 +1124,7 @@ export const hardcodedProducts = [
     description: "Your stylish companion for every occasion",
     price: 1500,
     original_price: 1800,
-    image_url: "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215322/20251008_154600_u0jfdt.jpg",
+    image_url: "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215322/20251008_154600_u0jfdt.jpg",
     category: "Bags Collection",
     rating: 3.9,
     is_featured: false,
@@ -1137,7 +1137,7 @@ export const hardcodedProducts = [
     description: "Your stylish companion for every occasion",
     price: 800,
     original_price: 950,
-    image_url: "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215316/20251008_154023_c8dtx3.jpg",
+    image_url: "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215316/20251008_154023_c8dtx3.jpg",
     category: "Bags Collection",
     rating: 3.9,
     is_featured: false,
@@ -1150,7 +1150,7 @@ export const hardcodedProducts = [
     description: "Your stylish companion for every occasion",
     price: 800,
     original_price: 950,
-    image_url: "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215322/20251008_154016_ibicjd.jpg",
+    image_url: "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215322/20251008_154016_ibicjd.jpg",
     category: "Bags Collection",
     rating: 3.9,
     is_featured: false,
@@ -1164,8 +1164,8 @@ export const hardcodedProducts = [
     price: 1800,
     original_price: 2000,
     images: [
-      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215203/20251008_145300_ci7oii.jpg",
-      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_auto,q_auto/v1761215199/20251008_145141_qsopya.jpg"
+      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215203/20251008_145300_ci7oii.jpg",
+      "https://res.cloudinary.com/dgzz0zto5/image/upload/w_500,f_webp,q_80/v1761215199/20251008_145141_qsopya.jpg"
     ],
     category: "Adult Clothing",
     rating: 3.9,
