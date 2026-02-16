@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from 'react-router-dom';
-import crochetImage from '../assets/background/crochet-image.jpg';
+import crochetImage from '../assets/background/crochet-image.jpeg';
 
 const PromoSection = () => {
   const handleShopClick = () => {
