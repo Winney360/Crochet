@@ -99,7 +99,7 @@ const Contact = () => {
             </div>
             <h3 className="text-xl font-bold text-gray-800 mb-2">Call Us</h3>
             <p className="text-gray-600">
-              Whatsapp: 0791 995 578<br />
+              Whatsapp: 0720 951 221<br />
               Phone   : 0720 951 221
             </p>
           </div>

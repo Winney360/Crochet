@@ -68,7 +68,7 @@ _Order Date: ${new Date().toLocaleDateString('en-KE', {
       const encodedMessage = encodeURIComponent(whatsappMessage);
       
       // Open WhatsApp with pre-filled message to your number
-      window.open(`https://wa.me/254791995578?text=${encodedMessage}`, '_blank');
+      window.open(`https://wa.me/254720951221?text=${encodedMessage}`, '_blank');
       
       // Also save to localStorage as backup
       const order = { 

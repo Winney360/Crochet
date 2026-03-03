@@ -22,7 +22,7 @@ const Footer = () => {
 
   const handleWhatsAppClick = () => {
     const message = "Hello! I'm interested in your crochet products. Can you help me?";
-    const whatsappUrl = `https://wa.me/254791995578?text=${encodeURIComponent(message)}`;
+    const whatsappUrl = `https://wa.me/254720951221?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
   };
 
@@ -57,7 +57,7 @@ const Footer = () => {
               <button
                 onClick={handleWhatsAppClick}
                 className="w-12 h-12 bg-linear-to-br from-green-500 to-green-600 text-white rounded-full flex items-center justify-center hover:from-green-600 hover:to-green-700 transition-all duration-300 shadow-lg hover:shadow-green-500/25 hover:scale-110 cursor-pointer"
-                title="Chat on WhatsApp +254 791 995 578"
+                title="Chat on WhatsApp +254 720 951 221"
               >
                 <FaWhatsapp />
               </button>
@@ -128,7 +128,7 @@ const Footer = () => {
                 </div>
                 <div>
                   <p className="text-cyan-100 text-sm">WhatsApp</p>
-                  <p className="text-white font-medium">+254 791 995 578</p>
+                  <p className="text-white font-medium">+254 720 951 221</p>
                 </div>
               </div>
               

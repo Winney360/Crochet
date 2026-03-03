@@ -50,13 +50,13 @@ const Header = () => {
             </a>
 
             <a
-              href="https://wa.me/254791995578"
+              href="https://wa.me/254720951221"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-1 hover:text-cyan-200 transition-colors"
             >
               <FaWhatsapp />
-              0791995578
+              0720951221
             </a>
 
             <a

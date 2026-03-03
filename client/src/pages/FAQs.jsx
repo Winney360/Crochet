@@ -101,7 +101,7 @@ const FAQs = () => {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
-              href="https://wa.me/254791995578"
+              href="https://wa.me/254720951221"
               target="_blank"
               rel="noopener noreferrer"
               className="bg-white text-green-500 px-8 py-4 rounded-full font-semibold text-lg hover:bg-gray-100 transition-colors inline-block"
