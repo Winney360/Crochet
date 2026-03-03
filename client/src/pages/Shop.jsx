@@ -28,58 +28,46 @@ const Shop = () => {
   }, [allProducts, selectedCategory, sortBy, searchTerm, priceRange]);
 
   const fetchProducts = async () => {
-    setLoading(true);
+    // Set hardcoded products immediately - no blocking
+    setAllProducts(hardcodedProducts);
+    extractCategories(hardcodedProducts);
+    
+    const prices = hardcodedProducts.map(p => p.price || 0).filter(price => !isNaN(price));
+    const actualMax = Math.ceil(Math.max(...prices, 5000));
+    setMaxPrice(actualMax);
+    setPriceRange([0, actualMax]);
+    setLoading(false); // Show UI immediately
+
+    // Fetch API products in background (non-blocking)
     try {
-      let apiProducts = [];
-      
-      // Try to fetch from API
-      try {
-        const response = await axios.get(`${API_BASE_URL}/products`);
-        if (Array.isArray(response.data)) {
-          apiProducts = response.data;
-          console.log('✅ API products loaded:', apiProducts.length);
-        }
-      } catch (apiError) {
-        console.log('❌ API not available, using hardcoded products only');
+      const response = await axios.get(`${API_BASE_URL}/products`, { timeout: 3000 });
+      if (Array.isArray(response.data) && response.data.length > 0) {
+        const combined = [
+          ...hardcodedProducts,
+          ...response.data.filter(apiProduct => 
+            !hardcodedProducts.some(hc => hc._id === apiProduct._id)
+          )
+        ];
+        
+        setAllProducts(combined);
+        extractCategories(combined);
+        
+        const allPrices = combined.map(p => p.price || 0).filter(price => !isNaN(price));
+        const newMax = Math.ceil(Math.max(...allPrices, 5000));
+        setMaxPrice(newMax);
       }
-      
-      // Combine hardcoded and API products
-      const combinedProducts = [...hardcodedProducts, ...apiProducts];
-      console.log('📦 Total products:', combinedProducts.length);
-      
-      setAllProducts(combinedProducts);
-      extractCategories(combinedProducts);
-      
-      // Calculate max price
-      if (combinedProducts.length > 0) {
-        const prices = combinedProducts.map(p => p.price || 0).filter(price => !isNaN(price));
-        const actualMax = Math.ceil(Math.max(...prices, 5000));
-        setMaxPrice(actualMax);
-        setPriceRange([0, actualMax]);
-      }
-      
-    } catch (error) {
-      console.error('Error fetching products:', error);
-      // Fallback to hardcoded only
-      setAllProducts(hardcodedProducts);
-      extractCategories(hardcodedProducts);
-    } finally {
-      setLoading(false);
+    } catch (apiError) {
+      // Silently fail - user already sees hardcoded products
     }
   };
 
   const extractCategories = (products) => {
-    // Get unique categories from all products
     const uniqueCategories = [...new Set(products
       .map(p => p.category)
-      .filter(Boolean) // Remove null/undefined
+      .filter(Boolean)
     )];
     
-    console.log('🏷️ Found categories:', uniqueCategories);
-    
-    // Create category objects with proper mapping
     const categoryObjects = uniqueCategories.map((category, index) => {
-      // Create slug from category name
       const slug = category.toLowerCase().replace(/\s+/g, '-');
       return {
         _id: `cat-${index}`,
@@ -160,15 +148,6 @@ const Shop = () => {
     setSortBy('name');
     setPriceRange([0, maxPrice]);
   };
-
-  // Debug info
-  useEffect(() => {
-    console.log('🔍 DEBUG INFO:');
-    console.log('All products:', allProducts.length);
-    console.log('Filtered products:', filteredProducts.length);
-    console.log('Selected category:', selectedCategory);
-    console.log('Categories available:', categories);
-  }, [allProducts, filteredProducts, selectedCategory, categories]);
 
   return (
     <div className="min-h-screen bg-gray-50">

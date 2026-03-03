@@ -38,7 +38,7 @@ const BestsellerProductCard = ({ product }) => {
     const startSliding = () => {
       intervalRef.current = setInterval(() => {
         setCurrentImageIndex((prev) => (prev + 1) % images.length);
-      }, 3000); // Change image every 3 seconds
+      }, 4000); // Increased from 3s to 4s to reduce CPU load
     };
 
     const stopSliding = () => {

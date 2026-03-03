@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo, useCallback } from 'react';
-import { Link, useNavigate } from 'react-router-dom'; // ADD useNavigate here
-import { FaStar, FaShippingFast, FaShieldAlt, FaExchangeAlt, FaPhoneAlt, FaChevronLeft, FaChevronRight, FaArrowDown, FaArrowUp,  FaQuoteRight, FaSearch } from 'react-icons/fa'; // ADD FaSearch here
+import { Link, useNavigate } from 'react-router-dom';
+import { FaStar, FaShippingFast, FaShieldAlt, FaExchangeAlt, FaPhoneAlt, FaChevronLeft, FaChevronRight, FaArrowDown, FaArrowUp,  FaQuoteRight, FaSearch } from 'react-icons/fa';
 import ProductCard from '../components/ProductCard';
 import BestsellerProductCard from '../components/BestSellerProductCard';
 import { hardcodedProducts } from '../data/hardcodedProducts';
@@ -111,65 +111,57 @@ const Home = () => {
     fetchData();
     const interval = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
-    }, 6000);
+    }, 8000); // Increased from 6s to 8s to reduce CPU load
     return () => clearInterval(interval);
   }, []);
 
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentTestimonialIndex((prev) => (prev + 1) % testimonials.length);
-    }, 8000); 
+    }, 10000); // Increased from 8s to 10s to reduce CPU load
     return () => clearInterval(interval);
   }, [testimonials.length]);
 
   const fetchData = async () => {
-  try {
-    setLoading(true);
-
-    // Start with hardcoded products immediately for faster initial render
-    let allProducts = hardcodedProducts;
-    
     try {
-      const featuredResponse = await axios.get(`${API_BASE_URL}/products`);
-      if (Array.isArray(featuredResponse.data) && featuredResponse.data.length > 0) {
-        const apiProducts = featuredResponse.data;
-        allProducts = [
-          ...hardcodedProducts,
-          ...apiProducts.filter(apiProduct => 
-            !hardcodedProducts.some(hardcoded => hardcoded._id === apiProduct._id)
-          )
-        ];
+      // Set initial data immediately - no blocking
+      const featured = hardcodedProducts.filter(product => product.is_featured === true).slice(0, 9);
+      const bestsellers = hardcodedProducts.filter(product => (product.rating || 0) >= 4.5).slice(0, 9);
+      
+      setFeaturedProducts(featured);
+      setBestsellerProducts(bestsellers);
+      setAllProducts(hardcodedProducts);
+      setLoading(false); // Show UI immediately
+
+      // Fetch API products in background (non-blocking)
+      try {
+        const response = await axios.get(`${API_BASE_URL}/products`, { timeout: 3000 });
+        if (Array.isArray(response.data) && response.data.length > 0) {
+          const apiProducts = response.data;
+          const combined = [
+            ...hardcodedProducts,
+            ...apiProducts.filter(apiProduct => 
+              !hardcodedProducts.some(hardcoded => hardcoded._id === apiProduct._id)
+            )
+          ];
+          
+          // Update with API data
+          setAllProducts(combined);
+          const apiFeatured = combined.filter(product => product.is_featured === true).slice(0, 9);
+          const apiBestsellers = combined.filter(product => (product.rating || 0) >= 4.5).slice(0, 9);
+          setFeaturedProducts(apiFeatured);
+          setBestsellerProducts(apiBestsellers);
+        }
+      } catch (apiError) {
+        // Silently fail - user already sees hardcoded products
       }
-    } catch (apiError) {
-      console.log('Using only hardcoded products');
-    }
-    
-    console.log('Total products:', allProducts.length);
-
-    setAllProducts(allProducts);
-
-    // FEATURED: Only products with is_featured: true (limit to 9 for performance)
-    const featured = allProducts
-      .filter(product => product.is_featured === true)
-      .slice(0, 9);
-    
-    // BESTSELLER: Only products with rating >= 4.5 (limit to 9 for performance)
-    const bestsellers = allProducts
-      .filter(product => (product.rating || 0) >= 4.5)
-      .slice(0, 9);
-
-    setFeaturedProducts(featured);
-    setBestsellerProducts(bestsellers);
     } catch (error) {
-      console.error('Error fetching data:', error);
-
-      // Fallback: use only hardcoded products
+      // Fallback to hardcoded only
       const featured = hardcodedProducts.filter(product => product.is_featured).slice(0, 9);
       const bestsellers = hardcodedProducts.filter(product => product.rating >= 4.5).slice(0, 9);
       setFeaturedProducts(featured);
       setBestsellerProducts(bestsellers);
       setAllProducts(hardcodedProducts);
-    } finally {
       setLoading(false);
     }
   };
