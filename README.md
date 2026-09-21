@@ -19,7 +19,7 @@ A full-stack e-commerce platform for selling handmade crochet products. Built wi
 - 🛍️ **Product Catalog** - Browse products by category with filtering and sorting
 - 🔍 **Search Functionality** - Find products quickly by name, description, or category
 - 🛒 **Shopping Cart** - Add, remove, and manage cart items with persistent storage
-- 💳 **Checkout Process** - WhatsApp integration for order placement
+- 💳 **Checkout Process** - Pay online via M-Pesa (Lipa Na M-Pesa / STK Push to Paybill) with WhatsApp order placement as a fallback
 - 📱 **Responsive Design** - Optimized for mobile, tablet, and desktop
 - ⚡ **Performance Optimized** - Lazy loading, code splitting, and image optimization
 - 📧 **Contact Form** - EmailJS integration for customer inquiries
@@ -56,6 +56,7 @@ A full-stack e-commerce platform for selling handmade crochet products. Built wi
 - **Cloudinary** - Image storage and CDN
 - **Multer** - File upload handling
 - **CORS** - Cross-origin resource sharing
+- **Safaricom Daraja API** - M-Pesa payment integration (Lipa Na M-Pesa Online / STK Push)
 
 ## 📁 Project Structure
 
