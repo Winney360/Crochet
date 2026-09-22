@@ -97,12 +97,16 @@ CrochetWebsite/
     │   ├── Product.js
     │   ├── Admin.js
     │   ├── Cart.js
+    │   ├── Order.js      # Order records (created at checkout)
     │   └── Testimonial.js
     ├── routes/            # API routes
     │   ├── products.js
     │   ├── auth.js
     │   ├── cart.js
+    │   ├── mpesa.js      # M-Pesa STK Push, callback, and status query
     │   └── testimonials.js
+    ├── utils/            # Helper modules
+    │   └── mpesa.js      # Daraja API helpers (token, STK push, status query)
     ├── server.js          # Server entry point
     ├── createAdmin.js     # Admin creation script
     └── package.json
@@ -147,7 +151,25 @@ CLOUDINARY_API_KEY=your_api_key
 CLOUDINARY_API_SECRET=your_api_secret
 ```
 
-### 3. Frontend Setup
+### 3. M-Pesa (Daraja API) Setup
+
+Create a developer account at [developer.safaricom.co.ke](https://developer.safaricom.co.ke/) and add the following to the server `.env`:
+
+```env
+# M-Pesa Configuration (Safaricom Daraja API)
+MPESA_ENV=sandbox                              # "sandbox" for testing, "production" for live payments
+MPESA_CONSUMER_KEY=your_consumer_key
+MPESA_CONSUMER_SECRET=your_consumer_secret
+MPESA_PASSKEY=your_lipa_na_mpesa_passkey        # From the Lipa Na M-Pesa Online product settings
+MPESA_SHORTCODE=174379                         # Paybill business number (174379 = sandbox test)
+MPESA_CALLBACK_URL=https://your-api-url.com/api/mpesa/callback
+```
+
+> **Sandbox testing:** In `sandbox` mode use the test phone number `254708374149` — no real money is moved. Get your sandbox credentials + passkey from the Daraja portal → "Lipa Na M-Pesa Online" → "Sandbox" section.
+>
+> **Going live:** Fill the above with your production credentials, set `MPESA_ENV=production`, replace `MPESA_SHORTCODE` with your real paybill number, and set `MPESA_CALLBACK_URL` to your publicly reachable backend URL (e.g. Render). Submit a **Go-Live** request in the Daraja portal and Safaricom will approve/whitelist your callback URL.
+
+### 4. Frontend Setup
 
 ```bash
 cd ../client
@@ -160,7 +182,7 @@ Create `.env` file in the `client` directory:
 VITE_API_BASE_URL=http://localhost:5000/api
 ```
 
-### 4. Create Admin Account
+### 5. Create Admin Account
 
 ```bash
 cd ../server
@@ -224,6 +246,47 @@ node server.js
 - `pnpm run dev` - Start development server with nodemon (auto-restart)
 - `node server.js` - Start production server
 - `node createAdmin.js` - Create a new admin account
+
+## 💸 M-Pesa Payments (Lipa Na M-Pesa)
+
+Payments are handled through the **Safaricom Daraja API** using **Lipa Na M-Pesa Online (STK Push)**. The buyer enters their phone number at checkout, receives an M-Pesa prompt on their phone, approves it with their PIN, and the money is paid directly to your **Paybill** business number.
+
+```
+Buyer at checkout
+   → selects "Pay with M-Pesa", enters phone
+   → POST /api/mpesa/stkpush   (creates Order, triggers STK push)
+   → Buyer approves on phone (enters M-Pesa PIN)
+   → Safaricom POSTs result to /api/mpesa/callback
+   → Frontend polls POST /api/mpesa/query until status is confirmed
+   → Order marked "paid" → cart cleared → success page
+```
+
+### API Endpoints
+
+| Method | Endpoint | Description |
+| ------ | -------- | ----------- |
+| `POST` | `/api/mpesa/stkpush` | Initiates an STK push. Body: `{ phone, fullName, email, pickupLocation, notes, items, total }`. Returns `checkoutRequestID`. |
+| `POST` | `/api/mpesa/callback` | Safaricom's callback (no auth required). Updates order status to `paid`/`failed`. |
+| `POST` | `/api/mpesa/query` | Queries transaction status by `checkoutRequestID`. Used for frontend polling while the buyer approves the prompt. |
+
+### Payment Statuses (Order model)
+
+- `pending` - Payment initiated, waiting for buyer approval
+- `completed` - Payment received (STK push result code `0`)
+- `failed` - Payment declined/cancelled/user timeout
+
+### Testing Checklist (Sandbox)
+
+1. Use `MPESA_ENV=sandbox` with sandbox consumer key/secret/passkey from the Daraja portal.
+2. Checkout with the test phone `254708374149`.
+3. Confirm the STK push request succeeds (returns `checkoutRequestID`); sandbox does not fire live callbacks, so verify the order flips via `/api/mpesa/query` in the Mongo `orders` collection.
+
+### Going Live Checklist (Production)
+
+1. Confirm your Paybill has the **Lipa Na M-Pesa Online** product enabled.
+2. Replace sandbox credentials/passkey and shortcode with production values; set `MPESA_ENV=production`.
+3. Set `MPESA_CALLBACK_URL` to a public HTTPS endpoint (e.g. `https://shikuku-crochet.onrender.com/api/mpesa/callback`) and add it to your Daraja app's production callback list.
+4. Submit a **Go-Live** request at [developer.safaricom.co.ke](https://developer.safaricom.co.ke/) and wait for approval.
 
 ## 🎨 Customization
 
@@ -296,6 +359,14 @@ JWT_SECRET=your_jwt_secret
 CLOUDINARY_CLOUD_NAME=your_cloud_name
 CLOUDINARY_API_KEY=your_api_key
 CLOUDINARY_API_SECRET=your_api_secret
+
+# M-Pesa (Safaricom Daraja API) - production values
+MPESA_ENV=production
+MPESA_CONSUMER_KEY=your_consumer_key
+MPESA_CONSUMER_SECRET=your_consumer_secret
+MPESA_PASSKEY=your_lipa_na_mpesa_passkey
+MPESA_SHORTCODE=your_paybill_number
+MPESA_CALLBACK_URL=https://your-backend-domain/api/mpesa/callback
 ```
 
 ### Database (MongoDB Atlas)
@@ -314,7 +385,7 @@ CLOUDINARY_API_SECRET=your_api_secret
 - **CORS Configuration** - Controlled cross-origin requests
 - **Input Validation** - Server-side validation for all inputs
 - **Secure File Upload** - Multer with file type and size restrictions
-- **Environment Variables** - Sensitive data not in code
+- **Environment Variables** - Sensitive data not in code (including all M-Pesa/Daraja credentials)
 
 ## 🐛 Troubleshooting
 
@@ -354,6 +425,15 @@ CLOUDINARY_API_SECRET=your_api_secret
 - Cart uses localStorage for persistence
 - Check browser localStorage is enabled
 - Clear cache and reload if issues persist
+
+### M-Pesa Payment Not Working?
+
+- Verify `MPESA_ENV`, `MPESA_CONSUMER_KEY`, `MPESA_CONSUMER_SECRET`, and `MPESA_PASSKEY` are set in server `.env`
+- In sandbox, the buyer must use the test phone `254708374149`; real phones won't receive the prompt
+- Check the phone number format is valid (e.g. `0712...` → normalized to `254712...` automatically)
+- Confirm `MPESA_SHORTCODE` is your correct paybill and, in production, that Lipa Na M-Pesa Online is enabled for it
+- In production, ensure `MPESA_CALLBACK_URL` is public HTTPS and whitelisted at Go-Live
+- Check the `orders` collection in MongoDB for the order's `paymentStatus`
 
 ## 📊 Performance Metrics
 
@@ -397,7 +477,8 @@ For questions, issues, or suggestions:
 
 ### Future Enhancements
 
-- [ ] Payment gateway integration (M-Pesa, PayPal)
+- [ ] ~~Payment gateway integration (M-Pesa, PayPal)~~ ✅ **M-Pesa (Lipa Na M-Pesa) integrated**
+- [ ] PayPal integration
 - [ ] User accounts and order history
 - [ ] Product reviews and ratings
 - [ ] Wishlist functionality
