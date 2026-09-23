@@ -165,7 +165,7 @@ MPESA_SHORTCODE=174379                         # Paybill business number (174379
 MPESA_CALLBACK_URL=https://your-api-url.com/api/mpesa/callback
 ```
 
-> **Sandbox testing:** In `sandbox` mode use the test phone number `254708374149` — no real money is moved. Get your sandbox credentials + passkey from the Daraja portal → "Lipa Na M-Pesa Online" → "Sandbox" section.
+> **Sandbox testing:** In `sandbox` mode use the test phone number `254791995578` — no real money is moved. Get your sandbox credentials + passkey from the Daraja portal → "Lipa Na M-Pesa Online" → "Sandbox" section.
 >
 > **Going live:** Fill the above with your production credentials, set `MPESA_ENV=production`, replace `MPESA_SHORTCODE` with your real paybill number, and set `MPESA_CALLBACK_URL` to your publicly reachable backend URL (e.g. Render). Submit a **Go-Live** request in the Daraja portal and Safaricom will approve/whitelist your callback URL.
 
@@ -278,7 +278,7 @@ Buyer at checkout
 ### Testing Checklist (Sandbox)
 
 1. Use `MPESA_ENV=sandbox` with sandbox consumer key/secret/passkey from the Daraja portal.
-2. Checkout with the test phone `254708374149`.
+2. Checkout with the test phone `254791995578`.
 3. Confirm the STK push request succeeds (returns `checkoutRequestID`); sandbox does not fire live callbacks, so verify the order flips via `/api/mpesa/query` in the Mongo `orders` collection.
 
 ### Going Live Checklist (Production)
@@ -429,7 +429,7 @@ MPESA_CALLBACK_URL=https://your-backend-domain/api/mpesa/callback
 ### M-Pesa Payment Not Working?
 
 - Verify `MPESA_ENV`, `MPESA_CONSUMER_KEY`, `MPESA_CONSUMER_SECRET`, and `MPESA_PASSKEY` are set in server `.env`
-- In sandbox, the buyer must use the test phone `254708374149`; real phones won't receive the prompt
+- In sandbox, the buyer must use the test phone `254791995578`; real phones won't receive the prompt
 - Check the phone number format is valid (e.g. `0712...` → normalized to `254712...` automatically)
 - Confirm `MPESA_SHORTCODE` is your correct paybill and, in production, that Lipa Na M-Pesa Online is enabled for it
 - In production, ensure `MPESA_CALLBACK_URL` is public HTTPS and whitelisted at Go-Live
