@@ -11,7 +11,8 @@ import {
   FaPlus,
   FaSync,
   FaPalette,
-  FaTags
+  FaTags,
+  FaShoppingBag
 } from 'react-icons/fa';
 
 const AdminDashboard = () => {
@@ -20,6 +21,9 @@ const AdminDashboard = () => {
   const [showForm, setShowForm] = useState(false);
   const [editingProduct, setEditingProduct] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [activeTab, setActiveTab] = useState('products');
+  const [orders, setOrders] = useState([]);
+  const [ordersLoading, setOrdersLoading] = useState(false);
   const [stats, setStats] = useState({
     totalProducts: 0,
     featuredProducts: 0,
@@ -184,6 +188,35 @@ const AdminDashboard = () => {
     }
   };
 
+  const fetchOrders = async () => {
+    try {
+      setOrdersLoading(true);
+      const res = await api.get('/orders');
+      setOrders(Array.isArray(res.data) ? res.data : []);
+    } catch (err) {
+      console.error('Error fetching orders:', err);
+      showNotification('❌ Could not load orders. Make sure you are signed in.');
+    } finally {
+      setOrdersLoading(false);
+    }
+  };
+
+  const selectTab = (tab) => {
+    setActiveTab(tab);
+    if (tab === 'orders') {
+      fetchOrders();
+    }
+  };
+
+  const paymentBadge = (status) => {
+    const styles = {
+      completed: 'bg-green-100 text-green-700 border-green-200',
+      pending: 'bg-yellow-100 text-yellow-700 border-yellow-200',
+      failed: 'bg-red-100 text-red-600 border-red-200'
+    };
+    return styles[status] || 'bg-slate-100 text-slate-600 border-slate-200';
+  };
+
   const refreshData = () => {
     fetchProducts();
     showNotification('🔄 Products refreshed!');
@@ -219,9 +252,9 @@ const AdminDashboard = () => {
               </div>
               <div>
                 <h1 className="text-2xl font-bold text-slate-800">
-                  Product Manager
+                  Admin Dashboard
                 </h1>
-                <p className="text-slate-500 text-sm">Manage your crochet collection</p>
+                <p className="text-slate-500 text-sm">Manage your products and orders</p>
               </div>
             </div>
             <div className="flex items-center gap-4">
@@ -237,7 +270,26 @@ const AdminDashboard = () => {
       </header>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Simple Stats Cards */}
+        {/* Tab Navigation */}
+        <div className="flex gap-2 mb-8 bg-white rounded-2xl shadow-lg border border-slate-200 p-2 w-fit">
+          <button
+            onClick={() => selectTab('products')}
+            className={`flex items-center gap-2 px-6 py-2.5 rounded-xl font-medium transition-colors ${activeTab === 'products' ? 'bg-cyan-500 text-white' : 'text-slate-600 hover:bg-slate-100'}`}
+          >
+            <FaBox />
+            Products
+          </button>
+          <button
+            onClick={() => selectTab('orders')}
+            className={`flex items-center gap-2 px-6 py-2.5 rounded-xl font-medium transition-colors ${activeTab === 'orders' ? 'bg-cyan-500 text-white' : 'text-slate-600 hover:bg-slate-100'}`}
+          >
+            <FaShoppingBag />
+            Orders
+          </button>
+        </div>
+
+        {activeTab === 'products' && (
+          <>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
           <div className="bg-white rounded-2xl p-6 shadow-lg border border-slate-200">
             <div className="flex items-center gap-4">
@@ -349,6 +401,99 @@ const AdminDashboard = () => {
             />
           </div>
         </div>
+          </>
+        )}
+
+        {activeTab === 'orders' && (
+          <>
+        <div className="bg-white rounded-2xl shadow-lg border border-slate-200">
+          <div className="border-b border-slate-200 p-8">
+            <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
+              <div>
+                <h2 className="text-2xl font-bold text-slate-800">
+                  Orders
+                </h2>
+                <p className="text-slate-500 mt-1">
+                  Track your M-Pesa and WhatsApp orders {orders.length > 0 && `(${orders.length} total)`}
+                </p>
+              </div>
+              <button
+                onClick={fetchOrders}
+                className="flex items-center gap-2 bg-slate-100 hover:bg-slate-200 text-slate-700 px-4 py-2.5 rounded-lg transition-colors font-medium"
+              >
+                <FaSync />
+                Refresh
+              </button>
+            </div>
+          </div>
+
+          <div className="p-8">
+            {ordersLoading ? (
+              <div className="flex items-center justify-center py-16">
+                <div className="animate-spin rounded-full h-12 w-12 border-4 border-cyan-500 border-t-transparent"></div>
+              </div>
+            ) : orders.length === 0 ? (
+              <p className="text-slate-500 text-center py-16">No orders yet. Orders placed on the website will appear here.</p>
+            ) : (
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="text-left text-xs uppercase tracking-wide text-slate-500 border-b border-slate-200">
+                      <th className="py-3 pr-4">Order</th>
+                      <th className="py-3 pr-4">Date</th>
+                      <th className="py-3 pr-4">Customer</th>
+                      <th className="py-3 pr-4">Items</th>
+                      <th className="py-3 pr-4">Total</th>
+                      <th className="py-3 pr-4">Payment</th>
+                      <th className="py-3">Status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {orders.map((order) => (
+                      <tr key={order._id} className="border-b border-slate-100 hover:bg-slate-50 align-top">
+                        <td className="py-4 pr-4 font-semibold text-slate-800 whitespace-nowrap">{order.order_number}</td>
+                        <td className="py-4 pr-4 text-slate-500 whitespace-nowrap">
+                          {new Date(order.createdAt).toLocaleDateString('en-KE', { day: 'numeric', month: 'short', year: 'numeric' })}
+                          <span className="block text-xs">
+                            {new Date(order.createdAt).toLocaleTimeString('en-KE', { hour: '2-digit', minute: '2-digit' })}
+                          </span>
+                        </td>
+                        <td className="py-4 pr-4 text-slate-700">
+                          {order.customer.full_name}
+                          <span className="block text-xs text-slate-500">{order.customer.phone}</span>
+                          {order.mpesa_receipt && (
+                            <span className="block text-xs text-green-600">{order.mpesa_receipt}</span>
+                          )}
+                        </td>
+                        <td className="py-4 pr-4 text-slate-600">
+                          {order.items.map((item, idx) => (
+                            <span key={idx} className="block">
+                              {item.name} × {item.quantity}
+                            </span>
+                          ))}
+                        </td>
+                        <td className="py-4 pr-4 font-semibold text-slate-800 whitespace-nowrap">
+                          Ksh. {order.total.toLocaleString()}
+                        </td>
+                        <td className="py-4 pr-4 text-slate-600 capitalize">
+                          {order.payment_method === 'whatsapp' ? 'WhatsApp' : 'M-Pesa'}
+                          <span className="block text-xs text-slate-500">Pay on {order.payment_method === 'whatsapp' ? 'pickup' : 'online'}</span>
+                        </td>
+                        <td className="py-4">
+                          <span className={`inline-block px-3 py-1 rounded-full text-xs font-semibold border capitalize ${paymentBadge(order.payment_status)}`}>
+                            {order.payment_status}
+                          </span>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+          </div>
+        </div>
+          </>
+        )}
 
         {/* Simple Footer */}
         <div className="text-center mt-12 pt-8 border-t border-slate-200">
