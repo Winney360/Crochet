@@ -1,0 +1,59 @@
+﻿
+> client@0.0.0 lint C:\Users\HP\Desktop\Personal Projects\CrochetWebsite\client
+> eslint .
+
+
+C:\Users\HP\Desktop\Personal Projects\CrochetWebsite\client\src\components\BestSellerProductCard.jsx
+  25:9  error  'discount' is assigned a value but never used. Allowed unused vars must match /^[A-Z_]/u  no-unused-vars
+
+C:\Users\HP\Desktop\Personal Projects\CrochetWebsite\client\src\components\Footer.jsx
+  6:10  error  'email' is assigned a value but never used. Allowed unused vars must match /^[A-Z_]/u            no-unused-vars
+  6:17  error  'setEmail' is assigned a value but never used. Allowed unused vars must match /^[A-Z_]/u         no-unused-vars
+  7:10  error  'message' is assigned a value but never used. Allowed unused vars must match /^[A-Z_]/u          no-unused-vars
+  9:9   error  'handleSubscribe' is assigned a value but never used. Allowed unused vars must match /^[A-Z_]/u  no-unused-vars
+
+C:\Users\HP\Desktop\Personal Projects\CrochetWebsite\client\src\components\ProductCard.jsx
+  34:14  error  'error' is defined but never used  no-unused-vars
+
+C:\Users\HP\Desktop\Personal Projects\CrochetWebsite\client\src\components\ProductForm.jsx
+  120:33  error  'index' is defined but never used  no-unused-vars
+  126:41  error  'index' is defined but never used  no-unused-vars
+
+C:\Users\HP\Desktop\Personal Projects\CrochetWebsite\client\src\context\AuthContext.jsx
+  6:14  error  Fast refresh only works when a file only exports components. Use a new file to share constants or functions between components  react-refresh/only-export-components
+
+C:\Users\HP\Desktop\Personal Projects\CrochetWebsite\client\src\context\CartContext.jsx
+   8:14  error  Fast refresh only works when a file only exports components. Use a new file to share constants or functions between components  react-refresh/only-export-components
+  24:9   error  'getSessionId' is assigned a value but never used. Allowed unused vars must match /^[A-Z_]/u                                    no-unused-vars
+  90:14  error  'idError' is defined but never used                                                                                             no-unused-vars
+  98:16  error  'slugError' is defined but never used                                                                                           no-unused-vars
+
+C:\Users\HP\Desktop\Personal Projects\CrochetWebsite\client\src\context\ToastContext.jsx
+  7:14  error  Fast refresh only works when a file only exports components. Use a new file to share constants or functions between components  react-refresh/only-export-components
+
+C:\Users\HP\Desktop\Personal Projects\CrochetWebsite\client\src\pages\AdminDashboard.jsx
+  19:19  error    'admin' is assigned a value but never used. Allowed unused vars must match /^[A-Z_]/u                              no-unused-vars
+  39:6   warning  React Hook useEffect has a missing dependency: 'fetchProducts'. Either include it or remove the dependency array   react-hooks/exhaustive-deps
+  43:6   warning  React Hook useEffect has a missing dependency: 'calculateStats'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+C:\Users\HP\Desktop\Personal Projects\CrochetWebsite\client\src\pages\Home.jsx
+   21:10  error    'featuredProducts' is assigned a value but never used. Allowed unused vars must match /^[A-Z_]/u                        no-unused-vars
+  104:6   warning  React Hook useCallback has a missing dependency: 'heroSlides.length'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+  108:6   warning  React Hook useCallback has a missing dependency: 'heroSlides.length'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+  116:6   warning  React Hook useEffect has a missing dependency: 'heroSlides.length'. Either include it or remove the dependency array    react-hooks/exhaustive-deps
+  155:16  error    'apiError' is defined but never used                                                                                    no-unused-vars
+  158:14  error    'error' is defined but never used                                                                                       no-unused-vars
+
+C:\Users\HP\Desktop\Personal Projects\CrochetWebsite\client\src\pages\ProductDetail.jsx
+  53:6   warning  React Hook useEffect has a missing dependency: 'fetchProduct'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+  73:16  error    'slugError' is defined but never used                                                                            no-unused-vars
+  95:18  error    'idError' is defined but never used                                                                              no-unused-vars
+
+C:\Users\HP\Desktop\Personal Projects\CrochetWebsite\client\src\pages\Shop.jsx
+  24:6   warning  React Hook useEffect has a missing dependency: 'fetchProducts'. Either include it or remove the dependency array          react-hooks/exhaustive-deps
+  28:6   warning  React Hook useEffect has a missing dependency: 'filterAndSortProducts'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+  59:14  error    'apiError' is defined but never used                                                                                      no-unused-vars
+
+Γ£û 29 problems (21 errors, 8 warnings)
+
+ΓÇëELIFECYCLEΓÇë Command failed with exit code 1.
