@@ -21,7 +21,7 @@ const FAQs = () => {
     },
     {
       question: "What payment methods do you accept?",
-      answer: "We accept M-Pesa and Cash payment."
+      answer: "We accept Paystack (cards or M-Pesa online) and Cash payment."
     },
     {
       question: "How do I know what size to order?",
