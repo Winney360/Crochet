@@ -26,8 +26,8 @@ const orderSchema = new mongoose.Schema({
   },
   payment_method: {
     type: String,
-    enum: ['mpesa', 'whatsapp'],
-    default: 'mpesa'
+    enum: ['paystack', 'mpesa', 'whatsapp'],
+    default: 'paystack'
   },
   payment_status: {
     type: String,
@@ -39,6 +39,10 @@ const orderSchema = new mongoose.Schema({
     default: ''
   },
   mpesa_receipt: {
+    type: String,
+    default: ''
+  },
+  paystack_reference: {
     type: String,
     default: ''
   },
