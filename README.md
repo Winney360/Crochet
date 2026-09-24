@@ -19,7 +19,7 @@ A full-stack e-commerce platform for selling handmade crochet products. Built wi
 - 🛍️ **Product Catalog** - Browse products by category with filtering and sorting
 - 🔍 **Search Functionality** - Find products quickly by name, description, or category
 - 🛒 **Shopping Cart** - Add, remove, and manage cart items with persistent storage
-- 💳 **Checkout Process** - Pay online via M-Pesa (Lipa Na M-Pesa / STK Push to Paybill) with WhatsApp order placement as a fallback
+- 💳 **Checkout Process** - Pay online via Paystack (cards or M-Pesa) with WhatsApp order placement as a fallback
 - 📱 **Responsive Design** - Optimized for mobile, tablet, and desktop
 - ⚡ **Performance Optimized** - Lazy loading, code splitting, and image optimization
 - 📧 **Contact Form** - EmailJS integration for customer inquiries
@@ -56,7 +56,7 @@ A full-stack e-commerce platform for selling handmade crochet products. Built wi
 - **Cloudinary** - Image storage and CDN
 - **Multer** - File upload handling
 - **CORS** - Cross-origin resource sharing
-- **Safaricom Daraja API** - M-Pesa payment integration (Lipa Na M-Pesa Online / STK Push)
+- **Paystack** - Payment gateway integration (cards & M-Pesa)
 
 ## 📁 Project Structure
 
@@ -103,10 +103,10 @@ CrochetWebsite/
     │   ├── products.js
     │   ├── auth.js
     │   ├── cart.js
-    │   ├── mpesa.js      # M-Pesa STK Push, callback, and status query
+    │   ├── paystack.js   # Paystack initialize & verify
     │   └── testimonials.js
     ├── utils/            # Helper modules
-    │   └── mpesa.js      # Daraja API helpers (token, STK push, status query)
+    │   └── paystack.js   # Paystack API helpers (initialize, verify)
     ├── server.js          # Server entry point
     ├── createAdmin.js     # Admin creation script
     └── package.json
@@ -151,23 +151,20 @@ CLOUDINARY_API_KEY=your_api_key
 CLOUDINARY_API_SECRET=your_api_secret
 ```
 
-### 3. M-Pesa (Daraja API) Setup
+### 3. Paystack Payment Setup
 
-Create a developer account at [developer.safaricom.co.ke](https://developer.safaricom.co.ke/) and add the following to the server `.env`:
+Create a merchant account at [dashboard.paystack.com](https://dashboard.paystack.com/) (supports Kenya + KES), create a **Secret Key**, and add the following to the server `.env`:
 
 ```env
-# M-Pesa Configuration (Safaricom Daraja API)
-MPESA_ENV=sandbox                              # "sandbox" for testing, "production" for live payments
-MPESA_CONSUMER_KEY=your_consumer_key
-MPESA_CONSUMER_SECRET=your_consumer_secret
-MPESA_PASSKEY=your_lipa_na_mpesa_passkey        # From the Lipa Na M-Pesa Online product settings
-MPESA_SHORTCODE=174379                         # Paybill business number (174379 = sandbox test)
-MPESA_CALLBACK_URL=https://your-api-url.com/api/mpesa/callback
+# Paystack Configuration
+PAYSTACK_SECRET_KEY=sk_test_xxxxxxxxxxxxxxxx       # "sk_test_" for testing, "sk_live_" for live payments
+PAYSTACK_PUBLIC_KEY=pk_test_xxxxxxxxxxxxxxxx
+PAYSTACK_CALLBACK_URL=https://your-site.com/order-success
 ```
 
-> **Sandbox testing:** In `sandbox` mode use the test phone number `254791995578` — no real money is moved. Get your sandbox credentials + passkey from the Daraja portal → "Lipa Na M-Pesa Online" → "Sandbox" section.
+> **Testing:** Use your `sk_test_` key for sandbox testing with Paystack's test card (`4084 0840 8408 4081`). No real money moves in test mode.
 >
-> **Going live:** Fill the above with your production credentials, set `MPESA_ENV=production`, replace `MPESA_SHORTCODE` with your real paybill number, and set `MPESA_CALLBACK_URL` to your publicly reachable backend URL (e.g. Render). Submit a **Go-Live** request in the Daraja portal and Safaricom will approve/whitelist your callback URL.
+> **Going live:** Switch to your live `sk_live_` secret key. Paystack redirects the customer to its hosted checkout, where they can pay by card or, for Kenyan merchants, M-Pesa. `PAYSTACK_CALLBACK_URL` is only used as a fallback - the frontend passes your real `callbackUrl` and `cancelUrl` automatically at checkout.
 
 ### 4. Frontend Setup
 
@@ -247,17 +244,17 @@ node server.js
 - `node server.js` - Start production server
 - `node createAdmin.js` - Create a new admin account
 
-## 💸 M-Pesa Payments (Lipa Na M-Pesa)
+## 💳 Paystack Payments
 
-Payments are handled through the **Safaricom Daraja API** using **Lipa Na M-Pesa Online (STK Push)**. The buyer enters their phone number at checkout, receives an M-Pesa prompt on their phone, approves it with their PIN, and the money is paid directly to your **Paybill** business number.
+Online payments are handled through the **Paystack API** using the standard **hosted checkout** flow. The buyer is redirected to Paystack's secure page, pays by card (or M-Pesa for Kenyan merchants), and is redirected back to the confirmation page where the backend verifies the transaction.
 
 ```
 Buyer at checkout
-   → selects "Pay with M-Pesa", enters phone
-   → POST /api/mpesa/stkpush   (creates Order, triggers STK push)
-   → Buyer approves on phone (enters M-Pesa PIN)
-   → Safaricom POSTs result to /api/mpesa/callback
-   → Frontend polls POST /api/mpesa/query until status is confirmed
+   → selects "Pay with Paystack", enters email + pickup info
+   → POST /api/paystack/initialize  (creates pending Order, returns authorization_url)
+   → Buyer is redirected to Paystack hosted checkout and pays
+   → Paystack redirects back to /order-success?reference=...
+   → Frontend POST /api/paystack/verify with the reference
    → Order marked "paid" → cart cleared → success page
 ```
 
@@ -265,28 +262,26 @@ Buyer at checkout
 
 | Method | Endpoint | Description |
 | ------ | -------- | ----------- |
-| `POST` | `/api/mpesa/stkpush` | Initiates an STK push. Body: `{ phone, fullName, email, pickupLocation, notes, items, total }`. Returns `checkoutRequestID`. |
-| `POST` | `/api/mpesa/callback` | Safaricom's callback (no auth required). Updates order status to `paid`/`failed`. |
-| `POST` | `/api/mpesa/query` | Queries transaction status by `checkoutRequestID`. Used for frontend polling while the buyer approves the prompt. |
+| `POST` | `/api/paystack/initialize` | Creates a pending order and starts a Paystack transaction. Body: `{ email, fullName, phone, pickupLocation, notes, items, total, callbackUrl, cancelUrl }`. Returns `authorizationUrl`. |
+| `POST` | `/api/paystack/verify` | Verifies a transaction by its `reference`. Updates the order to `completed`/`failed`. |
 
 ### Payment Statuses (Order model)
 
-- `pending` - Payment initiated, waiting for buyer approval
-- `completed` - Payment received (STK push result code `0`)
-- `failed` - Payment declined/cancelled/user timeout
+- `pending` - Payment initiated, awaiting completion
+- `completed` - Payment received (Paystack transaction status `success`)
+- `failed` - Payment declined/cancelled/abandoned
 
 ### Testing Checklist (Sandbox)
 
-1. Use `MPESA_ENV=sandbox` with sandbox consumer key/secret/passkey from the Daraja portal.
-2. Checkout with the test phone `254791995578`.
-3. Confirm the STK push request succeeds (returns `checkoutRequestID`); sandbox does not fire live callbacks, so verify the order flips via `/api/mpesa/query` in the Mongo `orders` collection.
+1. Set `PAYSTACK_SECRET_KEY=sk_test_...` (from the Paystack dashboard → Settings → API Keys & Webhooks).
+2. Checkout with the test card `4084 0840 8408 4081` (any future expiry, any CVV, any name).
+3. Confirm the redirect to Paystack, the return to `/order-success`, and that the order flips to `completed` in the Mongo `orders` collection.
 
 ### Going Live Checklist (Production)
 
-1. Confirm your Paybill has the **Lipa Na M-Pesa Online** product enabled.
-2. Replace sandbox credentials/passkey and shortcode with production values; set `MPESA_ENV=production`.
-3. Set `MPESA_CALLBACK_URL` to a public HTTPS endpoint (e.g. `https://shikuku-crochet.onrender.com/api/mpesa/callback`) and add it to your Daraja app's production callback list.
-4. Submit a **Go-Live** request at [developer.safaricom.co.ke](https://developer.safaricom.co.ke/) and wait for approval.
+1. Activate your Paystack account and create a live Secret Key (`sk_live_...`).
+2. Update `PAYSTACK_SECRET_KEY` (and `PAYSTACK_PUBLIC_KEY`) in the server environment.
+3. For production robustness, set up a **[Webhook](https://paystack.com/docs/payments/webhooks/)** from the Paystack dashboard pointing to your backend so failed `abandoned` transactions are reconciled even if the buyer never returns to the site.
 
 ## 🎨 Customization
 
@@ -360,13 +355,10 @@ CLOUDINARY_CLOUD_NAME=your_cloud_name
 CLOUDINARY_API_KEY=your_api_key
 CLOUDINARY_API_SECRET=your_api_secret
 
-# M-Pesa (Safaricom Daraja API) - production values
-MPESA_ENV=production
-MPESA_CONSUMER_KEY=your_consumer_key
-MPESA_CONSUMER_SECRET=your_consumer_secret
-MPESA_PASSKEY=your_lipa_na_mpesa_passkey
-MPESA_SHORTCODE=your_paybill_number
-MPESA_CALLBACK_URL=https://your-backend-domain/api/mpesa/callback
+# Paystack (production values)
+PAYSTACK_SECRET_KEY=sk_live_xxxxxxxxxxxxxxxx
+PAYSTACK_PUBLIC_KEY=pk_live_xxxxxxxxxxxxxxxx
+PAYSTACK_CALLBACK_URL=https://your-site.com/order-success
 ```
 
 ### Database (MongoDB Atlas)
@@ -385,7 +377,7 @@ MPESA_CALLBACK_URL=https://your-backend-domain/api/mpesa/callback
 - **CORS Configuration** - Controlled cross-origin requests
 - **Input Validation** - Server-side validation for all inputs
 - **Secure File Upload** - Multer with file type and size restrictions
-- **Environment Variables** - Sensitive data not in code (including all M-Pesa/Daraja credentials)
+- **Environment Variables** - Sensitive data not in code (including all Paystack credentials)
 
 ## 🐛 Troubleshooting
 
@@ -426,14 +418,12 @@ MPESA_CALLBACK_URL=https://your-backend-domain/api/mpesa/callback
 - Check browser localStorage is enabled
 - Clear cache and reload if issues persist
 
-### M-Pesa Payment Not Working?
+### Paystack Payment Not Working?
 
-- Verify `MPESA_ENV`, `MPESA_CONSUMER_KEY`, `MPESA_CONSUMER_SECRET`, and `MPESA_PASSKEY` are set in server `.env`
-- In sandbox, the buyer must use the test phone `254791995578`; real phones won't receive the prompt
-- Check the phone number format is valid (e.g. `0712...` → normalized to `254712...` automatically)
-- Confirm `MPESA_SHORTCODE` is your correct paybill and, in production, that Lipa Na M-Pesa Online is enabled for it
-- In production, ensure `MPESA_CALLBACK_URL` is public HTTPS and whitelisted at Go-Live
-- Check the `orders` collection in MongoDB for the order's `paymentStatus`
+- Verify `PAYSTACK_SECRET_KEY` is set in the server `.env` (and on the deployed backend).
+- In test mode, the buyer must use Paystack's test card `4084 0840 8408 4081`; real cards won't be charged.
+- Confirm an email is provided at checkout (Paystack requires it for the transaction).
+- Check the `orders` collection in MongoDB for the order's `paystack_reference` and `paymentStatus`.
 
 ## 📊 Performance Metrics
 
@@ -477,7 +467,7 @@ For questions, issues, or suggestions:
 
 ### Future Enhancements
 
-- [ ] ~~Payment gateway integration (M-Pesa, PayPal)~~ ✅ **M-Pesa (Lipa Na M-Pesa) integrated**
+- [ ] ~~Payment gateway integration (M-Pesa, PayPal)~~ ✅ **Paystack (cards & M-Pesa) integrated**
 - [ ] PayPal integration
 - [ ] User accounts and order history
 - [ ] Product reviews and ratings
