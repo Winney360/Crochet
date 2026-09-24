@@ -414,7 +414,7 @@ const AdminDashboard = () => {
                   Orders
                 </h2>
                 <p className="text-slate-500 mt-1">
-                  Track your M-Pesa and WhatsApp orders {orders.length > 0 && `(${orders.length} total)`}
+                  Track your Paystack and WhatsApp orders {orders.length > 0 && `(${orders.length} total)`}
                 </p>
               </div>
               <button
@@ -461,6 +461,9 @@ const AdminDashboard = () => {
                         <td className="py-4 pr-4 text-slate-700">
                           {order.customer.full_name}
                           <span className="block text-xs text-slate-500">{order.customer.phone}</span>
+                          {order.paystack_reference && (
+                            <span className="block text-xs text-green-600">{order.paystack_reference}</span>
+                          )}
                           {order.mpesa_receipt && (
                             <span className="block text-xs text-green-600">{order.mpesa_receipt}</span>
                           )}
@@ -476,7 +479,7 @@ const AdminDashboard = () => {
                           Ksh. {order.total.toLocaleString()}
                         </td>
                         <td className="py-4 pr-4 text-slate-600 capitalize">
-                          {order.payment_method === 'whatsapp' ? 'WhatsApp' : 'M-Pesa'}
+                          {order.payment_method === 'whatsapp' ? 'WhatsApp' : order.payment_method === 'paystack' ? 'Paystack' : 'M-Pesa'}
                           <span className="block text-xs text-slate-500">Pay on {order.payment_method === 'whatsapp' ? 'pickup' : 'online'}</span>
                         </td>
                         <td className="py-4">
