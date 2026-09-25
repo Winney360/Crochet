@@ -264,6 +264,7 @@ Buyer at checkout
 | ------ | -------- | ----------- |
 | `POST` | `/api/paystack/initialize` | Creates a pending order and starts a Paystack transaction. Body: `{ email, fullName, phone, pickupLocation, notes, items, total, callbackUrl, cancelUrl }`. Returns `authorizationUrl`. |
 | `POST` | `/api/paystack/verify` | Verifies a transaction by its `reference`. Updates the order to `completed`/`failed`. |
+| `POST` | `/api/paystack/webhook` | Paystack's signed webhook (no auth, verified via `x-paystack-signature`). Marks the order `completed` on `charge.success`. |
 
 ### Payment Statuses (Order model)
 
@@ -281,7 +282,7 @@ Buyer at checkout
 
 1. Activate your Paystack account and create a live Secret Key (`sk_live_...`).
 2. Update `PAYSTACK_SECRET_KEY` (and `PAYSTACK_PUBLIC_KEY`) in the server environment.
-3. For production robustness, set up a **[Webhook](https://paystack.com/docs/payments/webhooks/)** from the Paystack dashboard pointing to your backend so failed `abandoned` transactions are reconciled even if the buyer never returns to the site.
+3. Register the **Webhook** at Paystack Dashboard → Settings → API Keys & Webhooks → **Add Webhook** pointing to your backend, e.g. `https://your-backend-domain/api/paystack/webhook`, for the `charge.success` event. This marks orders `completed` even if the buyer never returns to the site.
 
 ## 🎨 Customization
 
