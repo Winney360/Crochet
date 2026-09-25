@@ -1,4 +1,5 @@
 const express = require('express');
+const crypto = require('crypto');
 const router = express.Router();
 const Order = require('../models/Order');
 const { initializeTransaction, verifyTransaction, mapStatus } = require('../utils/paystack');
@@ -131,6 +132,49 @@ router.post('/verify', async (req, res) => {
   } catch (error) {
     console.error('Paystack verify error:', error.message);
     res.status(502).json({ message: error.message });
+  }
+});
+
+// POST /api/paystack/webhook - Paystack pushes transaction events here (signed)
+router.post('/webhook', async (req, res) => {
+  try {
+    const event = req.body;
+    const signature = req.get('x-paystack-signature');
+
+    if (!event || event.event !== 'charge.success') {
+      return res.status(200).json({ status: 'ignored' });
+    }
+
+    if (!signature || !req.rawBody) {
+      return res.status(400).json({ error: 'Missing signature' });
+    }
+
+    const secret = process.env.PAYSTACK_SECRET_KEY;
+    const expected = crypto.createHmac('sha512', secret).update(req.rawBody).digest('hex');
+    if (expected !== signature) {
+      return res.status(401).json({ error: 'Invalid signature' });
+    }
+
+    const reference = event.data && event.data.reference;
+    if (!reference) {
+      return res.status(400).json({ error: 'No transaction reference' });
+    }
+
+    const order = await Order.findOne({ paystack_reference: reference });
+    if (order && order.payment_status !== 'completed') {
+      order.payment_status = 'completed';
+      order.paystack_reference = reference;
+      order.transaction_date = event.data.paid_at ? String(event.data.paid_at) : '';
+      order.result_code = event.data.status || 'success';
+      order.result_desc = event.data.gateway_response || 'Success';
+      await order.save();
+      console.log(`Paystack webhook: order ${order.order_number} marked completed`);
+    }
+
+    res.status(200).json({ status: 'received' });
+  } catch (error) {
+    console.error('Paystack webhook error:', error.message);
+    res.status(500).json({ error: error.message });
   }
 });
 
