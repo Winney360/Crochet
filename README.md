@@ -481,6 +481,7 @@ For questions, issues, or suggestions:
 ## 🙏 Acknowledgments
 
 - **Cloudinary** - Image hosting and CDN
+- **Paystack** - Online payment gateway (cards & M-Pesa)
 - **EmailJS** - Contact form service
 - **React Icons** - Beautiful icon library
 - **TailwindCSS** - Utility-first CSS framework
