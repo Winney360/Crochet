@@ -195,7 +195,12 @@ const AdminDashboard = () => {
       setOrders(Array.isArray(res.data) ? res.data : []);
     } catch (err) {
       console.error('Error fetching orders:', err);
-      showNotification('❌ Could not load orders. Make sure you are signed in.');
+      if (err.response?.status === 401) {
+        showNotification('❌ Your session has expired. Please log out and sign in again.');
+      } else {
+        const errorMsg = err.response?.data?.message || err.message || 'Could not load orders.';
+        showNotification(`❌ Error loading orders: ${errorMsg}`);
+      }
     } finally {
       setOrdersLoading(false);
     }
