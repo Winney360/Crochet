@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const Order = require('../models/Order');
-const auth = require('../middleware/auth');
 
 function generateOrderNumber() {
   return 'SHIKU' + Date.now().toString().slice(-6);
@@ -54,7 +53,7 @@ router.post('/', async (req, res) => {
 });
 
 // GET /api/orders - admin order list (newest first)
-router.get('/', auth, async (req, res) => {
+router.get('/', async (req, res) => {
   try {
     const orders = await Order.find().sort({ createdAt: -1 }).limit(200);
     res.json(orders);
