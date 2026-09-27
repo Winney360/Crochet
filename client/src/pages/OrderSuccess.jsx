@@ -102,7 +102,7 @@ const OrderSuccess = () => {
               <FaSpinner className="text-6xl text-cyan-500 mx-auto mb-6 animate-spin" />
               <h1 className="text-4xl font-bold text-gray-800 mb-4">Confirming Payment...</h1>
               <p className="text-xl text-gray-600 mb-6">
-                Verifying your Paystack payment of{' '}
+                Verifying your payment of{' '}
                 <strong>Ksh. {Number(displayTotal || 0).toFixed(2)}</strong>. This takes a few seconds.
               </p>
             </>
@@ -121,12 +121,12 @@ const OrderSuccess = () => {
 
               <div className="bg-cyan-50 border border-cyan-200 rounded-lg p-6 mb-8 text-left">
                 <p className="text-cyan-800">
-                  <strong>Payment confirmed:</strong> We received your Paystack payment of{' '}
+                  <strong>Payment confirmed:</strong> We received your payment of{' '}
                   <strong>Ksh. {Number(displayTotal || 0).toFixed(2)}</strong>.
                 </p>
                 {paystackResult.reference && (
                   <p className="text-cyan-700 text-sm mt-2">
-                    Paystack Reference: <strong>{paystackResult.reference}</strong>
+                    Payment Reference: <strong>{paystackResult.reference}</strong>
                   </p>
                 )}
                 <p className="text-cyan-700 text-sm mt-2">
@@ -152,7 +152,7 @@ const OrderSuccess = () => {
             <>
               <h1 className="text-4xl font-bold text-gray-800 mb-4">We're Still Checking...</h1>
               <p className="text-xl text-gray-600 mb-6">
-                We could not confirm your payment yet. Check your email for the Paystack receipt or try again from the
+                We could not confirm your payment yet. Check your email or M-Pesa for confirmation, or try again from the
                 checkout page.
               </p>
               {verifyError && (
