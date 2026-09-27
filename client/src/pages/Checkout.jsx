@@ -103,7 +103,7 @@ const Checkout = () => {
     } catch (error) {
       console.error('Paystack init error:', error);
       setLoading(false);
-      const message = error.response?.data?.message || 'Could not start Paystack payment. Please try again.';
+      const message = error.response?.data?.message || 'Could not start payment. Please try again.';
       addToast(`❌ ${message}`, 'error');
     }
   };
@@ -336,7 +336,7 @@ _Order Date: ${new Date().toLocaleDateString('en-KE', {
                   <h3 className="text-lg font-semibold text-cyan-800 mb-3">📦 How Pickup Works</h3>
                   <ol className="text-sm text-cyan-700 space-y-2">
                     <li>1. Place your order with pickup location</li>
-                    <li>2. Pay online via Paystack or choose to pay when you pick up</li>
+                    <li>2. Pay online (M-Pesa / Card) or choose to pay when you pick up</li>
                     <li>3. We'll contact you within 24 hours to confirm</li>
                     <li>4. Collect your beautiful crochet creations! 🧶</li>
                   </ol>
@@ -396,8 +396,16 @@ _Order Date: ${new Date().toLocaleDateString('en-KE', {
                         className="mt-1"
                       />
                       <div>
-                        <span className="font-semibold text-gray-800 block">Paystack (Pay Online)</span>
-                        <span className="text-sm text-gray-600">Secure card or M-Pesa checkout</span>
+                        <div className="flex items-center gap-2">
+                          <span className="font-semibold text-gray-800 block">M-Pesa / Card (Pay Online)</span>
+                          <span className="text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded-full font-medium">Instant</span>
+                        </div>
+                        <span className="text-sm text-gray-600 block mt-0.5">
+                          Pay via Lipa na M-Pesa STK prompt or Card
+                        </span>
+                        <span className="text-xs text-gray-500 block mt-1">
+                          🔒 Processed securely via Paystack
+                        </span>
                       </div>
                     </label>
 
@@ -426,17 +434,17 @@ _Order Date: ${new Date().toLocaleDateString('en-KE', {
                   {loading ? (
                     <div className="flex items-center justify-center gap-2">
                       <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
-                      {paymentMethod === 'paystack' ? 'Redirecting to Paystack...' : 'Sending to WhatsApp...'}
+                      {paymentMethod === 'paystack' ? 'Opening secure checkout...' : 'Sending to WhatsApp...'}
                     </div>
                   ) : (
-                    paymentMethod === 'paystack' ? 'Pay with Paystack' : 'Send Order via WhatsApp'
+                    paymentMethod === 'paystack' ? `Pay Ksh. ${getCartTotal().toFixed(2)} with M-Pesa / Card` : 'Send Order via WhatsApp'
                   )}
                 </button>
 
                 <div className="mt-4 text-center">
                   <p className="text-xs text-gray-500">
                     {paymentMethod === 'paystack'
-                      ? '🔒 You will be redirected to Paystack to complete your payment securely'
+                      ? '🔒 Instant M-Pesa STK push or Card (Secured by Paystack)'
                       : '💰 Pay online or when you pick up'}
                   </p>
                   <p className="text-xs text-gray-500 mt-1">
