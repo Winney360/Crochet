@@ -21,7 +21,7 @@ const FAQs = () => {
     },
     {
       question: "What payment methods do you accept?",
-      answer: "We accept Paystack (cards or M-Pesa online) and Cash payment."
+      answer: "We accept Lipa na M-Pesa, Debit/Credit Cards (Visa & Mastercard) processed securely online, or Cash when you pick up."
     },
     {
       question: "How do I know what size to order?",
