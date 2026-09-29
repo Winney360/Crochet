@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { FaLock, FaUserShield, FaExclamationTriangle, FaEye, FaEyeSlash } from 'react-icons/fa';
 
@@ -13,6 +13,8 @@ const AdminLogin = () => {
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const sessionExpired = searchParams.get('expired') === '1';
   const { login, isAuthenticated } = useAuth(); 
   const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -108,6 +110,17 @@ const AdminLogin = () => {
 
         {/* Login Form */}
         <form className="mt-8 space-y-6" onSubmit={onSubmit}>
+          {sessionExpired && (
+            <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 flex items-start gap-3">
+              <FaExclamationTriangle className="text-amber-500 mt-0.5 shrink-0" />
+              <div>
+                <p className="text-sm font-medium text-amber-800">Your session expired</p>
+                <p className="text-xs text-amber-700 mt-1">
+                  You were signed out for security. Please log in again to continue.
+                </p>
+              </div>
+            </div>
+          )}
           {error && (
             <div className="bg-red-50 border border-red-200 rounded-xl p-4 flex items-start gap-3">
               <FaExclamationTriangle className="text-red-500 mt-0.5 shrink-0" />

@@ -25,13 +25,35 @@ api.interceptors.request.use(
   }
 );
 
-// Add response interceptor for better error handling
+// Handle expired or invalid admin sessions
+let redirectingToLogin = false;
+
 api.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.code === 'ECONNABORTED') {
       console.warn('Request timeout - using fallback data');
+      return Promise.reject(error);
     }
+
+    // 401 means the stored JWT is expired, revoked, or signed with a
+    // different secret. Drop the dead session and send the admin back to
+    // the login page instead of leaving them stuck on a dead dashboard.
+    if (error.response?.status === 401) {
+      const hadToken = Boolean(
+        localStorage.getItem('adminToken') || localStorage.getItem('token')
+      );
+
+      if (hadToken && !redirectingToLogin) {
+        redirectingToLogin = true;
+        localStorage.removeItem('adminToken');
+        localStorage.removeItem('token');
+        localStorage.removeItem('adminData');
+        delete axios.defaults.headers.common['Authorization'];
+        window.location.href = '/admin/login?expired=1';
+      }
+    }
+
     return Promise.reject(error);
   }
 );
