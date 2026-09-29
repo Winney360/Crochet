@@ -5,6 +5,8 @@
   "main": "server.js",
   "scripts": {
     "dev": "pnpm nodemon",
+    "start": "node server.js",
+    "create-admin": "node createAdmin.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
