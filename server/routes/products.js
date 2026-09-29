@@ -4,6 +4,7 @@ const Product = require('../models/Product');
 const multer = require('multer');
 const path = require('path');
 const cloudinary = require('cloudinary').v2;
+const auth = require('../middleware/auth');
 
 // Configure Cloudinary
 cloudinary.config({
@@ -55,7 +56,7 @@ const uploadToCloudinary = (fileBuffer) => {
 };
 
 // Create product with Cloudinary
-router.post('/', upload.array('images', 10), async (req, res) => {
+router.post('/', auth, upload.array('images', 10), async (req, res) => {
   try {
     console.log('=== PRODUCT CREATION START ===');
     console.log('Request body:', req.body);
@@ -130,7 +131,7 @@ router.post('/', upload.array('images', 10), async (req, res) => {
 });
 
 // Update product with Cloudinary
-router.put('/:id', upload.array('images', 10), async (req, res) => {
+router.put('/:id', auth, upload.array('images', 10), async (req, res) => {
   try {
     const { name, description, price, original_price, category, rating, is_featured, existing_images } = req.body;
     
@@ -246,7 +247,7 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', auth, async (req, res) => {
   try {
     const product = await Product.findByIdAndDelete(req.params.id);
     if (!product) {
