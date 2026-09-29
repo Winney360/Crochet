@@ -135,7 +135,7 @@ cd server
 pnpm install
 ```
 
-Create `.env` file in the `server` directory:
+Create `.env` file in the `server` directory (copy `server/.env.example` as a starting point):
 
 ```env
 PORT=5000
@@ -173,7 +173,7 @@ cd ../client
 pnpm install
 ```
 
-Create `.env` file in the `client` directory:
+Create `.env` file in the `client` directory (copy `client/.env.example` as a starting point):
 
 ```env
 VITE_API_BASE_URL=http://localhost:5000/api
@@ -182,11 +182,14 @@ VITE_API_BASE_URL=http://localhost:5000/api
 ### 5. Create Admin Account
 
 ```bash
-cd ../server
+cd server
 node createAdmin.js
+# or: pnpm run create-admin
 ```
 
-Follow the prompts to create an admin account with username and password.
+Follow the prompts to create an admin account with username and password. The
+`POST /api/auth/register` route is **disabled by default** so nobody can sign
+themselves up as an admin over the internet — use this script instead.
 
 ## 🚦 Running the Application
 
@@ -241,8 +244,9 @@ node server.js
 ### Server (Backend)
 
 - `pnpm run dev` - Start development server with nodemon (auto-restart)
-- `node server.js` - Start production server
-- `node createAdmin.js` - Create a new admin account
+- `pnpm start` - Start production server (`node server.js`)
+- `pnpm run create-admin` - Create a new admin account (`node createAdmin.js`)
+- `pnpm test` - No tests configured yet
 
 ## 💳 Paystack Payments
 
@@ -265,6 +269,9 @@ Buyer at checkout
 | `POST` | `/api/paystack/initialize` | Creates a pending order and starts a Paystack transaction. Body: `{ email, fullName, phone, pickupLocation, notes, items, total, callbackUrl, cancelUrl }`. Returns `authorizationUrl`. |
 | `POST` | `/api/paystack/verify` | Verifies a transaction by its `reference`. Updates the order to `completed`/`failed`. |
 | `POST` | `/api/paystack/webhook` | Paystack's signed webhook (no auth, verified via `x-paystack-signature`). Marks the order `completed` on `charge.success`. |
+| `GET` | `/api/orders` | Admin order list. **Requires** `Authorization: Bearer <token>`. |
+| `POST` | `/api/orders` | Creates a WhatsApp (pay on pickup) order. No auth — this is the customer checkout path. |
+| `POST` | `/api/auth/register` | **Disabled** unless `ALLOW_ADMIN_REGISTRATION=true`. Use `npm run create-admin`. |
 
 ### Payment Statuses (Order model)
 
@@ -280,9 +287,54 @@ Buyer at checkout
 
 ### Going Live Checklist (Production)
 
-1. Activate your Paystack account and create a live Secret Key (`sk_live_...`).
-2. Update `PAYSTACK_SECRET_KEY` (and `PAYSTACK_PUBLIC_KEY`) in the server environment.
-3. Register the **Webhook** at Paystack Dashboard → Settings → API Keys & Webhooks → **Add Webhook** pointing to your backend, e.g. `https://your-backend-domain/api/paystack/webhook`, for the `charge.success` event. This marks orders `completed` even if the buyer never returns to the site.
+Test mode proves the flow works. It does **not** prove the site is ready to take money. Work through this in order:
+
+**1. Activate your Paystack account**
+
+Live `sk_live_` keys for KES/M-Pesa require business verification (Dashboard → Settings → Account). This is the step most people get stuck on — test keys work immediately, live keys do not exist until verification clears.
+
+**2. Swap the keys — in your hosting provider, not just `.env`**
+
+Your local `server/.env` only affects `pnpm run dev` on your laptop. Changing it there has **no effect** on the live site. Set these in Railway/Render/etc.:
+
+```env
+PAYSTACK_SECRET_KEY=sk_live_xxxxxxxx
+PAYSTACK_PUBLIC_KEY=pk_live_xxxxxxxx
+PAYSTACK_CALLBACK_URL=https://your-site.com/order-success
+```
+
+Then redeploy. The frontend only needs `VITE_API_BASE_URL`; it never sees the secret key, because payment is initialised server-side.
+
+**3. Register the webhook**
+
+Dashboard → Settings → API Keys & Webhooks → Add Webhook:
+
+- URL: `https://your-backend-domain/api/paystack/webhook`
+- Events: `charge.success`
+
+Without this, an order only flips to `completed` if the buyer returns to your site. If they close the tab after paying, you never find out. The handler is in `server/routes/paystack.js` and validates Paystack's HMAC signature.
+
+**4. Test with real money**
+
+There is no test card in live mode. Place a KSh 1 order, pay via M-Pesa, confirm the order shows `completed` in the admin dashboard, then refund yourself from the Paystack dashboard.
+
+**5. Before your first real order**
+
+- [ ] Change the admin password — `ADMIN_PASSWORD` in your `.env` is a setup default
+- [ ] Confirm `POST /api/auth/register` returns 404 (it is disabled unless `ALLOW_ADMIN_REGISTRATION=true`)
+- [ ] Confirm `GET /api/orders` returns 401 without a token — customer names, phones and emails are behind auth
+- [ ] Confirm `DELETE /api/products/:id` returns 401 without a token
+- [ ] Use MongoDB Atlas, not a local database
+- [ ] Set `JWT_SECRET` to a long random string on the host (changing it later logs out every session)
+
+**What a correct setup looks like**
+
+```bash
+curl -i https://your-api.up.railway.app/api/orders
+# HTTP/1.1 401 Unauthorized
+```
+
+If that returns your order list instead, stop and fix it before taking payments.
 
 ## 🎨 Customization
 
@@ -362,6 +414,9 @@ PAYSTACK_PUBLIC_KEY=pk_live_xxxxxxxxxxxxxxxx
 PAYSTACK_CALLBACK_URL=https://your-site.com/order-success
 ```
 
+See `server/.env.example` for the full list. Railway reads the start command
+from `server/package.json` (`pnpm start`).
+
 ### Database (MongoDB Atlas)
 
 1. Create free cluster at [MongoDB Atlas](https://www.mongodb.com/cloud/atlas)
@@ -372,9 +427,10 @@ PAYSTACK_CALLBACK_URL=https://your-site.com/order-success
 
 ## 🔒 Security Features
 
-- **JWT Authentication** - Secure token-based auth for admin
+- **JWT Authentication** - Token-based auth for admin, verified on every order and product write
 - **Password Hashing** - bcryptjs with salt rounds
-- **Protected Routes** - Middleware checks for valid tokens
+- **Protected Routes** - Server-side middleware checks for valid tokens on `/api/orders` and product create/update/delete
+- **No public admin signup** - `POST /api/auth/register` is off unless explicitly enabled
 - **CORS Configuration** - Controlled cross-origin requests
 - **Input Validation** - Server-side validation for all inputs
 - **Secure File Upload** - Multer with file type and size restrictions
@@ -401,10 +457,15 @@ PAYSTACK_CALLBACK_URL=https://your-site.com/order-success
 
 ### Admin Login Not Working?
 
-- Ensure admin account created with `createAdmin.js`
+- Ensure admin account created with `npm run create-admin`
 - Check `JWT_SECRET` is set in server `.env`
+- If you see "Your session expired", the stored token was rejected — log in again. If it happens constantly, `JWT_SECRET` is probably changing between restarts (common if it isn't set in the host's env vars, so it falls back to a dev default).
 - Clear browser localStorage and cookies
 - Check browser console for error messages
+
+### Orders or Products Not Loading?
+
+Check DevTools → Network for a `401`. That means the admin token is missing or expired and the app is redirecting you to `/admin/login?expired=1`. Log back in. If a `401` happens on a request made *without* being logged in, that's a bug worth reporting.
 
 ### Images Not Uploading?
 
