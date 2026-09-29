@@ -3,11 +3,22 @@ const jwt = require('jsonwebtoken');
 const Admin = require('../models/Admin');
 const router = express.Router();
 
-// Admin registration (use this once to create admin account)
+// Admin registration is disabled by default. Create admins with:
+//   node createAdmin.js
+// Set ALLOW_ADMIN_REGISTRATION=true only if you need the HTTP route
+// (for example during a one-off migration) and remove it afterwards.
 router.post('/register', async (req, res) => {
+  if (process.env.ALLOW_ADMIN_REGISTRATION !== 'true') {
+    return res.status(404).json({ message: 'Not found' });
+  }
+
   try {
     const { username, password, email } = req.body;
-    
+
+    if (!username || !password || !email) {
+      return res.status(400).json({ message: 'Missing required fields' });
+    }
+
     const adminExists = await Admin.findOne({ $or: [{ email }, { username }] });
     if (adminExists) {
       return res.status(400).json({ message: 'Admin already exists' });
